@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>أبيان سبورت</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .match {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .teams {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .team {
+            flex: 1;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .vs {
+            font-weight: bold;
+            color: #777;
+        }
+
+        .info {
+            margin-top: 18px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            line-height: 1.8;
+            color: #555;
+            text-align: center;
+        }
+
+        .score {
+            font-size: 28px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .error {
+            background: #ffe5e5;
+            color: #b00020;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .empty {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>⚽ أبيان سبورت</h1>
+
+    <div class="subtitle">
+        كل أخبار ومباريات رياضة أبين
+    </div>
+
+    <div id="matches">
+        <div class="loading">
+            جاري تحميل المباريات...
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+
+    // ==========================================
+    // بيانات مشروع Supabase
+    // ==========================================
+
+    const SUPABASE_URL =
+        "https://ujbgrwgxhusgoobhoanx.supabase.co";
+
+    const SUPABASE_KEY =
+        "sb_publishable_oE8HsCGOsmRvIg0XwzymMA_I_33XlZ6";
+
+
+    // ==========================================
+    // تحميل المباريات
+    // ==========================================
+
+    async function loadMatches() {
+
+        const matchesContainer =
+            document.getElementById("matches");
+
+        try {
+
+            const response = await fetch(
+                SUPABASE_URL +
+                "/rest/v1/matches?select=*&order=match_date.asc,match_time.asc",
+                {
+                    method: "GET",
+
+                    headers: {
+                        "apikey": SUPABASE_KEY,
+                        "Authorization":
+                            "Bearer " + SUPABASE_KEY
+                    }
+                }
+            );
+
+
+            // ------------------------------------------
+            // التأكد من نجاح الاتصال
+            // ------------------------------------------
+
+            if (!response.ok) {
+
+                const errorText =
+                    await response.text();
+
+                console.error(
+                    "Supabase Error:",
+                    errorText
+                );
+
+                throw new Error(
+                    "فشل الاتصال بقاعدة البيانات"
+                );
+            }
+
+
+            // ------------------------------------------
+            // تحويل البيانات إلى JSON
+            // ------------------------------------------
+
+            const matches =
+                await response.json();
+
+
+            console.log(
+                "المباريات:",
+                matches
+            );
+
+
+            // ------------------------------------------
+            // لا توجد مباريات
+            // ------------------------------------------
+
+            if (
+                !Array.isArray(matches) ||
+                matches.length === 0
+            ) {
+
+                matchesContainer.innerHTML = `
+                    <div class="empty">
+                        لا توجد مباريات حاليًا
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            // ------------------------------------------
+            // عرض المباريات
+            // ------------------------------------------
+
+            matchesContainer.innerHTML = "";
+
+
+            matches.forEach(function(match) {
+
+                const matchElement =
+                    document.createElement("div");
+
+                matchElement.className = "match";
+
+
+                const homeTeam =
+                    match.home_team || "الفريق الأول";
+
+                const awayTeam =
+                    match.away_team || "الفريق الثاني";
+
+                const homeScore =
+                    match.home_score ?? 0;
+
+                const awayScore =
+                    match.away_score ?? 0;
+
+                const stadium =
+                    match.stadium || "الملعب غير محدد";
+
+                const date =
+                    match.match_date || "التاريخ غير محدد";
+
+                const time =
+                    match.match_time || "الوقت غير محدد";
+
+
+                matchElement.innerHTML = `
+
+                    <div class="teams">
+
+                        <div class="team">
+                            ${escapeHTML(homeTeam)}
+                        </div>
+
+                        <div class="vs">
+                            🆚
+                        </div>
+
+                        <div class="team">
+                            ${escapeHTML(awayTeam)}
+                        </div>
+
+                    </div>
+
+
+                    <div class="score">
+                        ${homeScore} - ${awayScore}
+                    </div>
+
+
+                    <div class="info">
+
+                        📅 التاريخ:
+                        ${escapeHTML(date)}
+
+                        <br>
+
+                        🕐 الوقت:
+                        ${escapeHTML(time)}
+
+                        <br>
+
+                        🏟️ الملعب:
+                        ${escapeHTML(stadium)}
+
+                    </div>
+
+                `;
+
+
+                matchesContainer.appendChild(
+                    matchElement
+                );
+
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "حدث خطأ:",
+                error
+            );
+
+
+            matchesContainer.innerHTML = `
+
+                <div class="error">
+
+                    ❌ حدث خطأ أثناء الاتصال
+                    بقاعدة البيانات.
+
+                    <br><br>
+
+                    تأكد من اتصال Supabase
+                    وإعدادات RLS.
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+    // ==========================================
+    // حماية النصوص القادمة من قاعدة البيانات
+    // ==========================================
+
+    function escapeHTML(value) {
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    // ==========================================
+    // تشغيل الموقع
+    // ==========================================
+
+    loadMatches();
+
+</script>
+
+</body>
+</html>
