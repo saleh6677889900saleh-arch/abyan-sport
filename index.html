@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -10,7 +12,7 @@
 
     <meta
         name="description"
-        content="أبيان سبورت - كل أخبار ومباريات رياضة أبين"
+        content="أبيان سبورت - أخبار ومباريات وفرق ولاعبي رياضة أبين"
     >
 
     <meta
@@ -20,1178 +22,695 @@
 
     <title>أبيان سبورت</title>
 
-    <style>
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
 
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            padding: 20px;
-            font-family:
-                Arial,
-                Tahoma,
-                sans-serif;
-            background: #f1f5f9;
-            color: #0f172a;
-        }
-
-        .container {
-            width: min(900px, 94%);
-            margin: 0 auto;
-        }
-
-        /* =========================
-           الهيدر
-        ========================= */
-
-        .header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .header h1 {
-            margin: 0;
-            font-size: 32px;
-            font-weight: 900;
-        }
-
-        .subtitle {
-            margin-top: 8px;
-            color: #64748b;
-            font-size: 16px;
-        }
-
-        /* =========================
-           حالة الاتصال
-        ========================= */
-
-        .connection {
-            text-align: center;
-            margin-bottom: 15px;
-            font-size: 13px;
-            color: #64748b;
-        }
-
-        .connection-dot {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #16a34a;
-            margin-left: 5px;
-        }
-
-        /* =========================
-           بطاقة المباراة
-        ========================= */
-
-        .match {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 22px;
-            margin-bottom: 18px;
-
-            box-shadow:
-                0 5px 20px rgba(15, 23, 42, 0.08);
-
-            border: 1px solid #e2e8f0;
-        }
-
-        .match-status {
-            text-align: center;
-            margin-bottom: 18px;
-        }
-
-        .status {
-            display: inline-block;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: bold;
-            background: #e2e8f0;
-            color: #334155;
-        }
-
-        .status-live {
-            background: #fee2e2;
-            color: #b91c1c;
-        }
-
-        .status-finished {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .status-upcoming {
-            background: #dbeafe;
-            color: #1d4ed8;
-        }
-
-        /* =========================
-           الفرق
-        ========================= */
-
-        .teams {
-            display: grid;
-            grid-template-columns: 1fr 90px 1fr;
-            align-items: center;
-            gap: 10px;
-            text-align: center;
-        }
-
-        .team {
-            min-width: 0;
-        }
-
-        .team-logo-box {
-            width: 85px;
-            height: 85px;
-            margin: 0 auto 10px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 18px;
-
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-
-            overflow: hidden;
-        }
-
-        .team-logo {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            padding: 7px;
-        }
-
-        .default-logo {
-            font-size: 38px;
-        }
-
-        .team-name {
-            font-size: 18px;
-            font-weight: 800;
-            line-height: 1.5;
-        }
-
-        .vs {
-            font-size: 20px;
-            font-weight: 900;
-            color: #64748b;
-        }
-
-        /* =========================
-           النتيجة
-        ========================= */
-
-        .score {
-            text-align: center;
-            margin-top: 18px;
-
-            font-size: 34px;
-            font-weight: 900;
-
-            color: #0f172a;
-        }
-
-        .score-placeholder {
-            font-size: 22px;
-            color: #64748b;
-        }
-
-        /* =========================
-           معلومات المباراة
-        ========================= */
-
-        .info {
-            margin-top: 20px;
-            padding-top: 16px;
-
-            border-top: 1px solid #e2e8f0;
-
-            text-align: center;
-            color: #475569;
-
-            line-height: 2;
-            font-size: 15px;
-        }
-
-        .info-item {
-            display: block;
-        }
-
-        /* =========================
-           التحميل
-        ========================= */
-
-        .loading {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 35px;
-            text-align: center;
-            color: #64748b;
-
-            box-shadow:
-                0 4px 15px rgba(15, 23, 42, 0.06);
-        }
-
-        .loading-icon {
-            font-size: 35px;
-            margin-bottom: 10px;
-        }
-
-        /* =========================
-           لا توجد مباريات
-        ========================= */
-
-        .empty {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 35px;
-            text-align: center;
-            color: #64748b;
-
-            box-shadow:
-                0 4px 15px rgba(15, 23, 42, 0.06);
-        }
-
-        .empty-icon {
-            font-size: 45px;
-            margin-bottom: 10px;
-        }
-
-        /* =========================
-           الخطأ
-        ========================= */
-
-        .error {
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            color: #b91c1c;
-
-            padding: 20px;
-            border-radius: 15px;
-
-            text-align: center;
-            line-height: 1.8;
-        }
-
-        /* =========================
-           الفوتر
-        ========================= */
-
-        .footer {
-            text-align: center;
-            color: #94a3b8;
-            font-size: 13px;
-            padding: 20px 0;
-        }
-
-        /* =========================
-           الجوال
-        ========================= */
-
-        @media (max-width: 600px) {
-
-            body {
-                padding: 12px;
-            }
-
-            .container {
-                width: 100%;
-            }
-
-            .header h1 {
-                font-size: 27px;
-            }
-
-            .match {
-                padding: 17px;
-                border-radius: 17px;
-            }
-
-            .teams {
-                grid-template-columns: 1fr 55px 1fr;
-                gap: 5px;
-            }
-
-            .team-logo-box {
-                width: 68px;
-                height: 68px;
-                border-radius: 14px;
-            }
-
-            .team-name {
-                font-size: 15px;
-            }
-
-            .vs {
-                font-size: 16px;
-            }
-
-            .score {
-                font-size: 29px;
-            }
-
-            .info {
-                font-size: 14px;
-            }
-        }
-
-    </style>
 </head>
+
 
 <body>
 
-<div class="container">
 
-    <!-- =========================
-         الهيدر
-    ========================= -->
+<!-- =====================================================
+     شريط التنقل
+===================================================== -->
 
-    <header class="header">
+<header class="site-header">
 
-        <h1>
-            ⚽ أبيان سبورت
-        </h1>
+    <div class="container nav-container">
 
-        <div class="subtitle">
-            كل أخبار ومباريات رياضة أبين
+        <a
+            href="#home"
+            class="brand"
+        >
+
+            <span class="brand-icon">⚽</span>
+
+            <span>
+
+                <strong>أبيان سبورت</strong>
+
+                <small>
+                    رياضة أبين
+                </small>
+
+            </span>
+
+        </a>
+
+
+        <nav
+            class="main-nav"
+            id="mainNav"
+        >
+
+            <a
+                href="#home"
+                class="nav-link active"
+            >
+                الرئيسية
+            </a>
+
+            <a
+                href="#live"
+                class="nav-link"
+            >
+                مباشر
+            </a>
+
+            <a
+                href="#matches"
+                class="nav-link"
+            >
+                المباريات
+            </a>
+
+            <a
+                href="#teams"
+                class="nav-link"
+            >
+                الفرق
+            </a>
+
+            <a
+                href="#players"
+                class="nav-link"
+            >
+                اللاعبين
+            </a>
+
+        </nav>
+
+
+        <button
+            id="menuBtn"
+            class="menu-btn"
+            type="button"
+            aria-label="فتح القائمة"
+        >
+            ☰
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     المحتوى
+===================================================== -->
+
+<main id="home">
+
+
+    <!-- =================================================
+         HERO
+    ================================================== -->
+
+    <section class="hero">
+
+        <div class="container hero-content">
+
+            <div class="hero-text">
+
+                <span class="hero-badge">
+                    🏆 رياضة أبين
+                </span>
+
+                <h1>
+                    أبيان سبورت
+                </h1>
+
+                <p>
+                    منصتك لمتابعة مباريات وفرق ولاعبي رياضة أبين
+                    لحظة بلحظة.
+                </p>
+
+
+                <div class="hero-actions">
+
+                    <a
+                        href="#matches"
+                        class="btn btn-primary"
+                    >
+                        🏆 المباريات
+                    </a>
+
+                    <a
+                        href="#teams"
+                        class="btn btn-secondary"
+                    >
+                        ⚽ الفرق
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-card">
+
+                <div class="hero-ball">
+                    ⚽
+                </div>
+
+                <div>
+
+                    <strong>
+                        أبيان سبورت
+                    </strong>
+
+                    <span>
+                        كل شيء عن رياضة أبين
+                    </span>
+
+                </div>
+
+            </div>
+
         </div>
 
-    </header>
+    </section>
 
 
-    <!-- =========================
+
+    <!-- =================================================
          حالة الاتصال
-    ========================= -->
+    ================================================== -->
 
-    <div
-        id="connectionStatus"
-        class="connection"
-    >
+    <div class="container">
 
-        <span class="connection-dot"></span>
+        <div
+            id="connectionStatus"
+            class="connection-status"
+        >
 
-        متصل بقاعدة البيانات
+            <span class="connection-dot"></span>
+
+            جاري الاتصال بقاعدة البيانات...
+
+        </div>
 
     </div>
 
 
-    <!-- =========================
-         المباريات
-    ========================= -->
 
-    <main id="matches">
+    <!-- =================================================
+         الإحصائيات
+    ================================================== -->
 
-        <div class="loading">
+    <section class="stats-section">
 
-            <div class="loading-icon">
-                ⚽
+        <div class="container stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🏆
+                </div>
+
+                <div>
+
+                    <strong id="totalMatches">
+                        0
+                    </strong>
+
+                    <span>
+                        مباراة
+                    </span>
+
+                </div>
+
             </div>
 
-            جاري تحميل المباريات...
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🔴
+                </div>
+
+                <div>
+
+                    <strong id="liveMatches">
+                        0
+                    </strong>
+
+                    <span>
+                        مباشرة
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ⚽
+                </div>
+
+                <div>
+
+                    <strong id="totalTeams">
+                        0
+                    </strong>
+
+                    <span>
+                        فريق
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    👤
+                </div>
+
+                <div>
+
+                    <strong id="totalPlayers">
+                        0
+                    </strong>
+
+                    <span>
+                        لاعب
+                    </span>
+
+                </div>
+
+            </div>
+
 
         </div>
 
-    </main>
+    </section>
 
 
-    <!-- =========================
-         الفوتر
-    ========================= -->
 
-    <footer class="footer">
+    <!-- =================================================
+         المباريات المباشرة
+    ================================================== -->
 
-        أبيان سبورت © 2026
+    <section
+        id="live"
+        class="section"
+    >
 
-    </footer>
+        <div class="container">
 
-</div>
+            <div class="section-heading">
 
+                <div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+                    <span class="section-kicker">
+                        🔴 الآن
+                    </span>
 
+                    <h2>
+                        المباريات المباشرة
+                    </h2>
 
-<script>
+                    <p>
+                        تابع المباريات التي تقام الآن.
+                    </p>
 
-"use strict";
+                </div>
 
-
-/* =====================================================
-   إعداد Supabase
-===================================================== */
-
-const SUPABASE_URL =
-    "https://ujbgrwgxhusgoobhoanx.supabase.co";
-
-const SUPABASE_KEY =
-    "sb_publishable_oE8HsCGOsmRvIg0XwzymMA_I_33XlZ6";
-
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
-
-
-/* =====================================================
-   العناصر
-===================================================== */
-
-const matchesContainer =
-    document.getElementById("matches");
-
-const connectionStatus =
-    document.getElementById("connectionStatus");
-
-
-/* =====================================================
-   تخزين الفرق
-===================================================== */
-
-let teamsMap = {};
-
-
-/* =====================================================
-   تحميل الفرق
-===================================================== */
-
-async function loadTeams() {
-
-    try {
-
-        const { data, error } =
-            await supabaseClient
-                .from("teams")
-                .select(
-                    "id,name,logo_url,city,coach,founded_year,description"
-                );
-
-
-        if (error) {
-
-            console.error(
-                "خطأ تحميل الفرق:",
-                error
-            );
-
-            teamsMap = {};
-
-            return;
-        }
-
-
-        teamsMap = {};
-
-
-        (data || []).forEach(function(team) {
-
-            if (!team || !team.name) {
-                return;
-            }
-
-
-            teamsMap[
-                normalizeTeamName(team.name)
-            ] = team;
-
-        });
-
-
-    } catch (error) {
-
-        console.error(
-            "خطأ في تحميل الفرق:",
-            error
-        );
-
-        teamsMap = {};
-
-    }
-
-}
-
-
-/* =====================================================
-   توحيد اسم الفريق للمقارنة
-===================================================== */
-
-function normalizeTeamName(name) {
-
-    return String(name || "")
-        .trim()
-        .replace(/\s+/g, " ");
-
-}
-
-
-/* =====================================================
-   الحصول على بيانات الفريق
-===================================================== */
-
-function getTeam(teamName) {
-
-    const normalized =
-        normalizeTeamName(teamName);
-
-
-    return teamsMap[normalized] || null;
-
-}
-
-
-/* =====================================================
-   إنشاء شعار الفريق
-===================================================== */
-
-function createTeamLogo(teamName) {
-
-    const team =
-        getTeam(teamName);
-
-
-    if (
-        team &&
-        team.logo_url
-    ) {
-
-        return `
-
-            <div class="team-logo-box">
-
-                <img
-                    class="team-logo"
-                    src="${escapeAttribute(team.logo_url)}"
-                    alt="شعار ${escapeAttribute(teamName)}"
-                    loading="lazy"
-                    onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=&quot;default-logo&quot;>⚽</span>';"
+                <span
+                    id="liveCountBadge"
+                    class="count-badge"
                 >
+                    0 مباشر
+                </span>
 
             </div>
 
-        `;
 
-    }
+            <div
+                id="liveMatches"
+                class="matches-grid"
+            >
 
+                <div class="loading-card">
 
-    return `
-
-        <div class="team-logo-box">
-
-            <span class="default-logo">
-                ⚽
-            </span>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =====================================================
-   تحويل حالة المباراة إلى شكل مناسب
-===================================================== */
-
-function getStatusClass(status) {
-
-    const value =
-        String(status || "")
-            .trim();
-
-
-    if (
-        value === "مباشرة" ||
-        value.toLowerCase() === "live"
-    ) {
-
-        return "status-live";
-
-    }
-
-
-    if (
-        value === "انتهت" ||
-        value.toLowerCase() === "finished"
-    ) {
-
-        return "status-finished";
-
-    }
-
-
-    if (
-        value === "قادمة" ||
-        value.toLowerCase() === "upcoming"
-    ) {
-
-        return "status-upcoming";
-
-    }
-
-
-    return "";
-
-}
-
-
-/* =====================================================
-   تحميل المباريات
-===================================================== */
-
-async function loadMatches() {
-
-    try {
-
-        const { data, error } =
-            await supabaseClient
-                .from("matches")
-                .select("*")
-                .order(
-                    "match_date",
-                    {
-                        ascending: true
-                    }
-                )
-                .order(
-                    "match_time",
-                    {
-                        ascending: true
-                    }
-                );
-
-
-        if (error) {
-
-            console.error(
-                "خطأ تحميل المباريات:",
-                error
-            );
-
-            throw error;
-
-        }
-
-
-        const matches =
-            data || [];
-
-
-        /* -----------------------------------------
-           لا توجد مباريات
-        ----------------------------------------- */
-
-        if (matches.length === 0) {
-
-            matchesContainer.innerHTML = `
-
-                <div class="empty">
-
-                    <div class="empty-icon">
+                    <div>
                         ⚽
                     </div>
 
-                    <div>
-                        لا توجد مباريات حاليًا
-                    </div>
+                    جاري تحميل المباريات المباشرة...
 
                 </div>
-
-            `;
-
-            updateConnection(true);
-
-            return;
-
-        }
-
-
-        /* -----------------------------------------
-           بناء الصفحة
-        ----------------------------------------- */
-
-        matchesContainer.innerHTML = "";
-
-
-        matches.forEach(function(match) {
-
-            const matchElement =
-                document.createElement("article");
-
-
-            matchElement.className =
-                "match";
-
-
-            const homeTeam =
-                match.home_team ||
-                "الفريق المضيف";
-
-
-            const awayTeam =
-                match.away_team ||
-                "الفريق الضيف";
-
-
-            const status =
-                match.status ||
-                "قادمة";
-
-
-            const statusClass =
-                getStatusClass(status);
-
-
-            const homeScore =
-                match.home_score;
-
-
-            const awayScore =
-                match.away_score;
-
-
-            /*
-             * إذا كانت النتيجة null
-             * نعرض "لم تبدأ" بدل 0 - 0
-             */
-
-            let scoreHTML;
-
-
-            if (
-                homeScore === null ||
-                homeScore === undefined ||
-                awayScore === null ||
-                awayScore === undefined
-            ) {
-
-                scoreHTML = `
-
-                    <div class="score score-placeholder">
-                        لم تبدأ المباراة
-                    </div>
-
-                `;
-
-            } else {
-
-                scoreHTML = `
-
-                    <div class="score">
-
-                        ${escapeHTML(homeScore)}
-                        -
-                        ${escapeHTML(awayScore)}
-
-                    </div>
-
-                `;
-
-            }
-
-
-            const stadium =
-                match.stadium ||
-                "الملعب غير محدد";
-
-
-            const date =
-                formatDate(
-                    match.match_date
-                );
-
-
-            const time =
-                formatTime(
-                    match.match_time
-                );
-
-
-            matchElement.innerHTML = `
-
-                <!-- الحالة -->
-
-                <div class="match-status">
-
-                    <span class="status ${statusClass}">
-
-                        ${escapeHTML(status)}
-
-                    </span>
-
-                </div>
-
-
-                <!-- الفريقان -->
-
-                <div class="teams">
-
-
-                    <!-- الفريق المضيف -->
-
-                    <div class="team">
-
-                        ${createTeamLogo(homeTeam)}
-
-                        <div class="team-name">
-
-                            ${escapeHTML(homeTeam)}
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- VS -->
-
-                    <div class="vs">
-
-                        🆚
-
-                    </div>
-
-
-                    <!-- الفريق الضيف -->
-
-                    <div class="team">
-
-                        ${createTeamLogo(awayTeam)}
-
-                        <div class="team-name">
-
-                            ${escapeHTML(awayTeam)}
-
-                        </div>
-
-                    </div>
-
-
-                </div>
-
-
-                <!-- النتيجة -->
-
-                ${scoreHTML}
-
-
-                <!-- المعلومات -->
-
-                <div class="info">
-
-                    <span class="info-item">
-
-                        📅 التاريخ:
-                        ${escapeHTML(date)}
-
-                    </span>
-
-
-                    <span class="info-item">
-
-                        🕐 الوقت:
-                        ${escapeHTML(time)}
-
-                    </span>
-
-
-                    <span class="info-item">
-
-                        🏟️ الملعب:
-                        ${escapeHTML(stadium)}
-
-                    </span>
-
-                </div>
-
-            `;
-
-
-            matchesContainer.appendChild(
-                matchElement
-            );
-
-        });
-
-
-        updateConnection(true);
-
-
-    } catch (error) {
-
-        console.error(
-            "حدث خطأ أثناء تحميل المباريات:",
-            error
-        );
-
-
-        updateConnection(false);
-
-
-        matchesContainer.innerHTML = `
-
-            <div class="error">
-
-                ❌ حدث خطأ أثناء تحميل المباريات.
-
-                <br><br>
-
-                تأكد من أن سياسة القراءة العامة
-                لجدول <strong>matches</strong>
-                مفعلة في Supabase.
 
             </div>
 
-        `;
+        </div>
 
-    }
+    </section>
 
-}
 
 
-/* =====================================================
-   تحميل البيانات كلها
-===================================================== */
+    <!-- =================================================
+         المباريات القادمة
+    ================================================== -->
 
-async function loadAllData() {
+    <section
+        id="matches"
+        class="section section-muted"
+    >
 
-    try {
+        <div class="container">
 
-        /*
-         * نحمّل الفرق أولًا
-         * حتى تكون الشعارات جاهزة
-         */
+            <div class="section-heading">
 
-        await loadTeams();
+                <div>
 
+                    <span class="section-kicker">
+                        📅 جدول المباريات
+                    </span>
 
-        /*
-         * بعدها المباريات
-         */
+                    <h2>
+                        المباريات
+                    </h2>
 
-        await loadMatches();
+                    <p>
+                        المباريات القادمة والسابقة.
+                    </p>
 
-    } catch (error) {
+                </div>
 
-        console.error(
-            "خطأ تحميل البيانات:",
-            error
-        );
 
-    }
+                <button
+                    id="refreshBtn"
+                    class="small-btn"
+                    type="button"
+                >
+                    🔄 تحديث
+                </button>
 
-}
+            </div>
 
 
-/* =====================================================
-   تنسيق التاريخ
-===================================================== */
+            <div class="filter-bar">
 
-function formatDate(dateValue) {
+                <button
+                    class="filter-btn active"
+                    data-filter="all"
+                    type="button"
+                >
+                    الكل
+                </button>
 
-    if (!dateValue) {
+                <button
+                    class="filter-btn"
+                    data-filter="قادمة"
+                    type="button"
+                >
+                    القادمة
+                </button>
 
-        return "التاريخ غير محدد";
+                <button
+                    class="filter-btn"
+                    data-filter="مباشرة"
+                    type="button"
+                >
+                    مباشرة
+                </button>
 
-    }
+                <button
+                    class="filter-btn"
+                    data-filter="انتهت"
+                    type="button"
+                >
+                    انتهت
+                </button>
 
+            </div>
 
-    const date =
-        String(dateValue);
 
+            <div
+                id="matchesList"
+                class="matches-list"
+            >
 
-    /*
-     * إذا كان التاريخ بالشكل:
-     * 2026-08-20
-     */
+                <div class="loading-card">
 
-    const parts =
-        date.split("-");
+                    ⚽
 
+                    <span>
+                        جاري تحميل المباريات...
+                    </span>
 
-    if (parts.length === 3) {
+                </div>
 
-        return (
-            parts[2] +
-            "-" +
-            parts[1] +
-            "-" +
-            parts[0]
-        );
+            </div>
 
-    }
+        </div>
 
+    </section>
 
-    return date;
 
-}
 
+    <!-- =================================================
+         الفرق
+    ================================================== -->
 
-/* =====================================================
-   تنسيق الوقت
-===================================================== */
+    <section
+        id="teams"
+        class="section"
+    >
 
-function formatTime(timeValue) {
+        <div class="container">
 
-    if (!timeValue) {
+            <div class="section-heading">
 
-        return "الوقت غير محدد";
+                <div>
 
-    }
+                    <span class="section-kicker">
+                        ⚽ الأندية
+                    </span>
 
+                    <h2>
+                        الفرق
+                    </h2>
 
-    const time =
-        String(timeValue);
+                    <p>
+                        تعرف على فرق رياضة أبين.
+                    </p>
 
+                </div>
 
-    /*
-     * PostgreSQL قد يرجع:
-     * 18:00:00
-     *
-     * نعرضها:
-     * 18:00
-     */
+                <span
+                    id="teamsCountBadge"
+                    class="count-badge"
+                >
+                    0 فريق
+                </span>
 
-    if (time.length >= 5) {
+            </div>
 
-        return time.substring(
-            0,
-            5
-        );
 
-    }
+            <div
+                id="teamsGrid"
+                class="teams-grid"
+            >
 
+                <div class="loading-card">
 
-    return time;
+                    ⚽
 
-}
+                    <span>
+                        جاري تحميل الفرق...
+                    </span>
 
+                </div>
 
-/* =====================================================
-   حالة الاتصال
-===================================================== */
+            </div>
 
-function updateConnection(isConnected) {
+        </div>
 
-    if (isConnected) {
+    </section>
 
-        connectionStatus.innerHTML = `
 
-            <span class="connection-dot"></span>
 
-            متصل بقاعدة البيانات
+    <!-- =================================================
+         اللاعبين
+    ================================================== -->
 
-        `;
+    <section
+        id="players"
+        class="section section-muted"
+    >
 
-    } else {
+        <div class="container">
 
-        connectionStatus.innerHTML = `
+            <div class="section-heading">
 
-            <span
-                class="connection-dot"
-                style="background:#dc2626;"
-            ></span>
+                <div>
 
-            تعذر الاتصال بقاعدة البيانات
+                    <span class="section-kicker">
+                        👤 النجوم
+                    </span>
 
-        `;
+                    <h2>
+                        اللاعبين
+                    </h2>
 
-    }
+                    <p>
+                        تعرف على لاعبي الفرق وبياناتهم.
+                    </p>
 
-}
+                </div>
 
+                <span
+                    id="playersCountBadge"
+                    class="count-badge"
+                >
+                    0 لاعب
+                </span>
 
-/* =====================================================
-   حماية النصوص
-===================================================== */
+            </div>
 
-function escapeHTML(value) {
 
-    return String(value ?? "")
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+            <div
+                id="playersGrid"
+                class="players-grid"
+            >
 
-}
+                <div class="loading-card">
 
+                    👤
 
-/* =====================================================
-   حماية الروابط
-===================================================== */
+                    <span>
+                        جاري تحميل اللاعبين...
+                    </span>
 
-function escapeAttribute(value) {
+                </div>
 
-    return String(value ?? "")
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        );
+            </div>
 
-}
+        </div>
 
+    </section>
 
-/* =====================================================
-   التشغيل الأول
-===================================================== */
 
-loadAllData();
 
+    <!-- =================================================
+         نافذة التفاصيل
+    ================================================== -->
 
-/* =====================================================
-   تحديث تلقائي
-=====================================================
+    <div
+        id="detailsModal"
+        class="modal hidden"
+        aria-hidden="true"
+    >
 
-   كل 10 ثوانٍ:
+        <div class="modal-overlay"></div>
 
-   - الفرق
-   - الشعارات
-   - المباريات
-   - النتائج
-   - الحالات
+        <div
+            class="modal-box"
+            role="dialog"
+            aria-modal="true"
+        >
 
-===================================================== */
+            <button
+                id="closeModalBtn"
+                class="modal-close"
+                type="button"
+            >
+                ×
+            </button>
 
-setInterval(
-    loadAllData,
-    10000
-);
 
-</script>
+            <div id="modalContent">
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     الفوتر
+===================================================== -->
+
+<footer class="site-footer">
+
+    <div class="container footer-content">
+
+        <div>
+
+            <div class="footer-brand">
+                ⚽ أبيان سبورت
+            </div>
+
+            <p>
+                منصتك لمتابعة رياضة أبين.
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="#home">
+                الرئيسية
+            </a>
+
+            <a href="#matches">
+                المباريات
+            </a>
+
+            <a href="#teams">
+                الفرق
+            </a>
+
+            <a href="#players">
+                اللاعبين
+            </a>
+
+            <a href="admin.html">
+                لوحة الإدارة
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        أبيان سبورت © 2026
+
+    </div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     Supabase
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/app.js"></script>
+
 
 </body>
+
 </html>
