@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>لوحة تحكم أبيان سبورت</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+            color: #111827;
+        }
+
+        .container {
+            width: min(900px, 94%);
+            margin: 30px auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.08);
+        }
+
+        h1,
+        h2 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin: 12px 0 6px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 13px;
+            border: 0;
+            border-radius: 10px;
+            background: #111827;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: .9;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            background: #f3f4f6;
+        }
+
+        .match {
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 18px;
+            margin-top: 15px;
+        }
+
+        .score {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .logout {
+            background: #dc2626;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card" id="loginBox">
+
+        <h1>⚽ أبيان سبورت</h1>
+
+        <h2>تسجيل دخول المدير</h2>
+
+        <label for="email">البريد الإلكتروني</label>
+        <input
+            id="email"
+            type="email"
+            placeholder="البريد الإلكتروني"
+        >
+
+        <label for="password">كلمة المرور</label>
+        <input
+            id="password"
+            type="password"
+            placeholder="كلمة المرور"
+        >
+
+        <button id="loginBtn">
+            تسجيل الدخول
+        </button>
+
+        <div id="loginMessage" class="message"></div>
+
+    </div>
+
+
+    <div class="card hidden" id="adminBox">
+
+        <h1>⚽ لوحة تحكم أبيان سبورت</h1>
+
+        <p id="userInfo"></p>
+
+        <button
+            id="loadMatchesBtn"
+        >
+            تحميل المباريات
+        </button>
+
+        <div id="matches"></div>
+
+        <button
+            id="logoutBtn"
+            class="logout"
+        >
+            تسجيل الخروج
+        </button>
+
+    </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+    "https://ujbgrwgxhusgoobhoanx.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_oE8HsCGOsmRvIg0XwzymMA_I_33XlZ6";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+const loginBox =
+    document.getElementById("loginBox");
+
+const adminBox =
+    document.getElementById("adminBox");
+
+const loginMessage =
+    document.getElementById("loginMessage");
+
+const userInfo =
+    document.getElementById("userInfo");
+
+const matchesContainer =
+    document.getElementById("matches");
+
+
+async function login() {
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    if (!email || !password) {
+
+        loginMessage.textContent =
+            "اكتب البريد الإلكتروني وكلمة المرور.";
+
+        return;
+    }
+
+    loginMessage.textContent =
+        "جاري تسجيل الدخول...";
+
+    const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
+
+    if (error) {
+
+        loginMessage.textContent =
+            "فشل تسجيل الدخول: " +
+            error.message;
+
+        return;
+    }
+
+    await checkAdmin(data.user);
+
+}
+
+
+async function checkAdmin(user) {
+
+    const { data, error } =
+        await supabaseClient
+            .from("admin_users")
+            .select("user_id")
+            .eq("user_id", user.id)
+            .maybeSingle();
+
+    if (error) {
+
+        loginMessage.textContent =
+            "حدث خطأ أثناء التحقق من صلاحية المدير.";
+
+        console.error(error);
+
+        return;
+    }
+
+    if (!data) {
+
+        loginMessage.textContent =
+            "هذا الحساب ليس مديرًا.";
+
+        await supabaseClient.auth.signOut();
+
+        return;
+    }
+
+    loginBox.classList.add("hidden");
+
+    adminBox.classList.remove("hidden");
+
+    userInfo.textContent =
+        "تم تسجيل الدخول كمدير: " + user.email;
+
+    loadMatches();
+
+}
+
+
+async function loadMatches() {
+
+    matchesContainer.innerHTML =
+        "جاري تحميل المباريات...";
+
+    const { data, error } =
+        await supabaseClient
+            .from("matches")
+            .select("*")
+            .order("match_date", {
+                ascending: true
+            });
+
+    if (error) {
+
+        matchesContainer.textContent =
+            "حدث خطأ: " + error.message;
+
+        console.error(error);
+
+        return;
+    }
+
+    if (!data || data.length === 0) {
+
+        matchesContainer.textContent =
+            "لا توجد مباريات.";
+
+        return;
+    }
+
+    matchesContainer.innerHTML = "";
+
+    data.forEach(match => {
+
+        const div =
+            document.createElement("div");
+
+        div.className = "match";
+
+        div.innerHTML = `
+
+            <h3>
+                ${escapeHtml(match.home_team)}
+                🆚
+                ${escapeHtml(match.away_team)}
+            </h3>
+
+            <div class="score">
+
+                <div>
+                    <label>
+                        نتيجة ${escapeHtml(match.home_team)}
+                    </label>
+
+                    <input
+                        type="number"
+                        min="0"
+                        id="home-${match.id}"
+                        value="${match.home_score ?? 0}"
+                    >
+                </div>
+
+                <div>
+                    <label>
+                        نتيجة ${escapeHtml(match.away_team)}
+                    </label>
+
+                    <input
+                        type="number"
+                        min="0"
+                        id="away-${match.id}"
+                        value="${match.away_score ?? 0}"
+                    >
+                </div>
+
+            </div>
+
+            <button
+                onclick="updateScore(${match.id})"
+            >
+                حفظ النتيجة
+            </button>
+
+            <div
+                id="message-${match.id}"
+                class="message"
+            ></div>
+
+        `;
+
+        matchesContainer.appendChild(div);
+
+    });
+
+}
+
+
+async function updateScore(matchId) {
+
+    const homeInput =
+        document.getElementById(
+            "home-" + matchId
+        );
+
+    const awayInput =
+        document.getElementById(
+            "away-" + matchId
+        );
+
+    const message =
+        document.getElementById(
+            "message-" + matchId
+        );
+
+    const homeScore =
+        Number(homeInput.value);
+
+    const awayScore =
+        Number(awayInput.value);
+
+    if (
+        !Number.isInteger(homeScore) ||
+        homeScore < 0 ||
+        !Number.isInteger(awayScore) ||
+        awayScore < 0
+    ) {
+
+        message.textContent =
+            "النتيجة غير صحيحة.";
+
+        return;
+    }
+
+    message.textContent =
+        "جاري الحفظ...";
+
+    const { error } =
+        await supabaseClient
+            .from("matches")
+            .update({
+                home_score: homeScore,
+                away_score: awayScore
+            })
+            .eq("id", matchId);
+
+    if (error) {
+
+        message.textContent =
+            "فشل الحفظ: " + error.message;
+
+        console.error(error);
+
+        return;
+    }
+
+    message.textContent =
+        "✅ تم حفظ النتيجة بنجاح.";
+
+}
+
+
+async function logout() {
+
+    await supabaseClient.auth.signOut();
+
+    adminBox.classList.add("hidden");
+
+    loginBox.classList.remove("hidden");
+
+    loginMessage.textContent =
+        "تم تسجيل الخروج.";
+
+}
+
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+document
+    .getElementById("loginBtn")
+    .addEventListener(
+        "click",
+        login
+    );
+
+
+document
+    .getElementById("loadMatchesBtn")
+    .addEventListener(
+        "click",
+        loadMatches
+    );
+
+
+document
+    .getElementById("logoutBtn")
+    .addEventListener(
+        "click",
+        logout
+    );
+
+</script>
+
+</body>
+</html>
