@@ -2,7 +2,11 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>لوحة تحكم أبيان سبورت</title>
 
@@ -13,13 +17,13 @@
 
         body {
             margin: 0;
-            font-family: Arial, Tahoma, sans-serif;
+            font-family: Arial, sans-serif;
             background: #f1f5f9;
             color: #0f172a;
         }
 
         .container {
-            width: min(1100px, 94%);
+            width: min(1000px, 94%);
             margin: 25px auto;
         }
 
@@ -28,7 +32,7 @@
             border-radius: 18px;
             padding: 22px;
             margin-bottom: 20px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
         }
 
         h1,
@@ -37,30 +41,17 @@
             margin-top: 0;
         }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
+        h1 {
+            font-size: 26px;
         }
 
-        .header h1 {
-            margin: 0;
-        }
-
-        .user-info {
-            color: #475569;
-            margin: 8px 0 0;
-        }
-
-        .hidden {
-            display: none !important;
+        h2 {
+            font-size: 21px;
         }
 
         label {
             display: block;
-            margin: 12px 0 6px;
+            margin: 12px 0 7px;
             font-weight: bold;
         }
 
@@ -68,12 +59,11 @@
         select,
         textarea {
             width: 100%;
-            padding: 12px;
+            padding: 13px;
             border: 1px solid #cbd5e1;
-            border-radius: 10px;
+            border-radius: 11px;
             font-size: 16px;
             background: #fff;
-            outline: none;
         }
 
         textarea {
@@ -84,99 +74,80 @@
         input:focus,
         select:focus,
         textarea:focus {
+            outline: none;
             border-color: #2563eb;
         }
 
         button {
+            width: 100%;
+            margin-top: 14px;
+            padding: 14px;
             border: 0;
-            border-radius: 10px;
-            padding: 12px 16px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
+            border-radius: 11px;
             background: #2563eb;
             color: white;
-            margin-top: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         button:hover {
-            opacity: .9;
+            opacity: 0.92;
         }
 
-        .btn-secondary {
+        .secondary {
             background: #475569;
         }
 
-        .btn-success {
+        .success {
             background: #16a34a;
         }
 
-        .btn-danger {
+        .danger {
             background: #dc2626;
         }
 
-        .btn-warning {
+        .warning {
             background: #d97706;
         }
 
-        .btn-dark {
-            background: #0f172a;
+        .hidden {
+            display: none !important;
         }
 
-        .top-buttons {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: 20px;
+        .message {
+            margin-top: 14px;
+            padding: 12px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
         }
 
-        .top-buttons button {
-            margin-top: 0;
+        .error {
+            color: #b91c1c;
+            background: #fef2f2;
+            border-color: #fecaca;
+        }
+
+        .ok {
+            color: #166534;
+            background: #f0fdf4;
+            border-color: #bbf7d0;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
-        }
-
-        .message {
-            margin-top: 12px;
-            padding: 11px;
-            border-radius: 10px;
-            background: #f8fafc;
-            min-height: 20px;
-        }
-
-        .success {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .error {
-            background: #fee2e2;
-            color: #991b1b;
         }
 
         .match,
         .team {
             border: 1px solid #e2e8f0;
-            border-radius: 15px;
-            padding: 17px;
-            margin-top: 14px;
+            border-radius: 16px;
+            padding: 18px;
+            margin-top: 15px;
             background: #fff;
-        }
-
-        .match-title {
-            font-size: 19px;
-            font-weight: bold;
-            margin-bottom: 12px;
-        }
-
-        .match-info {
-            color: #475569;
-            line-height: 1.9;
-            margin-bottom: 10px;
         }
 
         .score {
@@ -185,58 +156,47 @@
             gap: 12px;
         }
 
-        .actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .actions button {
-            flex: 1;
-            min-width: 130px;
-        }
-
-        .team-row {
+        .team-header {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 14px;
+            margin-bottom: 10px;
         }
 
         .team-logo {
-            width: 75px;
-            height: 75px;
+            width: 65px;
+            height: 65px;
             object-fit: contain;
             border-radius: 12px;
             border: 1px solid #e2e8f0;
             background: #f8fafc;
-            padding: 5px;
-        }
-
-        .empty {
-            text-align: center;
-            padding: 25px;
-            color: #64748b;
         }
 
         .preview {
-            margin-top: 12px;
+            display: none;
             width: 100px;
             height: 100px;
             object-fit: contain;
+            margin-top: 12px;
             border-radius: 12px;
             border: 1px solid #cbd5e1;
-            padding: 5px;
             background: #f8fafc;
         }
 
-        .logout {
-            margin-top: 0;
+        .top-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
         }
 
-        .section-title {
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 12px;
-            margin-bottom: 15px;
+        .info {
+            color: #475569;
+            line-height: 1.8;
+        }
+
+        .logout {
+            margin-top: 20px;
         }
 
         @media (max-width: 700px) {
@@ -246,16 +206,8 @@
                 grid-template-columns: 1fr;
             }
 
-            .header {
-                align-items: stretch;
-            }
-
-            .logout {
-                width: 100%;
-            }
-
-            .team-row {
-                align-items: flex-start;
+            .container {
+                width: 94%;
             }
         }
     </style>
@@ -272,240 +224,349 @@
 
         <h2>تسجيل دخول المدير</h2>
 
-        <label for="email">البريد الإلكتروني</label>
+        <label for="email">
+            البريد الإلكتروني
+        </label>
+
         <input
             id="email"
             type="email"
             placeholder="البريد الإلكتروني"
-            autocomplete="email"
         >
 
-        <label for="password">كلمة المرور</label>
+        <label for="password">
+            كلمة المرور
+        </label>
+
         <input
             id="password"
             type="password"
             placeholder="كلمة المرور"
-            autocomplete="current-password"
         >
 
-        <button id="loginBtn" class="btn-dark">
-            تسجيل الدخول
+        <button id="loginBtn">
+            🔐 تسجيل الدخول
         </button>
 
-        <div id="loginMessage" class="message"></div>
+        <div
+            id="loginMessage"
+            class="message"
+        ></div>
 
     </div>
 
 
     <!-- لوحة التحكم -->
-    <div class="card hidden" id="adminBox">
+    <div
+        class="card hidden"
+        id="adminBox"
+    >
 
-        <div class="header">
+        <h1>⚽ لوحة تحكم أبيان سبورت</h1>
 
-            <div>
-                <h1>⚽ لوحة تحكم أبيان سبورت</h1>
-                <p id="userInfo" class="user-info"></p>
-            </div>
-
-            <button id="logoutBtn" class="btn-danger logout">
-                تسجيل الخروج
-            </button>
-
-        </div>
+        <p
+            id="userInfo"
+            class="info"
+        ></p>
 
 
         <!-- الأزرار الرئيسية -->
         <div class="top-buttons">
 
-            <button id="showAddMatchBtn" class="btn-success">
-                ➕ إضافة مباراة
-            </button>
-
-            <button id="showAddTeamBtn" class="btn-success">
+            <button
+                id="showTeamFormBtn"
+                class="success"
+            >
                 ⚽ إضافة فريق
             </button>
 
-            <button id="loadAllBtn" class="btn-dark">
-                🔄 تحديث البيانات
+            <button
+                id="showMatchFormBtn"
+            >
+                ➕ إضافة مباراة
             </button>
 
         </div>
 
-    </div>
 
-
-    <!-- إضافة مباراة -->
-    <div class="card hidden" id="addMatchBox">
-
-        <h2 class="section-title">➕ إضافة مباراة جديدة</h2>
-
-        <div class="grid">
-
-            <div>
-                <label for="matchHomeTeam">الفريق المضيف</label>
-                <select id="matchHomeTeam">
-                    <option value="">اختر الفريق المضيف</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="matchAwayTeam">الفريق الضيف</label>
-                <select id="matchAwayTeam">
-                    <option value="">اختر الفريق الضيف</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="matchDate">تاريخ المباراة</label>
-                <input id="matchDate" type="date">
-            </div>
-
-            <div>
-                <label for="matchTime">وقت المباراة</label>
-                <input id="matchTime" type="time">
-            </div>
-
-            <div>
-                <label for="matchStadium">الملعب</label>
-                <input
-                    id="matchStadium"
-                    type="text"
-                    placeholder="مثال: ملعب أبين"
-                >
-            </div>
-
-            <div>
-                <label for="matchStatus">حالة المباراة</label>
-                <select id="matchStatus">
-                    <option value="مجدولة">مجدولة</option>
-                    <option value="مباشرة">مباشرة</option>
-                    <option value="انتهت">انتهت</option>
-                    <option value="ملغاة">ملغاة</option>
-                </select>
-            </div>
-
-        </div>
-
-        <button id="addMatchBtn" class="btn-success">
-            حفظ المباراة
+        <button
+            id="loadAllBtn"
+            class="secondary"
+        >
+            🔄 تحديث البيانات
         </button>
 
-        <button id="cancelMatchBtn" class="btn-secondary">
-            إلغاء
-        </button>
 
-        <div id="addMatchMessage" class="message"></div>
-
-    </div>
-
-
-    <!-- إضافة فريق -->
-    <div class="card hidden" id="addTeamBox">
-
-        <h2 class="section-title">⚽ إضافة فريق جديد</h2>
-
-        <div class="grid">
-
-            <div>
-                <label for="teamName">اسم الفريق</label>
-                <input
-                    id="teamName"
-                    type="text"
-                    placeholder="مثال: حسان أبين"
-                >
-            </div>
-
-            <div>
-                <label for="teamCity">المدينة</label>
-                <input
-                    id="teamCity"
-                    type="text"
-                    placeholder="مثال: أبين"
-                >
-            </div>
-
-            <div>
-                <label for="teamCoach">المدرب</label>
-                <input
-                    id="teamCoach"
-                    type="text"
-                    placeholder="اسم المدرب"
-                >
-            </div>
-
-            <div>
-                <label for="teamFounded">سنة التأسيس</label>
-                <input
-                    id="teamFounded"
-                    type="number"
-                    min="1800"
-                    max="2100"
-                    placeholder="مثال: 1995"
-                >
-            </div>
-
-        </div>
-
-        <label for="teamDescription">وصف الفريق</label>
-        <textarea
-            id="teamDescription"
-            placeholder="اكتب نبذة عن الفريق..."
-        ></textarea>
-
-        <label for="teamLogo">شعار الفريق</label>
-        <input
-            id="teamLogo"
-            type="file"
-            accept="image/*"
+        <!-- إضافة فريق -->
+        <div
+            id="teamForm"
+            class="card hidden"
+            style="margin-top:20px;"
         >
 
-        <img
-            id="logoPreview"
-            class="preview hidden"
-            alt="معاينة الشعار"
+            <h2>⚽ إضافة فريق جديد</h2>
+
+            <label for="teamName">
+                اسم الفريق *
+            </label>
+
+            <input
+                id="teamName"
+                type="text"
+                placeholder="مثال: حسان أبين"
+            >
+
+
+            <label for="teamLogo">
+                شعار الفريق
+            </label>
+
+            <input
+                id="teamLogo"
+                type="file"
+                accept="image/*"
+            >
+
+            <img
+                id="logoPreview"
+                class="preview"
+                alt="معاينة الشعار"
+            >
+
+
+            <label for="teamCity">
+                المدينة
+            </label>
+
+            <input
+                id="teamCity"
+                type="text"
+                placeholder="مثال: أبين"
+            >
+
+
+            <label for="teamCoach">
+                المدرب
+            </label>
+
+            <input
+                id="teamCoach"
+                type="text"
+                placeholder="اسم المدرب"
+            >
+
+
+            <label for="teamYear">
+                سنة التأسيس
+            </label>
+
+            <input
+                id="teamYear"
+                type="number"
+                min="1800"
+                max="2100"
+                placeholder="مثال: 1990"
+            >
+
+
+            <label for="teamDescription">
+                وصف الفريق
+            </label>
+
+            <textarea
+                id="teamDescription"
+                placeholder="اكتب نبذة عن الفريق..."
+            ></textarea>
+
+
+            <button
+                id="addTeamBtn"
+                class="success"
+            >
+                ✅ إضافة الفريق
+            </button>
+
+            <button
+                id="cancelTeamBtn"
+                class="secondary"
+            >
+                إلغاء
+            </button>
+
+            <div
+                id="teamMessage"
+                class="message"
+            ></div>
+
+        </div>
+
+
+        <!-- إضافة مباراة -->
+        <div
+            id="matchForm"
+            class="card hidden"
+            style="margin-top:20px;"
         >
 
-        <button id="addTeamBtn" class="btn-success">
-            حفظ الفريق
-        </button>
-
-        <button id="cancelTeamBtn" class="btn-secondary">
-            إلغاء
-        </button>
-
-        <div id="addTeamMessage" class="message"></div>
-
-    </div>
+            <h2>➕ إضافة مباراة جديدة</h2>
 
 
-    <!-- المباريات -->
-    <div class="card hidden" id="matchesBox">
+            <div class="grid">
 
-        <div class="header">
-            <h2>📋 المباريات</h2>
+                <div>
 
-            <button id="loadMatchesBtn" class="btn-dark">
-                🔄 تحميل المباريات
+                    <label for="homeTeam">
+                        الفريق المضيف *
+                    </label>
+
+                    <select id="homeTeam">
+                        <option value="">
+                            اختر الفريق المضيف
+                        </option>
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label for="awayTeam">
+                        الفريق الضيف *
+                    </label>
+
+                    <select id="awayTeam">
+                        <option value="">
+                            اختر الفريق الضيف
+                        </option>
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="grid">
+
+                <div>
+
+                    <label for="matchDate">
+                        تاريخ المباراة *
+                    </label>
+
+                    <input
+                        id="matchDate"
+                        type="date"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="matchTime">
+                        وقت المباراة *
+                    </label>
+
+                    <input
+                        id="matchTime"
+                        type="time"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <label for="stadium">
+                الملعب
+            </label>
+
+            <input
+                id="stadium"
+                type="text"
+                placeholder="مثال: ملعب أبين"
+            >
+
+
+            <label for="matchStatus">
+                حالة المباراة
+            </label>
+
+            <select id="matchStatus">
+
+                <option value="قادمة">
+                    قادمة
+                </option>
+
+                <option value="مباشرة">
+                    مباشرة
+                </option>
+
+                <option value="انتهت">
+                    انتهت
+                </option>
+
+            </select>
+
+
+            <button
+                id="addMatchBtn"
+            >
+                ✅ إضافة المباراة
             </button>
+
+            <button
+                id="cancelMatchBtn"
+                class="secondary"
+            >
+                إلغاء
+            </button>
+
+
+            <div
+                id="matchMessage"
+                class="message"
+            ></div>
+
         </div>
 
-        <div id="matches"></div>
 
-    </div>
+        <!-- قائمة المباريات -->
+        <div
+            class="card"
+            style="margin-top:20px;"
+        >
 
+            <h2>🏆 المباريات</h2>
 
-    <!-- الفرق -->
-    <div class="card hidden" id="teamsBox">
+            <div id="matches">
+                جاري التحميل...
+            </div>
 
-        <div class="header">
-            <h2>🏆 الفرق</h2>
-
-            <button id="loadTeamsBtn" class="btn-dark">
-                🔄 تحميل الفرق
-            </button>
         </div>
 
-        <div id="teams"></div>
+
+        <!-- قائمة الفرق -->
+        <div
+            class="card"
+            style="margin-top:20px;"
+        >
+
+            <h2>⚽ الفرق</h2>
+
+            <div id="teams">
+                جاري التحميل...
+            </div>
+
+        </div>
+
+
+        <button
+            id="logoutBtn"
+            class="danger logout"
+        >
+            🚪 تسجيل الخروج
+        </button>
 
     </div>
 
@@ -521,6 +582,7 @@ const SUPABASE_URL =
 
 const SUPABASE_KEY =
     "sb_publishable_oE8HsCGOsmRvIg0XwzymMA_I_33XlZ6";
+
 
 const supabaseClient =
     window.supabase.createClient(
@@ -541,78 +603,96 @@ const loginMessage =
 const userInfo =
     document.getElementById("userInfo");
 
-const addMatchBox =
-    document.getElementById("addMatchBox");
-
-const addTeamBox =
-    document.getElementById("addTeamBox");
-
-const matchesBox =
-    document.getElementById("matchesBox");
-
-const teamsBox =
-    document.getElementById("teamsBox");
-
 const matchesContainer =
     document.getElementById("matches");
 
 const teamsContainer =
     document.getElementById("teams");
 
+const teamMessage =
+    document.getElementById("teamMessage");
 
-/* =========================================================
+const matchMessage =
+    document.getElementById("matchMessage");
+
+const teamLogoInput =
+    document.getElementById("teamLogo");
+
+const logoPreview =
+    document.getElementById("logoPreview");
+
+
+let currentTeams = [];
+
+
+/* =====================================================
    تسجيل الدخول
-========================================================= */
+===================================================== */
 
 async function login() {
 
     const email =
-        document.getElementById("email").value.trim();
+        document
+            .getElementById("email")
+            .value
+            .trim();
 
     const password =
-        document.getElementById("password").value;
+        document
+            .getElementById("password")
+            .value;
+
 
     if (!email || !password) {
 
-        showMessage(
-            loginMessage,
-            "اكتب البريد الإلكتروني وكلمة المرور.",
-            "error"
-        );
+        loginMessage.textContent =
+            "اكتب البريد الإلكتروني وكلمة المرور.";
+
+        loginMessage.className =
+            "message error";
 
         return;
     }
 
-    showMessage(
-        loginMessage,
-        "جاري تسجيل الدخول...",
-        ""
-    );
+
+    loginMessage.textContent =
+        "جاري تسجيل الدخول...";
+
+    loginMessage.className =
+        "message";
+
 
     const { data, error } =
         await supabaseClient.auth.signInWithPassword({
-            email,
-            password
+
+            email: email,
+
+            password: password
+
         });
+
 
     if (error) {
 
-        showMessage(
-            loginMessage,
-            "فشل تسجيل الدخول: " + error.message,
-            "error"
-        );
+        loginMessage.textContent =
+            "فشل تسجيل الدخول: " +
+            error.message;
+
+        loginMessage.className =
+            "message error";
 
         return;
     }
 
+
     await checkAdmin(data.user);
+
 }
 
 
-/* =========================================================
+/* =====================================================
    التحقق من المدير
-========================================================= */
+===================================================== */
 
 async function checkAdmin(user) {
 
@@ -623,368 +703,436 @@ async function checkAdmin(user) {
             .eq("user_id", user.id)
             .maybeSingle();
 
+
     if (error) {
 
-        showMessage(
-            loginMessage,
-            "حدث خطأ أثناء التحقق من صلاحية المدير: " +
-            error.message,
-            "error"
-        );
+        loginMessage.textContent =
+            "حدث خطأ أثناء التحقق من صلاحية المدير.";
+
+        loginMessage.className =
+            "message error";
 
         console.error(error);
 
         return;
     }
 
+
     if (!data) {
 
-        showMessage(
-            loginMessage,
-            "هذا الحساب ليس مديرًا.",
-            "error"
-        );
+        loginMessage.textContent =
+            "هذا الحساب ليس مديرًا.";
+
+        loginMessage.className =
+            "message error";
 
         await supabaseClient.auth.signOut();
 
         return;
     }
 
+
     loginBox.classList.add("hidden");
 
     adminBox.classList.remove("hidden");
 
-    userInfo.textContent =
-        "تم تسجيل الدخول كمدير: " + user.email;
 
-    matchesBox.classList.remove("hidden");
-    teamsBox.classList.remove("hidden");
+    userInfo.textContent =
+        "تم تسجيل الدخول كمدير: " +
+        user.email;
+
+
+    await loadAll();
+
+}
+
+
+/* =====================================================
+   تحميل كل البيانات
+===================================================== */
+
+async function loadAll() {
 
     await loadTeams();
+
     await loadMatches();
+
 }
 
 
-/* =========================================================
-   التحقق من الجلسة عند فتح الصفحة
-========================================================= */
-
-async function checkExistingSession() {
-
-    const {
-        data: { session }
-    } = await supabaseClient.auth.getSession();
-
-    if (session && session.user) {
-        await checkAdmin(session.user);
-    }
-}
-
-
-/* =========================================================
-   عرض / إخفاء النوافذ
-========================================================= */
-
-function showAddMatch() {
-
-    addTeamBox.classList.add("hidden");
-
-    addMatchBox.classList.remove("hidden");
-
-    loadTeamsIntoSelects();
-
-    window.scrollTo({
-        top: addMatchBox.offsetTop - 15,
-        behavior: "smooth"
-    });
-}
-
-
-function showAddTeam() {
-
-    addMatchBox.classList.add("hidden");
-
-    addTeamBox.classList.remove("hidden");
-
-    window.scrollTo({
-        top: addTeamBox.offsetTop - 15,
-        behavior: "smooth"
-    });
-}
-
-
-function hideForms() {
-
-    addMatchBox.classList.add("hidden");
-
-    addTeamBox.classList.add("hidden");
-}
-
-
-/* =========================================================
+/* =====================================================
    تحميل الفرق
-========================================================= */
-
-let allTeams = [];
-
+===================================================== */
 
 async function loadTeams() {
 
     teamsContainer.innerHTML =
-        '<div class="empty">جاري تحميل الفرق...</div>';
+        "جاري تحميل الفرق...";
+
 
     const { data, error } =
         await supabaseClient
             .from("teams")
             .select("*")
-            .order("name", {
-                ascending: true
+            .order("id", {
+                ascending: false
             });
+
 
     if (error) {
 
         teamsContainer.innerHTML =
-            '<div class="empty error">فشل تحميل الفرق: ' +
-            escapeHtml(error.message) +
-            '</div>';
+            `<div class="message error">
+                فشل تحميل الفرق:
+                ${escapeHtml(error.message)}
+            </div>`;
 
         console.error(error);
 
         return;
     }
 
-    allTeams = data || [];
 
-    renderTeams();
-
-    loadTeamsIntoSelects();
-}
+    currentTeams =
+        data || [];
 
 
-function renderTeams() {
+    updateTeamSelects();
 
-    if (!allTeams.length) {
+
+    if (!data || data.length === 0) {
 
         teamsContainer.innerHTML =
-            '<div class="empty">لا توجد فرق حتى الآن.</div>';
+            `<div class="message">
+                لا توجد فرق حاليًا.
+            </div>`;
 
         return;
     }
 
+
     teamsContainer.innerHTML = "";
 
-    allTeams.forEach(team => {
+
+    data.forEach(team => {
 
         const div =
             document.createElement("div");
 
-        div.className = "team";
+        div.className =
+            "team";
+
 
         const logo =
             team.logo_url
-                ? escapeHtml(team.logo_url)
-                : "";
+                ? `<img
+                    src="${escapeAttribute(team.logo_url)}"
+                    class="team-logo"
+                    alt="شعار الفريق"
+                   >`
+                : `<div
+                    class="team-logo"
+                    style="
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        font-size:28px;
+                    "
+                   >
+                    ⚽
+                   </div>`;
+
 
         div.innerHTML = `
 
-            <div class="team-row">
+            <div class="team-header">
 
-                ${
-                    logo
-                    ?
-                    `<img
-                        class="team-logo"
-                        src="${logo}"
-                        alt="${escapeHtml(team.name)}"
-                    >`
-                    :
-                    `<div class="team-logo"></div>`
-                }
+                ${logo}
 
-                <div style="flex:1">
+                <div>
 
                     <h3>
                         ${escapeHtml(team.name)}
                     </h3>
 
-                    <div class="match-info">
-                        ${
-                            team.city
-                            ? "📍 المدينة: " +
-                              escapeHtml(team.city) +
-                              "<br>"
-                            : ""
-                        }
+                    <div class="info">
 
-                        ${
-                            team.coach
-                            ? "👤 المدرب: " +
-                              escapeHtml(team.coach) +
-                              "<br>"
-                            : ""
-                        }
+                        ${team.city
+                            ? "📍 " +
+                              escapeHtml(team.city)
+                            : ""}
 
-                        ${
-                            team.founded_year
-                            ? "📅 التأسيس: " +
-                              escapeHtml(team.founded_year) +
-                              "<br>"
-                            : ""
-                        }
+                        ${team.coach
+                            ? "<br>👨‍🏫 المدرب: " +
+                              escapeHtml(team.coach)
+                            : ""}
 
-                        ${
-                            team.description
-                            ? escapeHtml(team.description)
-                            : ""
-                        }
+                        ${team.founded_year
+                            ? "<br>📅 تأسس: " +
+                              escapeHtml(team.founded_year)
+                            : ""}
+
                     </div>
-
-                    <button
-                        class="btn-danger"
-                        onclick="deleteTeam(${team.id})"
-                    >
-                        🗑️ حذف الفريق
-                    </button>
 
                 </div>
 
             </div>
+
+
+            ${team.description
+                ? `<p>
+                    ${escapeHtml(team.description)}
+                   </p>`
+                : ""}
+
+
+            <button
+                class="danger"
+                onclick="deleteTeam(${team.id})"
+            >
+                🗑️ حذف الفريق
+            </button>
+
         `;
+
 
         teamsContainer.appendChild(div);
 
     });
+
 }
 
 
-/* =========================================================
-   وضع الفرق داخل قوائم إضافة المباراة
-========================================================= */
+/* =====================================================
+   القوائم المنسدلة للفرق
+===================================================== */
 
-function loadTeamsIntoSelects() {
+function updateTeamSelects() {
 
     const homeSelect =
-        document.getElementById("matchHomeTeam");
+        document.getElementById("homeTeam");
 
     const awaySelect =
-        document.getElementById("matchAwayTeam");
+        document.getElementById("awayTeam");
 
-    if (!homeSelect || !awaySelect) {
-        return;
-    }
 
     homeSelect.innerHTML =
-        '<option value="">اختر الفريق المضيف</option>';
+        `<option value="">
+            اختر الفريق المضيف
+         </option>`;
+
 
     awaySelect.innerHTML =
-        '<option value="">اختر الفريق الضيف</option>';
+        `<option value="">
+            اختر الفريق الضيف
+         </option>`;
 
-    allTeams.forEach(team => {
 
-        const optionHome =
+    currentTeams.forEach(team => {
+
+        const option1 =
             document.createElement("option");
 
-        optionHome.value =
+        option1.value =
             team.name;
 
-        optionHome.textContent =
+        option1.textContent =
             team.name;
 
-        homeSelect.appendChild(optionHome);
 
-
-        const optionAway =
+        const option2 =
             document.createElement("option");
 
-        optionAway.value =
+        option2.value =
             team.name;
 
-        optionAway.textContent =
+        option2.textContent =
             team.name;
 
-        awaySelect.appendChild(optionAway);
+
+        homeSelect.appendChild(option1);
+
+        awaySelect.appendChild(option2);
 
     });
+
 }
 
 
-/* =========================================================
+/* =====================================================
+   معاينة الشعار
+===================================================== */
+
+teamLogoInput.addEventListener(
+    "change",
+    function () {
+
+        const file =
+            this.files[0];
+
+
+        if (!file) {
+
+            logoPreview.style.display =
+                "none";
+
+            return;
+        }
+
+
+        if (!file.type.startsWith("image/")) {
+
+            teamMessage.textContent =
+                "الملف المختار ليس صورة.";
+
+            teamMessage.className =
+                "message error";
+
+            this.value = "";
+
+            logoPreview.style.display =
+                "none";
+
+            return;
+        }
+
+
+        const maxSize =
+            5 * 1024 * 1024;
+
+
+        if (file.size > maxSize) {
+
+            teamMessage.textContent =
+                "حجم الصورة أكبر من 5 ميجابايت.";
+
+            teamMessage.className =
+                "message error";
+
+            this.value = "";
+
+            logoPreview.style.display =
+                "none";
+
+            return;
+        }
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            function (event) {
+
+                logoPreview.src =
+                    event.target.result;
+
+                logoPreview.style.display =
+                    "block";
+
+            };
+
+
+        reader.readAsDataURL(file);
+
+    }
+);
+
+
+/* =====================================================
    إضافة فريق
-========================================================= */
+===================================================== */
 
 async function addTeam() {
 
-    const message =
-        document.getElementById("addTeamMessage");
-
     const name =
-        document.getElementById("teamName")
+        document
+            .getElementById("teamName")
             .value
             .trim();
+
 
     const city =
-        document.getElementById("teamCity")
+        document
+            .getElementById("teamCity")
             .value
             .trim();
+
 
     const coach =
-        document.getElementById("teamCoach")
+        document
+            .getElementById("teamCoach")
             .value
             .trim();
 
-    const foundedValue =
-        document.getElementById("teamFounded")
-            .value
-            .trim();
+
+    const foundedYear =
+        document
+            .getElementById("teamYear")
+            .value;
+
 
     const description =
-        document.getElementById("teamDescription")
+        document
+            .getElementById("teamDescription")
             .value
             .trim();
 
-    const logoInput =
-        document.getElementById("teamLogo");
+
+    const file =
+        teamLogoInput.files[0];
+
 
     if (!name) {
 
-        showMessage(
-            message,
-            "اكتب اسم الفريق.",
-            "error"
-        );
+        teamMessage.textContent =
+            "اكتب اسم الفريق.";
+
+        teamMessage.className =
+            "message error";
 
         return;
     }
 
-    showMessage(
-        message,
-        "جاري إضافة الفريق...",
-        ""
-    );
+
+    teamMessage.textContent =
+        "جاري إضافة الفريق...";
+
+    teamMessage.className =
+        "message";
+
 
     let logoUrl = null;
 
 
     /* رفع الشعار */
 
-    if (
-        logoInput.files &&
-        logoInput.files.length > 0
-    ) {
-
-        const file =
-            logoInput.files[0];
+    if (file) {
 
         if (!file.type.startsWith("image/")) {
 
-            showMessage(
-                message,
-                "الملف المختار ليس صورة.",
-                "error"
-            );
+            teamMessage.textContent =
+                "الملف المختار ليس صورة.";
+
+            teamMessage.className =
+                "message error";
 
             return;
         }
+
+
+        if (file.size > 5 * 1024 * 1024) {
+
+            teamMessage.textContent =
+                "حجم الصورة أكبر من 5 ميجابايت.";
+
+            teamMessage.className =
+                "message error";
+
+            return;
+        }
+
 
         const extension =
             file.name
@@ -992,116 +1140,143 @@ async function addTeam() {
                 .pop()
                 .toLowerCase();
 
+
         const safeName =
             name
                 .replace(/[^\u0600-\u06FFa-zA-Z0-9]/g, "-")
-                .replace(/-+/g, "-")
-                .substring(0, 50);
+                .replace(/-+/g, "-");
 
-        const filePath =
-            Date.now() +
-            "-" +
+
+        const fileName =
             safeName +
+            "-" +
+            Date.now() +
             "." +
             extension;
 
 
-        const {
-            error: uploadError
-        } =
-            await supabaseClient
-                .storage
+        const filePath =
+            fileName;
+
+
+        const { error: uploadError } =
+            await supabaseClient.storage
                 .from("team-logos")
                 .upload(
                     filePath,
                     file,
                     {
                         cacheControl: "3600",
-                        upsert: false
+                        upsert: false,
+                        contentType: file.type
                     }
                 );
 
 
         if (uploadError) {
 
-            showMessage(
-                message,
-                "فشل رفع الشعار: " +
-                uploadError.message,
-                "error"
-            );
-
             console.error(uploadError);
+
+            teamMessage.textContent =
+                "فشل رفع الشعار: " +
+                uploadError.message;
+
+            teamMessage.className =
+                "message error";
 
             return;
         }
 
 
-        const {
-            data: publicData
-        } =
-            supabaseClient
-                .storage
+        const { data: publicData } =
+            supabaseClient.storage
                 .from("team-logos")
                 .getPublicUrl(filePath);
 
+
         logoUrl =
             publicData.publicUrl;
+
     }
 
 
-    /* إدخال الفريق */
+    /* حفظ الفريق في الجدول */
 
-    const foundedYear =
-        foundedValue
-        ? Number(foundedValue)
-        : null;
+    const insertData = {
+
+        name: name,
+
+        logo_url: logoUrl,
+
+        city: city || null,
+
+        coach: coach || null,
+
+        founded_year:
+            foundedYear
+                ? Number(foundedYear)
+                : null,
+
+        description:
+            description || null
+
+    };
 
 
     const { error } =
         await supabaseClient
             .from("teams")
-            .insert({
-                name: name,
-                logo_url: logoUrl,
-                city: city || null,
-                coach: coach || null,
-                founded_year: foundedYear,
-                description: description || null
-            });
+            .insert(insertData);
 
 
     if (error) {
 
-        showMessage(
-            message,
-            "فشل إضافة الفريق: " +
-            error.message,
-            "error"
-        );
-
         console.error(error);
+
+        teamMessage.textContent =
+            "فشل إضافة الفريق: " +
+            error.message;
+
+        teamMessage.className =
+            "message error";
 
         return;
     }
 
 
-    showMessage(
-        message,
-        "✅ تم إضافة الفريق بنجاح.",
-        "success"
-    );
+    teamMessage.textContent =
+        "✅ تمت إضافة الفريق بنجاح.";
+
+    teamMessage.className =
+        "message ok";
 
 
-    document.getElementById("teamName").value = "";
-    document.getElementById("teamCity").value = "";
-    document.getElementById("teamCoach").value = "";
-    document.getElementById("teamFounded").value = "";
-    document.getElementById("teamDescription").value = "";
-    document.getElementById("teamLogo").value = "";
+    document
+        .getElementById("teamName")
+        .value = "";
 
-    document.getElementById("logoPreview")
-        .classList.add("hidden");
+    document
+        .getElementById("teamCity")
+        .value = "";
+
+    document
+        .getElementById("teamCoach")
+        .value = "";
+
+    document
+        .getElementById("teamYear")
+        .value = "";
+
+    document
+        .getElementById("teamDescription")
+        .value = "";
+
+    teamLogoInput.value = "";
+
+    logoPreview.src = "";
+
+    logoPreview.style.display =
+        "none";
 
 
     await loadTeams();
@@ -1109,77 +1284,29 @@ async function addTeam() {
 }
 
 
-/* =========================================================
-   معاينة الشعار
-========================================================= */
-
-document
-    .getElementById("teamLogo")
-    .addEventListener(
-        "change",
-        function () {
-
-            const file =
-                this.files[0];
-
-            const preview =
-                document.getElementById("logoPreview");
-
-            if (!file) {
-
-                preview.classList.add("hidden");
-
-                return;
-            }
-
-            const reader =
-                new FileReader();
-
-            reader.onload =
-                function (event) {
-
-                    preview.src =
-                        event.target.result;
-
-                    preview.classList.remove("hidden");
-                };
-
-            reader.readAsDataURL(file);
-        }
-    );
-
-
-/* =========================================================
+/* =====================================================
    حذف فريق
-========================================================= */
+===================================================== */
 
-async function deleteTeam(teamId) {
-
-    const team =
-        allTeams.find(
-            item => item.id === teamId
-        );
-
-    if (!team) {
-        return;
-    }
+async function deleteTeam(id) {
 
     const confirmed =
         confirm(
-            "هل أنت متأكد من حذف فريق " +
-            team.name +
-            "؟"
+            "هل أنت متأكد من حذف هذا الفريق؟"
         );
+
 
     if (!confirmed) {
         return;
     }
 
+
     const { error } =
         await supabaseClient
             .from("teams")
             .delete()
-            .eq("id", teamId);
+            .eq("id", id);
+
 
     if (error) {
 
@@ -1193,52 +1320,67 @@ async function deleteTeam(teamId) {
         return;
     }
 
+
+    alert(
+        "✅ تم حذف الفريق."
+    );
+
+
     await loadTeams();
+
 }
 
 
-/* =========================================================
+/* =====================================================
    إضافة مباراة
-========================================================= */
+===================================================== */
 
 async function addMatch() {
 
-    const message =
-        document.getElementById("addMatchMessage");
-
     const homeTeam =
-        document.getElementById("matchHomeTeam")
+        document
+            .getElementById("homeTeam")
             .value;
+
 
     const awayTeam =
-        document.getElementById("matchAwayTeam")
+        document
+            .getElementById("awayTeam")
             .value;
+
 
     const matchDate =
-        document.getElementById("matchDate")
+        document
+            .getElementById("matchDate")
             .value;
+
 
     const matchTime =
-        document.getElementById("matchTime")
+        document
+            .getElementById("matchTime")
             .value;
 
+
     const stadium =
-        document.getElementById("matchStadium")
+        document
+            .getElementById("stadium")
             .value
             .trim();
 
+
     const status =
-        document.getElementById("matchStatus")
+        document
+            .getElementById("matchStatus")
             .value;
 
 
     if (!homeTeam) {
 
-        showMessage(
-            message,
-            "اختر الفريق المضيف.",
-            "error"
-        );
+        matchMessage.textContent =
+            "اختر الفريق المضيف.";
+
+        matchMessage.className =
+            "message error";
 
         return;
     }
@@ -1246,11 +1388,11 @@ async function addMatch() {
 
     if (!awayTeam) {
 
-        showMessage(
-            message,
-            "اختر الفريق الضيف.",
-            "error"
-        );
+        matchMessage.textContent =
+            "اختر الفريق الضيف.";
+
+        matchMessage.className =
+            "message error";
 
         return;
     }
@@ -1258,11 +1400,11 @@ async function addMatch() {
 
     if (homeTeam === awayTeam) {
 
-        showMessage(
-            message,
-            "لا يمكن اختيار نفس الفريق في الطرفين.",
-            "error"
-        );
+        matchMessage.textContent =
+            "لا يمكن أن يكون الفريقان متطابقين.";
+
+        matchMessage.className =
+            "message error";
 
         return;
     }
@@ -1270,11 +1412,11 @@ async function addMatch() {
 
     if (!matchDate) {
 
-        showMessage(
-            message,
-            "اختر تاريخ المباراة.",
-            "error"
-        );
+        matchMessage.textContent =
+            "اختر تاريخ المباراة.";
+
+        matchMessage.className =
+            "message error";
 
         return;
     }
@@ -1282,33 +1424,21 @@ async function addMatch() {
 
     if (!matchTime) {
 
-        showMessage(
-            message,
-            "اختر وقت المباراة.",
-            "error"
-        );
+        matchMessage.textContent =
+            "اختر وقت المباراة.";
+
+        matchMessage.className =
+            "message error";
 
         return;
     }
 
 
-    if (!stadium) {
+    matchMessage.textContent =
+        "جاري إضافة المباراة...";
 
-        showMessage(
-            message,
-            "اكتب اسم الملعب.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    showMessage(
-        message,
-        "جاري حفظ المباراة...",
-        ""
-    );
+    matchMessage.className =
+        "message";
 
 
     const { error } =
@@ -1324,7 +1454,8 @@ async function addMatch() {
 
                 match_time: matchTime,
 
-                stadium: stadium,
+                stadium:
+                    stadium || null,
 
                 home_score: 0,
 
@@ -1337,43 +1468,50 @@ async function addMatch() {
 
     if (error) {
 
-        showMessage(
-            message,
-            "فشل إضافة المباراة: " +
-            error.message,
-            "error"
-        );
-
         console.error(error);
+
+        matchMessage.textContent =
+            "فشل إضافة المباراة: " +
+            error.message;
+
+        matchMessage.className =
+            "message error";
 
         return;
     }
 
 
-    showMessage(
-        message,
-        "✅ تم إضافة المباراة بنجاح.",
-        "success"
-    );
+    matchMessage.textContent =
+        "✅ تمت إضافة المباراة بنجاح.";
+
+    matchMessage.className =
+        "message ok";
 
 
-    document.getElementById("matchHomeTeam")
+    document
+        .getElementById("homeTeam")
         .value = "";
 
-    document.getElementById("matchAwayTeam")
+    document
+        .getElementById("awayTeam")
         .value = "";
 
-    document.getElementById("matchDate")
+    document
+        .getElementById("matchDate")
         .value = "";
 
-    document.getElementById("matchTime")
+    document
+        .getElementById("matchTime")
         .value = "";
 
-    document.getElementById("matchStadium")
+    document
+        .getElementById("stadium")
         .value = "";
 
-    document.getElementById("matchStatus")
-        .value = "مجدولة";
+    document
+        .getElementById("matchStatus")
+        .value =
+            "قادمة";
 
 
     await loadMatches();
@@ -1381,14 +1519,14 @@ async function addMatch() {
 }
 
 
-/* =========================================================
+/* =====================================================
    تحميل المباريات
-========================================================= */
+===================================================== */
 
 async function loadMatches() {
 
     matchesContainer.innerHTML =
-        '<div class="empty">جاري تحميل المباريات...</div>';
+        "جاري تحميل المباريات...";
 
 
     const { data, error } =
@@ -1403,9 +1541,10 @@ async function loadMatches() {
     if (error) {
 
         matchesContainer.innerHTML =
-            '<div class="empty error">فشل تحميل المباريات: ' +
-            escapeHtml(error.message) +
-            '</div>';
+            `<div class="message error">
+                فشل تحميل المباريات:
+                ${escapeHtml(error.message)}
+            </div>`;
 
         console.error(error);
 
@@ -1416,7 +1555,9 @@ async function loadMatches() {
     if (!data || data.length === 0) {
 
         matchesContainer.innerHTML =
-            '<div class="empty">لا توجد مباريات حتى الآن.</div>';
+            `<div class="message">
+                لا توجد مباريات حاليًا.
+            </div>`;
 
         return;
     }
@@ -1430,23 +1571,20 @@ async function loadMatches() {
         const div =
             document.createElement("div");
 
-        div.className = "match";
+        div.className =
+            "match";
 
 
         div.innerHTML = `
 
-            <div class="match-title">
-
+            <h3>
                 ${escapeHtml(match.home_team)}
-
                 🆚
-
                 ${escapeHtml(match.away_team)}
+            </h3>
 
-            </div>
 
-
-            <div class="match-info">
+            <div class="info">
 
                 📅 التاريخ:
                 ${escapeHtml(match.match_date || "")}
@@ -1459,12 +1597,12 @@ async function loadMatches() {
                 <br>
 
                 🏟️ الملعب:
-                ${escapeHtml(match.stadium || "")}
+                ${escapeHtml(match.stadium || "غير محدد")}
 
                 <br>
 
                 📌 الحالة:
-                ${escapeHtml(match.status || "")}
+                ${escapeHtml(match.status || "غير محدد")}
 
             </div>
 
@@ -1480,9 +1618,8 @@ async function loadMatches() {
                     <input
                         type="number"
                         min="0"
-                        step="1"
                         id="home-${match.id}"
-                        value="${Number.isInteger(match.home_score) ? match.home_score : 0}"
+                        value="${match.home_score ?? 0}"
                     >
 
                 </div>
@@ -1497,9 +1634,8 @@ async function loadMatches() {
                     <input
                         type="number"
                         min="0"
-                        step="1"
                         id="away-${match.id}"
-                        value="${Number.isInteger(match.away_score) ? match.away_score : 0}"
+                        value="${match.away_score ?? 0}"
                     >
 
                 </div>
@@ -1507,24 +1643,20 @@ async function loadMatches() {
             </div>
 
 
-            <div class="actions">
-
-                <button
-                    class="btn-success"
-                    onclick="updateScore(${match.id})"
-                >
-                    💾 حفظ النتيجة
-                </button>
+            <button
+                class="success"
+                onclick="updateScore(${match.id})"
+            >
+                💾 حفظ النتيجة
+            </button>
 
 
-                <button
-                    class="btn-danger"
-                    onclick="deleteMatch(${match.id})"
-                >
-                    🗑️ حذف المباراة
-                </button>
-
-            </div>
+            <button
+                class="danger"
+                onclick="deleteMatch(${match.id})"
+            >
+                🗑️ حذف المباراة
+            </button>
 
 
             <div
@@ -1542,9 +1674,9 @@ async function loadMatches() {
 }
 
 
-/* =========================================================
+/* =====================================================
    تحديث النتيجة
-========================================================= */
+===================================================== */
 
 async function updateScore(matchId) {
 
@@ -1553,10 +1685,12 @@ async function updateScore(matchId) {
             "home-" + matchId
         );
 
+
     const awayInput =
         document.getElementById(
             "away-" + matchId
         );
+
 
     const message =
         document.getElementById(
@@ -1566,6 +1700,7 @@ async function updateScore(matchId) {
 
     const homeScore =
         Number(homeInput.value);
+
 
     const awayScore =
         Number(awayInput.value);
@@ -1578,21 +1713,21 @@ async function updateScore(matchId) {
         awayScore < 0
     ) {
 
-        showMessage(
-            message,
-            "النتيجة غير صحيحة.",
-            "error"
-        );
+        message.textContent =
+            "النتيجة غير صحيحة.";
+
+        message.className =
+            "message error";
 
         return;
     }
 
 
-    showMessage(
-        message,
-        "جاري حفظ النتيجة...",
-        ""
-    );
+    message.textContent =
+        "جاري الحفظ...";
+
+    message.className =
+        "message";
 
 
     const { error } =
@@ -1612,12 +1747,12 @@ async function updateScore(matchId) {
 
     if (error) {
 
-        showMessage(
-            message,
+        message.textContent =
             "فشل الحفظ: " +
-            error.message,
-            "error"
-        );
+            error.message;
+
+        message.className =
+            "message error";
 
         console.error(error);
 
@@ -1625,11 +1760,11 @@ async function updateScore(matchId) {
     }
 
 
-    showMessage(
-        message,
-        "✅ تم حفظ النتيجة بنجاح.",
-        "success"
-    );
+    message.textContent =
+        "✅ تم حفظ النتيجة بنجاح.";
+
+    message.className =
+        "message ok";
 
 
     await loadMatches();
@@ -1637,11 +1772,11 @@ async function updateScore(matchId) {
 }
 
 
-/* =========================================================
+/* =====================================================
    حذف مباراة
-========================================================= */
+===================================================== */
 
-async function deleteMatch(matchId) {
+async function deleteMatch(id) {
 
     const confirmed =
         confirm(
@@ -1658,7 +1793,7 @@ async function deleteMatch(matchId) {
         await supabaseClient
             .from("matches")
             .delete()
-            .eq("id", matchId);
+            .eq("id", id);
 
 
     if (error) {
@@ -1674,65 +1809,42 @@ async function deleteMatch(matchId) {
     }
 
 
+    alert(
+        "✅ تم حذف المباراة."
+    );
+
+
     await loadMatches();
 
 }
 
 
-/* =========================================================
+/* =====================================================
    تسجيل الخروج
-========================================================= */
+===================================================== */
 
 async function logout() {
 
     await supabaseClient.auth.signOut();
 
+
     adminBox.classList.add("hidden");
-
-    addMatchBox.classList.add("hidden");
-
-    addTeamBox.classList.add("hidden");
-
-    matchesBox.classList.add("hidden");
-
-    teamsBox.classList.add("hidden");
 
     loginBox.classList.remove("hidden");
 
-    showMessage(
-        loginMessage,
-        "تم تسجيل الخروج.",
-        "success"
-    );
+
+    loginMessage.textContent =
+        "تم تسجيل الخروج.";
+
+    loginMessage.className =
+        "message ok";
+
 }
 
 
-/* =========================================================
-   الرسائل
-========================================================= */
-
-function showMessage(
-    element,
-    text,
-    type
-) {
-
-    element.textContent = text;
-
-    element.classList.remove(
-        "success",
-        "error"
-    );
-
-    if (type) {
-        element.classList.add(type);
-    }
-}
-
-
-/* =========================================================
-   حماية عرض النصوص
-========================================================= */
+/* =====================================================
+   أدوات الحماية
+===================================================== */
 
 function escapeHtml(value) {
 
@@ -1742,12 +1854,24 @@ function escapeHtml(value) {
         .replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
+
 }
 
 
-/* =========================================================
-   الأحداث
-========================================================= */
+function escapeAttribute(value) {
+
+    return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+
+}
+
+
+/* =====================================================
+   الأزرار
+===================================================== */
 
 document
     .getElementById("loginBtn")
@@ -1758,26 +1882,18 @@ document
 
 
 document
-    .getElementById("showAddMatchBtn")
+    .getElementById("logoutBtn")
     .addEventListener(
         "click",
-        showAddMatch
+        logout
     );
 
 
 document
-    .getElementById("showAddTeamBtn")
+    .getElementById("loadAllBtn")
     .addEventListener(
         "click",
-        showAddTeam
-    );
-
-
-document
-    .getElementById("addMatchBtn")
-    .addEventListener(
-        "click",
-        addMatch
+        loadAll
     );
 
 
@@ -1790,10 +1906,52 @@ document
 
 
 document
-    .getElementById("cancelMatchBtn")
+    .getElementById("addMatchBtn")
     .addEventListener(
         "click",
-        hideForms
+        addMatch
+    );
+
+
+document
+    .getElementById("showTeamFormBtn")
+    .addEventListener(
+        "click",
+        function () {
+
+            document
+                .getElementById("teamForm")
+                .classList
+                .remove("hidden");
+
+            document
+                .getElementById("matchForm")
+                .classList
+                .add("hidden");
+
+        }
+    );
+
+
+document
+    .getElementById("showMatchFormBtn")
+    .addEventListener(
+        "click",
+        function () {
+
+            document
+                .getElementById("matchForm")
+                .classList
+                .remove("hidden");
+
+            document
+                .getElementById("teamForm")
+                .classList
+                .add("hidden");
+
+            updateTeamSelects();
+
+        }
     );
 
 
@@ -1801,53 +1959,55 @@ document
     .getElementById("cancelTeamBtn")
     .addEventListener(
         "click",
-        hideForms
-    );
+        function () {
 
-
-document
-    .getElementById("loadMatchesBtn")
-    .addEventListener(
-        "click",
-        loadMatches
-    );
-
-
-document
-    .getElementById("loadTeamsBtn")
-    .addEventListener(
-        "click",
-        loadTeams
-    );
-
-
-document
-    .getElementById("loadAllBtn")
-    .addEventListener(
-        "click",
-        async function () {
-
-            await loadTeams();
-
-            await loadMatches();
+            document
+                .getElementById("teamForm")
+                .classList
+                .add("hidden");
 
         }
     );
 
 
 document
-    .getElementById("logoutBtn")
+    .getElementById("cancelMatchBtn")
     .addEventListener(
         "click",
-        logout
+        function () {
+
+            document
+                .getElementById("matchForm")
+                .classList
+                .add("hidden");
+
+        }
     );
 
 
-/* =========================================================
-   تشغيل الصفحة
-========================================================= */
+/* =====================================================
+   التحقق من الجلسة عند فتح الصفحة
+===================================================== */
 
-checkExistingSession();
+async function checkSession() {
+
+    const { data } =
+        await supabaseClient.auth.getSession();
+
+
+    if (data.session) {
+
+        await checkAdmin(
+            data.session.user
+        );
+
+    }
+
+}
+
+
+checkSession();
+
 
 </script>
 
