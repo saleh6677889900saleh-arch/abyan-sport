@@ -3,11 +3,25 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="أبيان سبورت - كل أخبار ومباريات رياضة أبين"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0f172a"
+    >
 
     <title>أبيان سبورت</title>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -15,89 +29,320 @@
         body {
             margin: 0;
             padding: 20px;
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            color: #222;
+            font-family:
+                Arial,
+                Tahoma,
+                sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
         }
 
         .container {
-            max-width: 700px;
-            margin: auto;
+            width: min(900px, 94%);
+            margin: 0 auto;
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 10px;
-        }
+        /* =========================
+           الهيدر
+        ========================= */
 
-        .subtitle {
+        .header {
             text-align: center;
-            color: #666;
             margin-bottom: 25px;
         }
 
-        .match {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: 900;
         }
 
+        .subtitle {
+            margin-top: 8px;
+            color: #64748b;
+            font-size: 16px;
+        }
+
+        /* =========================
+           حالة الاتصال
+        ========================= */
+
+        .connection {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .connection-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #16a34a;
+            margin-left: 5px;
+        }
+
+        /* =========================
+           بطاقة المباراة
+        ========================= */
+
+        .match {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 22px;
+            margin-bottom: 18px;
+
+            box-shadow:
+                0 5px 20px rgba(15, 23, 42, 0.08);
+
+            border: 1px solid #e2e8f0;
+        }
+
+        .match-status {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        .status-live {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .status-finished {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-upcoming {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        /* =========================
+           الفرق
+        ========================= */
+
         .teams {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 90px 1fr;
             align-items: center;
-            justify-content: space-between;
-            gap: 15px;
+            gap: 10px;
             text-align: center;
         }
 
         .team {
-            flex: 1;
+            min-width: 0;
+        }
+
+        .team-logo-box {
+            width: 85px;
+            height: 85px;
+            margin: 0 auto 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 18px;
+
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+
+            overflow: hidden;
+        }
+
+        .team-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 7px;
+        }
+
+        .default-logo {
+            font-size: 38px;
+        }
+
+        .team-name {
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 800;
+            line-height: 1.5;
         }
 
         .vs {
-            font-weight: bold;
-            color: #777;
+            font-size: 20px;
+            font-weight: 900;
+            color: #64748b;
         }
 
-        .info {
-            margin-top: 18px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-            line-height: 1.8;
-            color: #555;
-            text-align: center;
-        }
+        /* =========================
+           النتيجة
+        ========================= */
 
         .score {
-            font-size: 28px;
-            font-weight: bold;
-            margin-top: 10px;
+            text-align: center;
+            margin-top: 18px;
+
+            font-size: 34px;
+            font-weight: 900;
+
+            color: #0f172a;
         }
+
+        .score-placeholder {
+            font-size: 22px;
+            color: #64748b;
+        }
+
+        /* =========================
+           معلومات المباراة
+        ========================= */
+
+        .info {
+            margin-top: 20px;
+            padding-top: 16px;
+
+            border-top: 1px solid #e2e8f0;
+
+            text-align: center;
+            color: #475569;
+
+            line-height: 2;
+            font-size: 15px;
+        }
+
+        .info-item {
+            display: block;
+        }
+
+        /* =========================
+           التحميل
+        ========================= */
 
         .loading {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 35px;
             text-align: center;
-            padding: 30px;
+            color: #64748b;
+
+            box-shadow:
+                0 4px 15px rgba(15, 23, 42, 0.06);
         }
 
-        .error {
-            background: #ffe5e5;
-            color: #b00020;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
+        .loading-icon {
+            font-size: 35px;
+            margin-bottom: 10px;
         }
+
+        /* =========================
+           لا توجد مباريات
+        ========================= */
 
         .empty {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 35px;
             text-align: center;
-            color: #777;
+            color: #64748b;
+
+            box-shadow:
+                0 4px 15px rgba(15, 23, 42, 0.06);
         }
+
+        .empty-icon {
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        /* =========================
+           الخطأ
+        ========================= */
+
+        .error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+
+            padding: 20px;
+            border-radius: 15px;
+
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        /* =========================
+           الفوتر
+        ========================= */
+
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 13px;
+            padding: 20px 0;
+        }
+
+        /* =========================
+           الجوال
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 12px;
+            }
+
+            .container {
+                width: 100%;
+            }
+
+            .header h1 {
+                font-size: 27px;
+            }
+
+            .match {
+                padding: 17px;
+                border-radius: 17px;
+            }
+
+            .teams {
+                grid-template-columns: 1fr 55px 1fr;
+                gap: 5px;
+            }
+
+            .team-logo-box {
+                width: 68px;
+                height: 68px;
+                border-radius: 14px;
+            }
+
+            .team-name {
+                font-size: 15px;
+            }
+
+            .vs {
+                font-size: 16px;
+            }
+
+            .score {
+                font-size: 29px;
+            }
+
+            .info {
+                font-size: 14px;
+            }
+        }
+
     </style>
 </head>
 
@@ -105,251 +350,846 @@
 
 <div class="container">
 
-    <h1>⚽ أبيان سبورت</h1>
+    <!-- =========================
+         الهيدر
+    ========================= -->
 
-    <div class="subtitle">
-        كل أخبار ومباريات رياضة أبين
-    </div>
+    <header class="header">
 
-    <div id="matches">
-        <div class="loading">
-            جاري تحميل المباريات...
+        <h1>
+            ⚽ أبيان سبورت
+        </h1>
+
+        <div class="subtitle">
+            كل أخبار ومباريات رياضة أبين
         </div>
+
+    </header>
+
+
+    <!-- =========================
+         حالة الاتصال
+    ========================= -->
+
+    <div
+        id="connectionStatus"
+        class="connection"
+    >
+
+        <span class="connection-dot"></span>
+
+        متصل بقاعدة البيانات
+
     </div>
+
+
+    <!-- =========================
+         المباريات
+    ========================= -->
+
+    <main id="matches">
+
+        <div class="loading">
+
+            <div class="loading-icon">
+                ⚽
+            </div>
+
+            جاري تحميل المباريات...
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         الفوتر
+    ========================= -->
+
+    <footer class="footer">
+
+        أبيان سبورت © 2026
+
+    </footer>
 
 </div>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
 <script>
 
-    // ==========================================
-    // بيانات مشروع Supabase
-    // ==========================================
-
-    const SUPABASE_URL =
-        "https://ujbgrwgxhusgoobhoanx.supabase.co";
-
-    const SUPABASE_KEY =
-        "sb_publishable_oE8HsCGOsmRvIg0XwzymMA_I_33XlZ6";
+"use strict";
 
 
-    // ==========================================
-    // تحميل المباريات
-    // ==========================================
+/* =====================================================
+   إعداد Supabase
+===================================================== */
 
-    async function loadMatches() {
+const SUPABASE_URL =
+    "https://ujbgrwgxhusgoobhoanx.supabase.co";
 
-        const matchesContainer =
-            document.getElementById("matches");
-
-        try {
-
-            const response = await fetch(
-                SUPABASE_URL +
-                "/rest/v1/matches?select=*&order=match_date.asc,match_time.asc",
-                {
-                    method: "GET",
-
-                    headers: {
-                        "apikey": SUPABASE_KEY,
-                        "Authorization":
-                            "Bearer " + SUPABASE_KEY
-                    }
-                }
-            );
+const SUPABASE_KEY =
+    "sb_publishable_oE8HsCGOsmRvIg0XwzymMA_I_33XlZ6";
 
 
-            // ------------------------------------------
-            // التأكد من نجاح الاتصال
-            // ------------------------------------------
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
-            if (!response.ok) {
 
-                const errorText =
-                    await response.text();
+/* =====================================================
+   العناصر
+===================================================== */
 
-                console.error(
-                    "Supabase Error:",
-                    errorText
+const matchesContainer =
+    document.getElementById("matches");
+
+const connectionStatus =
+    document.getElementById("connectionStatus");
+
+
+/* =====================================================
+   تخزين الفرق
+===================================================== */
+
+let teamsMap = {};
+
+
+/* =====================================================
+   تحميل الفرق
+===================================================== */
+
+async function loadTeams() {
+
+    try {
+
+        const { data, error } =
+            await supabaseClient
+                .from("teams")
+                .select(
+                    "id,name,logo_url,city,coach,founded_year,description"
                 );
 
-                throw new Error(
-                    "فشل الاتصال بقاعدة البيانات"
-                );
-            }
 
+        if (error) {
 
-            // ------------------------------------------
-            // تحويل البيانات إلى JSON
-            // ------------------------------------------
-
-            const matches =
-                await response.json();
-
-
-            console.log(
-                "المباريات:",
-                matches
+            console.error(
+                "خطأ تحميل الفرق:",
+                error
             );
 
+            teamsMap = {};
 
-            // ------------------------------------------
-            // لا توجد مباريات
-            // ------------------------------------------
+            return;
+        }
 
-            if (
-                !Array.isArray(matches) ||
-                matches.length === 0
-            ) {
 
-                matchesContainer.innerHTML = `
-                    <div class="empty">
-                        لا توجد مباريات حاليًا
-                    </div>
-                `;
+        teamsMap = {};
 
+
+        (data || []).forEach(function(team) {
+
+            if (!team || !team.name) {
                 return;
             }
 
 
-            // ------------------------------------------
-            // عرض المباريات
-            // ------------------------------------------
+            teamsMap[
+                normalizeTeamName(team.name)
+            ] = team;
 
-            matchesContainer.innerHTML = "";
-
-
-            matches.forEach(function(match) {
-
-                const matchElement =
-                    document.createElement("div");
-
-                matchElement.className = "match";
+        });
 
 
-                const homeTeam =
-                    match.home_team || "الفريق الأول";
+    } catch (error) {
 
-                const awayTeam =
-                    match.away_team || "الفريق الثاني";
+        console.error(
+            "خطأ في تحميل الفرق:",
+            error
+        );
 
-                const homeScore =
-                    match.home_score ?? 0;
+        teamsMap = {};
 
-                const awayScore =
-                    match.away_score ?? 0;
+    }
 
-                const stadium =
-                    match.stadium || "الملعب غير محدد";
-
-                const date =
-                    match.match_date || "التاريخ غير محدد";
-
-                const time =
-                    match.match_time || "الوقت غير محدد";
+}
 
 
-                matchElement.innerHTML = `
+/* =====================================================
+   توحيد اسم الفريق للمقارنة
+===================================================== */
 
-                    <div class="teams">
+function normalizeTeamName(name) {
 
-                        <div class="team">
-                            ${escapeHTML(homeTeam)}
-                        </div>
+    return String(name || "")
+        .trim()
+        .replace(/\s+/g, " ");
 
-                        <div class="vs">
-                            🆚
-                        </div>
-
-                        <div class="team">
-                            ${escapeHTML(awayTeam)}
-                        </div>
-
-                    </div>
+}
 
 
-                    <div class="score">
-                        ${homeScore} - ${awayScore}
-                    </div>
+/* =====================================================
+   الحصول على بيانات الفريق
+===================================================== */
+
+function getTeam(teamName) {
+
+    const normalized =
+        normalizeTeamName(teamName);
 
 
-                    <div class="info">
+    return teamsMap[normalized] || null;
 
-                        📅 التاريخ:
-                        ${escapeHTML(date)}
-
-                        <br>
-
-                        🕐 الوقت:
-                        ${escapeHTML(time)}
-
-                        <br>
-
-                        🏟️ الملعب:
-                        ${escapeHTML(stadium)}
-
-                    </div>
-
-                `;
+}
 
 
-                matchesContainer.appendChild(
-                    matchElement
+/* =====================================================
+   إنشاء شعار الفريق
+===================================================== */
+
+function createTeamLogo(teamName) {
+
+    const team =
+        getTeam(teamName);
+
+
+    if (
+        team &&
+        team.logo_url
+    ) {
+
+        return `
+
+            <div class="team-logo-box">
+
+                <img
+                    class="team-logo"
+                    src="${escapeAttribute(team.logo_url)}"
+                    alt="شعار ${escapeAttribute(teamName)}"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=&quot;default-logo&quot;>⚽</span>';"
+                >
+
+            </div>
+
+        `;
+
+    }
+
+
+    return `
+
+        <div class="team-logo-box">
+
+            <span class="default-logo">
+                ⚽
+            </span>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   تحويل حالة المباراة إلى شكل مناسب
+===================================================== */
+
+function getStatusClass(status) {
+
+    const value =
+        String(status || "")
+            .trim();
+
+
+    if (
+        value === "مباشرة" ||
+        value.toLowerCase() === "live"
+    ) {
+
+        return "status-live";
+
+    }
+
+
+    if (
+        value === "انتهت" ||
+        value.toLowerCase() === "finished"
+    ) {
+
+        return "status-finished";
+
+    }
+
+
+    if (
+        value === "قادمة" ||
+        value.toLowerCase() === "upcoming"
+    ) {
+
+        return "status-upcoming";
+
+    }
+
+
+    return "";
+
+}
+
+
+/* =====================================================
+   تحميل المباريات
+===================================================== */
+
+async function loadMatches() {
+
+    try {
+
+        const { data, error } =
+            await supabaseClient
+                .from("matches")
+                .select("*")
+                .order(
+                    "match_date",
+                    {
+                        ascending: true
+                    }
+                )
+                .order(
+                    "match_time",
+                    {
+                        ascending: true
+                    }
                 );
 
-            });
 
-
-        } catch (error) {
+        if (error) {
 
             console.error(
-                "حدث خطأ:",
+                "خطأ تحميل المباريات:",
                 error
             );
 
+            throw error;
+
+        }
+
+
+        const matches =
+            data || [];
+
+
+        /* -----------------------------------------
+           لا توجد مباريات
+        ----------------------------------------- */
+
+        if (matches.length === 0) {
 
             matchesContainer.innerHTML = `
 
-                <div class="error">
+                <div class="empty">
 
-                    ❌ حدث خطأ أثناء الاتصال
-                    بقاعدة البيانات.
+                    <div class="empty-icon">
+                        ⚽
+                    </div>
 
-                    <br><br>
-
-                    تأكد من اتصال Supabase
-                    وإعدادات RLS.
+                    <div>
+                        لا توجد مباريات حاليًا
+                    </div>
 
                 </div>
 
             `;
 
+            updateConnection(true);
+
+            return;
+
         }
 
+
+        /* -----------------------------------------
+           بناء الصفحة
+        ----------------------------------------- */
+
+        matchesContainer.innerHTML = "";
+
+
+        matches.forEach(function(match) {
+
+            const matchElement =
+                document.createElement("article");
+
+
+            matchElement.className =
+                "match";
+
+
+            const homeTeam =
+                match.home_team ||
+                "الفريق المضيف";
+
+
+            const awayTeam =
+                match.away_team ||
+                "الفريق الضيف";
+
+
+            const status =
+                match.status ||
+                "قادمة";
+
+
+            const statusClass =
+                getStatusClass(status);
+
+
+            const homeScore =
+                match.home_score;
+
+
+            const awayScore =
+                match.away_score;
+
+
+            /*
+             * إذا كانت النتيجة null
+             * نعرض "لم تبدأ" بدل 0 - 0
+             */
+
+            let scoreHTML;
+
+
+            if (
+                homeScore === null ||
+                homeScore === undefined ||
+                awayScore === null ||
+                awayScore === undefined
+            ) {
+
+                scoreHTML = `
+
+                    <div class="score score-placeholder">
+                        لم تبدأ المباراة
+                    </div>
+
+                `;
+
+            } else {
+
+                scoreHTML = `
+
+                    <div class="score">
+
+                        ${escapeHTML(homeScore)}
+                        -
+                        ${escapeHTML(awayScore)}
+
+                    </div>
+
+                `;
+
+            }
+
+
+            const stadium =
+                match.stadium ||
+                "الملعب غير محدد";
+
+
+            const date =
+                formatDate(
+                    match.match_date
+                );
+
+
+            const time =
+                formatTime(
+                    match.match_time
+                );
+
+
+            matchElement.innerHTML = `
+
+                <!-- الحالة -->
+
+                <div class="match-status">
+
+                    <span class="status ${statusClass}">
+
+                        ${escapeHTML(status)}
+
+                    </span>
+
+                </div>
+
+
+                <!-- الفريقان -->
+
+                <div class="teams">
+
+
+                    <!-- الفريق المضيف -->
+
+                    <div class="team">
+
+                        ${createTeamLogo(homeTeam)}
+
+                        <div class="team-name">
+
+                            ${escapeHTML(homeTeam)}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- VS -->
+
+                    <div class="vs">
+
+                        🆚
+
+                    </div>
+
+
+                    <!-- الفريق الضيف -->
+
+                    <div class="team">
+
+                        ${createTeamLogo(awayTeam)}
+
+                        <div class="team-name">
+
+                            ${escapeHTML(awayTeam)}
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- النتيجة -->
+
+                ${scoreHTML}
+
+
+                <!-- المعلومات -->
+
+                <div class="info">
+
+                    <span class="info-item">
+
+                        📅 التاريخ:
+                        ${escapeHTML(date)}
+
+                    </span>
+
+
+                    <span class="info-item">
+
+                        🕐 الوقت:
+                        ${escapeHTML(time)}
+
+                    </span>
+
+
+                    <span class="info-item">
+
+                        🏟️ الملعب:
+                        ${escapeHTML(stadium)}
+
+                    </span>
+
+                </div>
+
+            `;
+
+
+            matchesContainer.appendChild(
+                matchElement
+            );
+
+        });
+
+
+        updateConnection(true);
+
+
+    } catch (error) {
+
+        console.error(
+            "حدث خطأ أثناء تحميل المباريات:",
+            error
+        );
+
+
+        updateConnection(false);
+
+
+        matchesContainer.innerHTML = `
+
+            <div class="error">
+
+                ❌ حدث خطأ أثناء تحميل المباريات.
+
+                <br><br>
+
+                تأكد من أن سياسة القراءة العامة
+                لجدول <strong>matches</strong>
+                مفعلة في Supabase.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   تحميل البيانات كلها
+===================================================== */
+
+async function loadAllData() {
+
+    try {
+
+        /*
+         * نحمّل الفرق أولًا
+         * حتى تكون الشعارات جاهزة
+         */
+
+        await loadTeams();
+
+
+        /*
+         * بعدها المباريات
+         */
+
+        await loadMatches();
+
+    } catch (error) {
+
+        console.error(
+            "خطأ تحميل البيانات:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   تنسيق التاريخ
+===================================================== */
+
+function formatDate(dateValue) {
+
+    if (!dateValue) {
+
+        return "التاريخ غير محدد";
+
     }
 
 
-    // ==========================================
-    // حماية النصوص القادمة من قاعدة البيانات
-    // ==========================================
+    const date =
+        String(dateValue);
 
-    function escapeHTML(value) {
 
-        return String(value)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
+    /*
+     * إذا كان التاريخ بالشكل:
+     * 2026-08-20
+     */
+
+    const parts =
+        date.split("-");
+
+
+    if (parts.length === 3) {
+
+        return (
+            parts[2] +
+            "-" +
+            parts[1] +
+            "-" +
+            parts[0]
+        );
 
     }
 
 
-    // ==========================================
-    // تشغيل الموقع
-    // ==========================================
+    return date;
 
-    loadMatches();
+}
+
+
+/* =====================================================
+   تنسيق الوقت
+===================================================== */
+
+function formatTime(timeValue) {
+
+    if (!timeValue) {
+
+        return "الوقت غير محدد";
+
+    }
+
+
+    const time =
+        String(timeValue);
+
+
+    /*
+     * PostgreSQL قد يرجع:
+     * 18:00:00
+     *
+     * نعرضها:
+     * 18:00
+     */
+
+    if (time.length >= 5) {
+
+        return time.substring(
+            0,
+            5
+        );
+
+    }
+
+
+    return time;
+
+}
+
+
+/* =====================================================
+   حالة الاتصال
+===================================================== */
+
+function updateConnection(isConnected) {
+
+    if (isConnected) {
+
+        connectionStatus.innerHTML = `
+
+            <span class="connection-dot"></span>
+
+            متصل بقاعدة البيانات
+
+        `;
+
+    } else {
+
+        connectionStatus.innerHTML = `
+
+            <span
+                class="connection-dot"
+                style="background:#dc2626;"
+            ></span>
+
+            تعذر الاتصال بقاعدة البيانات
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   حماية النصوص
+===================================================== */
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   حماية الروابط
+===================================================== */
+
+function escapeAttribute(value) {
+
+    return String(value ?? "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        );
+
+}
+
+
+/* =====================================================
+   التشغيل الأول
+===================================================== */
+
+loadAllData();
+
+
+/* =====================================================
+   تحديث تلقائي
+=====================================================
+
+   كل 10 ثوانٍ:
+
+   - الفرق
+   - الشعارات
+   - المباريات
+   - النتائج
+   - الحالات
+
+===================================================== */
+
+setInterval(
+    loadAllData,
+    10000
+);
 
 </script>
 
