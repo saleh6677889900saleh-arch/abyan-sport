@@ -1,14 +1,25 @@
+/* =========================================================
+   أبيان سبورت
+   js/app.js
+
+   الواجهة الرئيسية
+   الاتصال بـ Supabase
+   المباريات + الفرق + اللاعبين
+========================================================= */
+
 "use strict";
 
-/* =====================================================
-   SUPABASE
-===================================================== */
+
+/* =========================================================
+   إعداد Supabase
+========================================================= */
 
 const SUPABASE_URL =
     "https://ujbgrwgxhusgoobhoanx.supabase.co";
 
 const SUPABASE_KEY =
     "sb_publishable_oE8HsCGOsmRvIg0XwzymMA_I_33XlZ6";
+
 
 const supabaseClient =
     window.supabase.createClient(
@@ -17,87 +28,107 @@ const supabaseClient =
     );
 
 
-/* =====================================================
-   العناصر
-===================================================== */
-
-const connectionStatus =
-    document.getElementById("connectionStatus");
-
-const totalMatches =
-    document.getElementById("totalMatches");
-
-const liveMatchesCount =
-    document.getElementById("liveMatches");
-
-const totalTeams =
-    document.getElementById("totalTeams");
-
-const totalPlayers =
-    document.getElementById("totalPlayers");
-
-const liveMatchesContainer =
-    document.getElementById("liveMatches");
-
-const matchesList =
-    document.getElementById("matchesList");
-
-const teamsGrid =
-    document.getElementById("teamsGrid");
-
-const playersGrid =
-    document.getElementById("playersGrid");
-
-const liveCountBadge =
-    document.getElementById("liveCountBadge");
-
-const teamsCountBadge =
-    document.getElementById("teamsCountBadge");
-
-const playersCountBadge =
-    document.getElementById("playersCountBadge");
-
-const refreshBtn =
-    document.getElementById("refreshBtn");
-
-const menuBtn =
-    document.getElementById("menuBtn");
-
-const mainNav =
-    document.getElementById("mainNav");
-
-const detailsModal =
-    document.getElementById("detailsModal");
-
-const modalContent =
-    document.getElementById("modalContent");
-
-const closeModalBtn =
-    document.getElementById("closeModalBtn");
-
-
-/* =====================================================
-   البيانات
-===================================================== */
+/* =========================================================
+   حالة التطبيق
+========================================================= */
 
 let teams = [];
+
 let matches = [];
+
 let players = [];
 
 let currentFilter = "all";
 
+let dataLoaded = false;
 
-/* =====================================================
-   القائمة
-===================================================== */
 
-if (menuBtn && mainNav) {
+/* =========================================================
+   دالة مختصرة للحصول على عنصر
+========================================================= */
+
+function $(id) {
+
+    return document.getElementById(id);
+
+}
+
+
+/* =========================================================
+   العناصر
+========================================================= */
+
+const connectionStatus =
+    $("connectionStatus");
+
+const totalMatches =
+    $("totalMatches");
+
+const liveMatches =
+    $("liveMatches");
+
+const totalTeams =
+    $("totalTeams");
+
+const totalPlayers =
+    $("totalPlayers");
+
+const liveMatchesContainer =
+    $("liveMatches");
+
+const matchesList =
+    $("matchesList");
+
+const teamsGrid =
+    $("teamsGrid");
+
+const playersGrid =
+    $("playersGrid");
+
+const liveCountBadge =
+    $("liveCountBadge");
+
+const teamsCountBadge =
+    $("teamsCountBadge");
+
+const playersCountBadge =
+    $("playersCountBadge");
+
+const refreshBtn =
+    $("refreshBtn");
+
+const menuBtn =
+    $("menuBtn");
+
+const mainNav =
+    $("mainNav");
+
+const detailsModal =
+    $("detailsModal");
+
+const modalContent =
+    $("modalContent");
+
+const closeModalBtn =
+    $("closeModalBtn");
+
+
+/* =========================================================
+   تشغيل القائمة في الجوال
+========================================================= */
+
+if (
+    menuBtn &&
+    mainNav
+) {
 
     menuBtn.addEventListener(
         "click",
         function () {
 
-            mainNav.classList.toggle("open");
+            mainNav.classList.toggle(
+                "open"
+            );
 
         }
     );
@@ -105,57 +136,78 @@ if (menuBtn && mainNav) {
 }
 
 
-document.querySelectorAll(".nav-link")
-    .forEach(function (link) {
+/* =========================================================
+   إغلاق القائمة عند الضغط على رابط
+========================================================= */
 
-        link.addEventListener(
-            "click",
-            function () {
+document.querySelectorAll(
+    ".nav-link"
+).forEach(function (link) {
 
-                if (mainNav) {
-                    mainNav.classList.remove("open");
-                }
+    link.addEventListener(
+        "click",
+        function () {
+
+            if (mainNav) {
+
+                mainNav.classList.remove(
+                    "open"
+                );
 
             }
-        );
 
-    });
+        }
+    );
+
+});
 
 
-/* =====================================================
+/* =========================================================
    الفلاتر
-===================================================== */
+========================================================= */
 
-document.querySelectorAll(".filter-btn")
-    .forEach(function (button) {
+document.querySelectorAll(
+    ".filter-btn"
+).forEach(function (button) {
 
-        button.addEventListener(
-            "click",
-            function () {
+    button.addEventListener(
+        "click",
+        function () {
 
-                document.querySelectorAll(".filter-btn")
-                    .forEach(function (btn) {
+            document.querySelectorAll(
+                ".filter-btn"
+            ).forEach(
+                function (btn) {
 
-                        btn.classList.remove("active");
+                    btn.classList.remove(
+                        "active"
+                    );
 
-                    });
-
-                button.classList.add("active");
-
-                currentFilter =
-                    button.dataset.filter || "all";
-
-                renderMatches();
-
-            }
-        );
-
-    });
+                }
+            );
 
 
-/* =====================================================
+            button.classList.add(
+                "active"
+            );
+
+
+            currentFilter =
+                button.dataset.filter ||
+                "all";
+
+
+            renderMatches();
+
+        }
+    );
+
+});
+
+
+/* =========================================================
    زر التحديث
-===================================================== */
+========================================================= */
 
 if (refreshBtn) {
 
@@ -165,14 +217,21 @@ if (refreshBtn) {
 
             refreshBtn.disabled = true;
 
+            const oldText =
+                refreshBtn.textContent;
+
+
             refreshBtn.textContent =
                 "⏳ جاري التحديث...";
 
+
             await loadAllData();
+
 
             refreshBtn.disabled = false;
 
             refreshBtn.textContent =
+                oldText ||
                 "🔄 تحديث";
 
         }
@@ -181,362 +240,260 @@ if (refreshBtn) {
 }
 
 
-/* =====================================================
+/* =========================================================
    تحميل كل البيانات
-===================================================== */
+========================================================= */
 
 async function loadAllData() {
 
-    setConnection("loading");
-
-    console.log(
-        "===================================="
-    );
-
-    console.log(
-        "أبيان سبورت - بدء تحميل البيانات"
-    );
-
-    console.log(
-        "===================================="
+    setConnection(
+        "loading"
     );
 
 
-    await loadTeams();
+    try {
 
-    await loadMatches();
+        /*
+         * نحمل الجداول بشكل مستقل.
+         *
+         * إذا كان جدول players فيه مشكلة
+         * لا نوقف الفرق والمباريات.
+         */
 
-    await loadPlayers();
-
-
-    updateStatistics();
-
-    renderLiveMatches();
-
-    renderMatches();
-
-    renderTeams();
-
-    renderPlayers();
+        await Promise.all([
+            loadTeams(),
+            loadMatches(),
+            loadPlayers()
+        ]);
 
 
-    setConnection("connected");
+        updateStatistics();
+
+        renderLiveMatches();
+
+        renderMatches();
+
+        renderTeams();
+
+        renderPlayers();
 
 
-    console.log(
-        "الفرق:",
-        teams
-    );
-
-    console.log(
-        "المباريات:",
-        matches
-    );
-
-    console.log(
-        "اللاعبون:",
-        players
-    );
-
-}
+        dataLoaded = true;
 
 
-/* =====================================================
-   تحميل الفرق
-===================================================== */
-
-async function loadTeams() {
-
-    console.log(
-        "جاري طلب جدول teams..."
-    );
-
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient
-            .from("teams")
-            .select("*");
-
-
-    console.log(
-        "نتيجة teams:",
-        {
-            data,
-            error
-        }
-    );
-
-
-    if (error) {
-
-        console.error(
-            "❌ خطأ teams"
-        );
-
-        console.error(
-            "code:",
-            error.code
-        );
-
-        console.error(
-            "message:",
-            error.message
-        );
-
-        console.error(
-            "details:",
-            error.details
-        );
-
-        console.error(
-            "hint:",
-            error.hint
+        setConnection(
+            "connected"
         );
 
 
-        teams = [];
+    } catch (error) {
 
-        showDatabaseError(
-            teamsGrid,
-            "teams",
+        console.error(
+            "خطأ عام في تحميل الموقع:",
             error
         );
 
-        return;
+
+        setConnection(
+            "error"
+        );
 
     }
 
-
-    teams =
-        Array.isArray(data)
-            ? data
-            : [];
+}
 
 
-    console.log(
-        "✅ عدد الفرق:",
-        teams.length
-    );
+/* =========================================================
+   تحميل الفرق
+========================================================= */
+
+async function loadTeams() {
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("teams")
+                .select("*")
+                .order(
+                    "name",
+                    {
+                        ascending: true
+                    }
+                );
+
+
+        if (error) {
+
+            console.error(
+                "خطأ تحميل جدول teams:",
+                error
+            );
+
+            teams = [];
+
+            return;
+
+        }
+
+
+        teams =
+            Array.isArray(data)
+                ? data
+                : [];
+
+
+    } catch (error) {
+
+        console.error(
+            "خطأ غير متوقع في الفرق:",
+            error
+        );
+
+        teams = [];
+
+    }
 
 }
 
 
-/* =====================================================
+/* =========================================================
    تحميل المباريات
-===================================================== */
+========================================================= */
 
 async function loadMatches() {
 
-    console.log(
-        "جاري طلب جدول matches..."
-    );
+    try {
 
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient
-            .from("matches")
-            .select("*")
-            .order(
-                "match_date",
-                {
-                    ascending: true
-                }
-            )
-            .order(
-                "match_time",
-                {
-                    ascending: true
-                }
-            );
-
-
-    console.log(
-        "نتيجة matches:",
-        {
+        const {
             data,
             error
+        } =
+            await supabaseClient
+                .from("matches")
+                .select("*")
+                .order(
+                    "match_date",
+                    {
+                        ascending: true
+                    }
+                )
+                .order(
+                    "match_time",
+                    {
+                        ascending: true
+                    }
+                );
+
+
+        if (error) {
+
+            console.error(
+                "خطأ تحميل جدول matches:",
+                error
+            );
+
+            matches = [];
+
+            return;
+
         }
-    );
 
 
-    if (error) {
+        matches =
+            Array.isArray(data)
+                ? data
+                : [];
+
+
+    } catch (error) {
 
         console.error(
-            "❌ خطأ matches:",
+            "خطأ غير متوقع في المباريات:",
             error
         );
 
         matches = [];
 
-        showDatabaseError(
-            matchesList,
-            "matches",
-            error
-        );
-
-        return;
-
     }
-
-
-    matches =
-        Array.isArray(data)
-            ? data
-            : [];
-
-
-    console.log(
-        "✅ عدد المباريات:",
-        matches.length
-    );
 
 }
 
 
-/* =====================================================
+/* =========================================================
    تحميل اللاعبين
-===================================================== */
+========================================================= */
 
 async function loadPlayers() {
 
-    console.log(
-        "جاري طلب جدول players..."
-    );
+    try {
 
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient
-            .from("players")
-            .select("*");
-
-
-    console.log(
-        "نتيجة players:",
-        {
+        const {
             data,
             error
+        } =
+            await supabaseClient
+                .from("players")
+                .select("*")
+                .order(
+                    "name",
+                    {
+                        ascending: true
+                    }
+                );
+
+
+        if (error) {
+
+            console.error(
+                "خطأ تحميل جدول players:",
+                error
+            );
+
+            /*
+             * لا نوقف الموقع كاملًا
+             * بسبب اللاعبين.
+             */
+
+            players = [];
+
+            return;
+
         }
-    );
 
 
-    if (error) {
+        players =
+            Array.isArray(data)
+                ? data
+                : [];
 
-        console.error(
-            "❌ خطأ players"
+
+        console.log(
+            "تم تحميل اللاعبين:",
+            players.length
         );
 
-        console.error(
-            "code:",
-            error.code
-        );
+
+    } catch (error) {
 
         console.error(
-            "message:",
-            error.message
+            "خطأ غير متوقع في اللاعبين:",
+            error
         );
-
-        console.error(
-            "details:",
-            error.details
-        );
-
-        console.error(
-            "hint:",
-            error.hint
-        );
-
 
         players = [];
 
-        showDatabaseError(
-            playersGrid,
-            "players",
-            error
-        );
-
-        return;
-
     }
-
-
-    players =
-        Array.isArray(data)
-            ? data
-            : [];
-
-
-    console.log(
-        "✅ عدد اللاعبين:",
-        players.length
-    );
 
 }
 
 
-/* =====================================================
-   عرض خطأ قاعدة البيانات
-===================================================== */
-
-function showDatabaseError(
-    element,
-    table,
-    error
-) {
-
-    if (!element) {
-        return;
-    }
-
-
-    element.innerHTML = `
-
-        <div class="empty-card">
-
-            <div style="font-size:40px;">
-                ❌
-            </div>
-
-            <strong>
-                تعذر تحميل جدول ${escapeHTML(table)}
-            </strong>
-
-            <p>
-                ${escapeHTML(
-                    error?.message ||
-                    "خطأ غير معروف"
-                )}
-            </p>
-
-            ${
-                error?.code
-                    ? `
-                        <small>
-                            Code:
-                            ${escapeHTML(error.code)}
-                        </small>
-                      `
-                    : ""
-            }
-
-        </div>
-
-    `;
-
-}
-
-
-/* =====================================================
+/* =========================================================
    الإحصائيات
-===================================================== */
+========================================================= */
 
 function updateStatistics() {
 
@@ -547,57 +504,76 @@ function updateStatistics() {
 
 
     if (totalMatches) {
+
         totalMatches.textContent =
             matches.length;
+
     }
 
 
-    if (liveMatchesCount) {
-        liveMatchesCount.textContent =
+    if (liveMatches) {
+
+        liveMatches.textContent =
             live.length;
+
     }
 
 
     if (totalTeams) {
+
         totalTeams.textContent =
             teams.length;
+
     }
 
 
     if (totalPlayers) {
+
         totalPlayers.textContent =
             players.length;
+
     }
 
 
     if (liveCountBadge) {
+
         liveCountBadge.textContent =
-            live.length + " مباشر";
+            live.length +
+            " مباشر";
+
     }
 
 
     if (teamsCountBadge) {
+
         teamsCountBadge.textContent =
-            teams.length + " فريق";
+            teams.length +
+            " فريق";
+
     }
 
 
     if (playersCountBadge) {
+
         playersCountBadge.textContent =
-            players.length + " لاعب";
+            players.length +
+            " لاعب";
+
     }
 
 }
 
 
-/* =====================================================
+/* =========================================================
    المباريات المباشرة
-===================================================== */
+========================================================= */
 
 function renderLiveMatches() {
 
     if (!liveMatchesContainer) {
+
         return;
+
     }
 
 
@@ -613,13 +589,18 @@ function renderLiveMatches() {
 
             <div class="empty-card">
 
-                <div style="font-size:40px;">
+                <div class="empty-icon">
                     💤
                 </div>
 
                 <strong>
                     لا توجد مباريات مباشرة الآن
                 </strong>
+
+                <p>
+                    ستظهر المباراة هنا تلقائيًا
+                    عند تحويل حالتها إلى "مباشرة".
+                </p>
 
             </div>
 
@@ -632,30 +613,34 @@ function renderLiveMatches() {
 
     liveMatchesContainer.innerHTML =
         live
-            .map(createMatchCard)
+            .map(
+                createMatchCard
+            )
             .join("");
 
 }
 
 
-/* =====================================================
-   المباريات
-===================================================== */
+/* =========================================================
+   عرض المباريات
+========================================================= */
 
 function renderMatches() {
 
     if (!matchesList) {
+
         return;
+
     }
 
 
-    let list = [
-        ...matches
-    ];
+    let list =
+        [...matches];
 
 
     if (
-        currentFilter !== "all"
+        currentFilter !==
+        "all"
     ) {
 
         list =
@@ -675,6 +660,10 @@ function renderMatches() {
     }
 
 
+    /*
+     * المباريات المباشرة أولًا.
+     */
+
     list.sort(
         function (a, b) {
 
@@ -683,14 +672,23 @@ function renderMatches() {
                     ? 0
                     : 1;
 
+
             const bLive =
                 isLiveMatch(b)
                     ? 0
                     : 1;
 
 
-            if (aLive !== bLive) {
-                return aLive - bLive;
+            if (
+                aLive !==
+                bLive
+            ) {
+
+                return (
+                    aLive -
+                    bLive
+                );
+
             }
 
 
@@ -709,11 +707,17 @@ function renderMatches() {
 
             <div class="empty-card">
 
-                ⚽
+                <div class="empty-icon">
+                    ⚽
+                </div>
 
-                <br>
+                <strong>
+                    لا توجد مباريات
+                </strong>
 
-                لا توجد مباريات
+                <p>
+                    لا توجد بيانات مطابقة للفترة المحددة.
+                </p>
 
             </div>
 
@@ -726,72 +730,181 @@ function renderMatches() {
 
     matchesList.innerHTML =
         list
-            .map(createMatchCard)
+            .map(
+                createMatchCard
+            )
             .join("");
 
 }
 
 
-/* =====================================================
-   بطاقة المباراة
-===================================================== */
+/* =========================================================
+   مقارنة المباريات
+========================================================= */
+
+function compareMatches(
+    a,
+    b
+) {
+
+    const dateA =
+        String(
+            a.match_date || ""
+        );
+
+
+    const dateB =
+        String(
+            b.match_date || ""
+        );
+
+
+    if (
+        dateA <
+        dateB
+    ) {
+
+        return -1;
+
+    }
+
+
+    if (
+        dateA >
+        dateB
+    ) {
+
+        return 1;
+
+    }
+
+
+    const timeA =
+        String(
+            a.match_time || ""
+        );
+
+
+    const timeB =
+        String(
+            b.match_time || ""
+        );
+
+
+    return timeA.localeCompare(
+        timeB
+    );
+
+}
+
+
+/* =========================================================
+   إنشاء بطاقة المباراة
+========================================================= */
 
 function createMatchCard(
     match
 ) {
 
     const home =
-        getHomeTeamName(match);
+        getHomeTeamName(
+            match
+        );
+
 
     const away =
-        getAwayTeamName(match);
+        getAwayTeamName(
+            match
+        );
+
 
     const status =
-        normalizeStatus(match.status);
+        normalizeStatus(
+            match.status
+        );
+
 
     const homeTeam =
-        findTeam(home);
+        findTeam(
+            home
+        );
+
 
     const awayTeam =
-        findTeam(away);
+        findTeam(
+            away
+        );
+
 
     const score =
-        getScore(match);
+        getScore(
+            match
+        );
+
 
     const live =
-        isLiveMatch(match);
+        isLiveMatch(
+            match
+        );
+
+
+    const statusClass =
+        getStatusClass(
+            status
+        );
 
 
     return `
 
-        <article class="match-card">
+        <article
+            class="match-card"
+            data-match-id="${escapeHTML(
+                match.id || ""
+            )}"
+        >
 
             <div class="match-top">
 
                 <div class="match-date">
 
-                    ${formatDate(
-                        match.match_date
+                    📅
+                    ${escapeHTML(
+                        formatDate(
+                            match.match_date
+                        )
                     )}
 
-                    -
+                    <br>
 
-                    ${formatTime(
-                        match.match_time
+                    🕐
+                    ${escapeHTML(
+                        formatTime(
+                            match.match_time
+                        )
                     )}
 
                 </div>
 
 
                 <span
-                    class="status
-                    ${getStatusClass(status)}"
+                    class="status ${statusClass}"
                 >
 
                     ${
                         live
-                            ? "🔴 مباشر"
-                            : escapeHTML(status)
+                            ? `
+                                <span class="live-indicator">
+
+                                    <span class="live-pulse"></span>
+
+                                    مباشر
+
+                                </span>
+                              `
+                            : escapeHTML(
+                                status ||
+                                "قادمة"
+                            )
                     }
 
                 </span>
@@ -800,6 +913,7 @@ function createMatchCard(
 
 
             <div class="match-teams">
+
 
                 <div class="match-team">
 
@@ -810,25 +924,41 @@ function createMatchCard(
 
                     <div class="match-team-name">
 
-                        ${escapeHTML(home)}
+                        ${escapeHTML(
+                            home
+                        )}
 
                     </div>
 
                 </div>
 
 
-                <div>
+                <div class="match-center">
 
                     <div
                         class="
                             match-score
-                            ${score.pending ? "pending" : ""}
+                            ${
+                                score.pending
+                                    ? "pending"
+                                    : ""
+                            }
                         "
                     >
 
                         ${score.html}
 
                     </div>
+
+                    ${
+                        live
+                            ? `
+                                <div class="live-small">
+                                    🔴 مباشر
+                                </div>
+                              `
+                            : ""
+                    }
 
                 </div>
 
@@ -842,7 +972,9 @@ function createMatchCard(
 
                     <div class="match-team-name">
 
-                        ${escapeHTML(away)}
+                        ${escapeHTML(
+                            away
+                        )}
 
                     </div>
 
@@ -852,16 +984,6 @@ function createMatchCard(
 
 
             <div class="match-meta">
-
-                📅
-                ${formatDate(match.match_date)}
-
-                &nbsp; • &nbsp;
-
-                🕐
-                ${formatTime(match.match_time)}
-
-                <br>
 
                 🏟️
                 ${escapeHTML(
@@ -878,934 +1000,9 @@ function createMatchCard(
 }
 
 
-/* =====================================================
-   الفرق
-===================================================== */
-
-function renderTeams() {
-
-    if (!teamsGrid) {
-        return;
-    }
-
-
-    if (teams.length === 0) {
-
-        teamsGrid.innerHTML = `
-
-            <div class="empty-card">
-
-                <div style="font-size:45px;">
-                    ⚽
-                </div>
-
-                <strong>
-                    لا توجد فرق
-                </strong>
-
-                <p>
-                    لم يتم العثور على فرق في قاعدة البيانات.
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    teamsGrid.innerHTML =
-        teams
-            .map(createTeamCard)
-            .join("");
-
-
-    document.querySelectorAll(".team-card")
-        .forEach(function (card) {
-
-            card.addEventListener(
-                "click",
-                function () {
-
-                    const id =
-                        card.dataset.id;
-
-
-                    const team =
-                        teams.find(
-                            function (item) {
-
-                                return String(
-                                    item.id
-                                ) ===
-                                String(id);
-
-                            }
-                        );
-
-
-                    if (team) {
-                        showTeamDetails(team);
-                    }
-
-                }
-            );
-
-        });
-
-}
-
-
-/* =====================================================
-   بطاقة الفريق
-===================================================== */
-
-function createTeamCard(
-    team
-) {
-
-    const name =
-        team.name ||
-        "فريق";
-
-
-    return `
-
-        <article
-            class="team-card"
-            data-id="${escapeHTML(team.id || "")}"
-        >
-
-            <div class="team-card-logo">
-
-                ${
-                    team.logo_url
-                        ? `
-                            <img
-                                src="${safeImageUrl(team.logo_url)}"
-                                alt="شعار ${escapeHTML(name)}"
-                                loading="lazy"
-                                onerror="
-                                    this.style.display='none';
-                                    this.nextElementSibling.style.display='block';
-                                "
-                            >
-
-                            <span style="display:none;">
-                                ⚽
-                            </span>
-                          `
-                        : `
-                            <span>
-                                ⚽
-                            </span>
-                          `
-                }
-
-            </div>
-
-
-            <h3>
-
-                ${escapeHTML(name)}
-
-            </h3>
-
-
-            <p>
-
-                ${escapeHTML(
-                    team.city || "أبين"
-                )}
-
-            </p>
-
-
-            <div class="team-card-footer">
-
-                عرض معلومات الفريق ←
-
-            </div>
-
-        </article>
-
-    `;
-
-}
-
-
-/* =====================================================
-   اللاعبون
-===================================================== */
-
-function renderPlayers() {
-
-    if (!playersGrid) {
-        return;
-    }
-
-
-    if (players.length === 0) {
-
-        playersGrid.innerHTML = `
-
-            <div class="empty-card">
-
-                <div style="font-size:45px;">
-                    👤
-                </div>
-
-                <strong>
-                    لا يوجد لاعبون
-                </strong>
-
-                <p>
-                    لم يتم العثور على لاعبين في قاعدة البيانات.
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    const visiblePlayers =
-        players.filter(
-            function (player) {
-
-                /*
-                 * لا نخفي اللاعب إلا إذا
-                 * كان active موجودًا وقيمته false
-                 */
-
-                if (
-                    player.active === false
-                ) {
-                    return false;
-                }
-
-
-                if (
-                    player.is_active === false
-                ) {
-                    return false;
-                }
-
-
-                return true;
-
-            }
-        );
-
-
-    playersGrid.innerHTML =
-        visiblePlayers
-            .map(createPlayerCard)
-            .join("");
-
-
-    document.querySelectorAll(".player-card")
-        .forEach(function (card) {
-
-            card.addEventListener(
-                "click",
-                function () {
-
-                    const id =
-                        card.dataset.id;
-
-
-                    const player =
-                        players.find(
-                            function (item) {
-
-                                return String(
-                                    item.id
-                                ) ===
-                                String(id);
-
-                            }
-                        );
-
-
-                    if (player) {
-                        showPlayerDetails(player);
-                    }
-
-                }
-            );
-
-        });
-
-}
-
-
-/* =====================================================
-   بطاقة اللاعب
-===================================================== */
-
-function createPlayerCard(
-    player
-) {
-
-    const teamName =
-        getPlayerTeamName(player);
-
-
-    const position =
-        player.position ||
-        "لاعب";
-
-
-    const number =
-        getValue(
-            player,
-            [
-                "number",
-                "player_number",
-                "shirt_number"
-            ]
-        );
-
-
-    const photo =
-        getPlayerPhoto(player);
-
-
-    return `
-
-        <article
-            class="player-card"
-            data-id="${escapeHTML(player.id || "")}"
-        >
-
-            <div class="player-photo">
-
-                ${
-                    photo
-                        ? `
-                            <img
-                                src="${safeImageUrl(photo)}"
-                                alt="${escapeHTML(
-                                    player.name || "اللاعب"
-                                )}"
-                                loading="lazy"
-                                onerror="
-                                    this.style.display='none';
-                                    this.nextElementSibling.style.display='block';
-                                "
-                            >
-
-                            <span
-                                class="player-placeholder"
-                                style="display:none;"
-                            >
-                                👤
-                            </span>
-                          `
-                        : `
-                            <span class="player-placeholder">
-                                👤
-                            </span>
-                          `
-                }
-
-            </div>
-
-
-            <div class="player-body">
-
-                <h3>
-
-                    ${escapeHTML(
-                        player.name || "لاعب"
-                    )}
-
-                </h3>
-
-
-                <div class="player-team">
-
-                    ⚽
-                    ${escapeHTML(teamName)}
-
-                </div>
-
-
-                <div class="player-details">
-
-                    <span class="player-tag">
-
-                        ${escapeHTML(position)}
-
-                    </span>
-
-
-                    ${
-                        number !== null &&
-                        number !== undefined &&
-                        number !== ""
-                            ? `
-                                <span class="player-tag">
-
-                                    رقم ${escapeHTML(number)}
-
-                                </span>
-                              `
-                            : ""
-                    }
-
-                </div>
-
-            </div>
-
-        </article>
-
-    `;
-
-}
-
-
-/* =====================================================
-   تفاصيل الفريق
-===================================================== */
-
-function showTeamDetails(
-    team
-) {
-
-    if (!modalContent) {
-        return;
-    }
-
-
-    const teamPlayers =
-        players.filter(
-            function (player) {
-
-                return (
-                    getPlayerTeamName(player) ===
-                    String(team.name || "")
-                );
-
-            }
-        );
-
-
-    modalContent.innerHTML = `
-
-        <div class="modal-team-head">
-
-            <div class="modal-big-logo">
-
-                ${
-                    team.logo_url
-                        ? `
-                            <img
-                                src="${safeImageUrl(team.logo_url)}"
-                                alt="${escapeHTML(team.name || "فريق")}"
-                            >
-                          `
-                        : `
-                            ⚽
-                          `
-                }
-
-            </div>
-
-
-            <h2>
-
-                ${escapeHTML(
-                    team.name || "فريق"
-                )}
-
-            </h2>
-
-
-            <div class="modal-muted">
-
-                ${escapeHTML(
-                    team.city || "أبين"
-                )}
-
-            </div>
-
-        </div>
-
-
-        <div class="modal-info-grid">
-
-            <div class="modal-info-item">
-
-                <strong>المدرب</strong>
-
-                <span>
-                    ${escapeHTML(
-                        team.coach || "غير محدد"
-                    )}
-                </span>
-
-            </div>
-
-
-            <div class="modal-info-item">
-
-                <strong>سنة التأسيس</strong>
-
-                <span>
-                    ${escapeHTML(
-                        team.founded_year || "غير محددة"
-                    )}
-                </span>
-
-            </div>
-
-
-            <div class="modal-info-item">
-
-                <strong>عدد اللاعبين</strong>
-
-                <span>
-                    ${teamPlayers.length}
-                </span>
-
-            </div>
-
-        </div>
-
-
-        ${
-            team.description
-                ? `
-                    <div style="margin-top:20px;">
-
-                        <strong>
-                            نبذة
-                        </strong>
-
-                        <p>
-                            ${escapeHTML(
-                                team.description
-                            )}
-                        </p>
-
-                    </div>
-                  `
-                : ""
-        }
-
-    `;
-
-
-    openModal();
-
-}
-
-
-/* =====================================================
-   تفاصيل اللاعب
-===================================================== */
-
-function showPlayerDetails(
-    player
-) {
-
-    if (!modalContent) {
-        return;
-    }
-
-
-    const teamName =
-        getPlayerTeamName(player);
-
-
-    const photo =
-        getPlayerPhoto(player);
-
-
-    modalContent.innerHTML = `
-
-        <div class="modal-player-head">
-
-            <div class="modal-big-logo">
-
-                ${
-                    photo
-                        ? `
-                            <img
-                                src="${safeImageUrl(photo)}"
-                                alt="${escapeHTML(
-                                    player.name || "اللاعب"
-                                )}"
-                            >
-                          `
-                        : `
-                            👤
-                          `
-                }
-
-            </div>
-
-
-            <h2>
-
-                ${escapeHTML(
-                    player.name || "اللاعب"
-                )}
-
-            </h2>
-
-
-            <div class="modal-muted">
-
-                ⚽
-                ${escapeHTML(teamName)}
-
-            </div>
-
-        </div>
-
-
-        <div class="modal-info-grid">
-
-            <div class="modal-info-item">
-
-                <strong>المركز</strong>
-
-                <span>
-                    ${escapeHTML(
-                        player.position || "غير محدد"
-                    )}
-                </span>
-
-            </div>
-
-
-            <div class="modal-info-item">
-
-                <strong>رقم القميص</strong>
-
-                <span>
-                    ${escapeHTML(
-                        getValue(
-                            player,
-                            [
-                                "number",
-                                "player_number",
-                                "shirt_number"
-                            ]
-                        ) || "غير محدد"
-                    )}
-                </span>
-
-            </div>
-
-
-            <div class="modal-info-item">
-
-                <strong>تاريخ الميلاد</strong>
-
-                <span>
-                    ${formatDate(
-                        player.birth_date
-                    )}
-                </span>
-
-            </div>
-
-
-            <div class="modal-info-item">
-
-                <strong>الجنسية</strong>
-
-                <span>
-                    ${escapeHTML(
-                        player.nationality ||
-                        "غير محددة"
-                    )}
-                </span>
-
-            </div>
-
-        </div>
-
-
-        ${
-            player.bio
-                ? `
-                    <div style="margin-top:20px;">
-
-                        <strong>
-                            نبذة عن اللاعب
-                        </strong>
-
-                        <p>
-                            ${escapeHTML(player.bio)}
-                        </p>
-
-                    </div>
-                  `
-                : ""
-        }
-
-    `;
-
-
-    openModal();
-
-}
-
-
-/* =====================================================
-   Modal
-===================================================== */
-
-function openModal() {
-
-    if (!detailsModal) {
-        return;
-    }
-
-
-    detailsModal.classList.remove("hidden");
-
-    detailsModal.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-    document.body.style.overflow =
-        "hidden";
-
-}
-
-
-function closeModal() {
-
-    if (!detailsModal) {
-        return;
-    }
-
-
-    detailsModal.classList.add("hidden");
-
-    detailsModal.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-    document.body.style.overflow =
-        "";
-
-}
-
-
-if (closeModalBtn) {
-
-    closeModalBtn.addEventListener(
-        "click",
-        closeModal
-    );
-
-}
-
-
-const modalOverlay =
-    document.querySelector(".modal-overlay");
-
-
-if (modalOverlay) {
-
-    modalOverlay.addEventListener(
-        "click",
-        closeModal
-    );
-
-}
-
-
-document.addEventListener(
-    "keydown",
-    function (event) {
-
-        if (
-            event.key === "Escape"
-        ) {
-
-            closeModal();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   الأدوات
-===================================================== */
-
-function findTeam(
-    teamName
-) {
-
-    const normalized =
-        normalizeName(teamName);
-
-
-    return teams.find(
-        function (team) {
-
-            return (
-                normalizeName(team.name) ===
-                normalized
-            );
-
-        }
-    ) || null;
-
-}
-
-
-function getHomeTeamName(
-    match
-) {
-
-    return (
-        match.home_team ||
-        match.homeTeam ||
-        match.home_team_name ||
-        "الفريق المضيف"
-    );
-
-}
-
-
-function getAwayTeamName(
-    match
-) {
-
-    return (
-        match.away_team ||
-        match.awayTeam ||
-        match.away_team_name ||
-        "الفريق الضيف"
-    );
-
-}
-
-
-function getPlayerTeamName(
-    player
-) {
-
-    if (player.team_name) {
-        return player.team_name;
-    }
-
-
-    if (player.team) {
-
-        if (
-            typeof player.team === "object"
-        ) {
-
-            return (
-                player.team.name ||
-                "غير محدد"
-            );
-
-        }
-
-        return player.team;
-
-    }
-
-
-    if (player.team_id) {
-
-        const team =
-            teams.find(
-                function (item) {
-
-                    return String(item.id) ===
-                        String(player.team_id);
-
-                }
-            );
-
-
-        return team
-            ? team.name
-            : "غير محدد";
-
-    }
-
-
-    return "غير محدد";
-
-}
-
-
-function getPlayerPhoto(
-    player
-) {
-
-    return (
-        player.photo_url ||
-        player.photo ||
-        player.image_url ||
-        player.image ||
-        ""
-    );
-
-}
-
-
-function createLogo(
-    team,
-    name
-) {
-
-    if (
-        team &&
-        team.logo_url
-    ) {
-
-        return `
-
-            <div class="team-logo">
-
-                <img
-                    src="${safeImageUrl(team.logo_url)}"
-                    alt="شعار ${escapeHTML(name)}"
-                    loading="lazy"
-                >
-
-            </div>
-
-        `;
-
-    }
-
-
-    return `
-
-        <div class="team-logo">
-
-            ⚽
-
-        </div>
-
-    `;
-
-}
-
+/* =========================================================
+   النتيجة
+========================================================= */
 
 function getScore(
     match
@@ -1843,23 +1040,1308 @@ function getScore(
     ) {
 
         return {
+
             pending: true,
-            html: "لم تبدأ"
+
+            html:
+                "لم تبدأ"
+
         };
 
     }
 
 
     return {
+
         pending: false,
+
         html:
             escapeHTML(home) +
             " - " +
             escapeHTML(away)
+
     };
 
 }
 
+
+/* =========================================================
+   الفرق
+========================================================= */
+
+function renderTeams() {
+
+    if (!teamsGrid) {
+
+        return;
+
+    }
+
+
+    if (
+        teams.length === 0
+    ) {
+
+        teamsGrid.innerHTML = `
+
+            <div class="empty-card">
+
+                <div class="empty-icon">
+                    ⚽
+                </div>
+
+                <strong>
+                    لا توجد فرق مسجلة حاليًا
+                </strong>
+
+                <p>
+                    أضف الفرق من لوحة الإدارة.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    teamsGrid.innerHTML =
+        teams
+            .map(
+                createTeamCard
+            )
+            .join("");
+
+
+    document.querySelectorAll(
+        ".team-card"
+    ).forEach(
+        function (card) {
+
+            card.addEventListener(
+                "click",
+                function () {
+
+                    const id =
+                        card.dataset.id;
+
+
+                    const team =
+                        teams.find(
+                            function (item) {
+
+                                return String(
+                                    item.id
+                                ) ===
+                                String(id);
+
+                            }
+                        );
+
+
+                    if (team) {
+
+                        showTeamDetails(
+                            team
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   بطاقة الفريق
+========================================================= */
+
+function createTeamCard(
+    team
+) {
+
+    const name =
+        team.name ||
+        "فريق غير معروف";
+
+
+    const city =
+        team.city ||
+        "أبين";
+
+
+    return `
+
+        <article
+            class="team-card"
+            data-id="${escapeHTML(
+                team.id || ""
+            )}"
+        >
+
+            <div class="team-card-logo">
+
+                ${
+                    safeImageUrl(
+                        team.logo_url
+                    )
+                        ? `
+                            <img
+                                src="${safeImageUrl(
+                                    team.logo_url
+                                )}"
+                                alt="شعار ${escapeHTML(
+                                    name
+                                )}"
+                                loading="lazy"
+                                onerror="
+                                    this.style.display='none';
+                                    this.nextElementSibling.style.display='block';
+                                "
+                            >
+
+                            <span
+                                style="display:none;"
+                            >
+                                ⚽
+                            </span>
+                          `
+                        : `
+                            <span>
+                                ⚽
+                            </span>
+                          `
+                }
+
+            </div>
+
+
+            <h3>
+
+                ${escapeHTML(
+                    name
+                )}
+
+            </h3>
+
+
+            <p>
+
+                📍
+                ${escapeHTML(
+                    city
+                )}
+
+            </p>
+
+
+            <div class="team-card-footer">
+
+                عرض معلومات الفريق
+                ←
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+
+/* =========================================================
+   اللاعبون
+========================================================= */
+
+function renderPlayers() {
+
+    if (!playersGrid) {
+
+        return;
+
+    }
+
+
+    /*
+     * لا نخفي اللاعب إلا إذا كانت قيمة
+     * active أو is_active تساوي false صراحة.
+     */
+
+    const visiblePlayers =
+        players.filter(
+            function (player) {
+
+                return (
+                    player.active !== false &&
+                    player.is_active !== false
+                );
+
+            }
+        );
+
+
+    if (
+        visiblePlayers.length === 0
+    ) {
+
+        playersGrid.innerHTML = `
+
+            <div class="empty-card">
+
+                <div class="empty-icon">
+                    👤
+                </div>
+
+                <strong>
+                    لا توجد بيانات لاعبين
+                </strong>
+
+                <p>
+                    ${
+                        players.length === 0
+                            ? "لم يتم العثور على لاعبين في قاعدة البيانات."
+                            : "لا يوجد لاعبون نشطون حاليًا."
+                    }
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    playersGrid.innerHTML =
+        visiblePlayers
+            .map(
+                createPlayerCard
+            )
+            .join("");
+
+
+    document.querySelectorAll(
+        ".player-card"
+    ).forEach(
+        function (card) {
+
+            card.addEventListener(
+                "click",
+                function () {
+
+                    const id =
+                        card.dataset.id;
+
+
+                    const player =
+                        players.find(
+                            function (item) {
+
+                                return String(
+                                    item.id
+                                ) ===
+                                String(id);
+
+                            }
+                        );
+
+
+                    if (player) {
+
+                        showPlayerDetails(
+                            player
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   بطاقة اللاعب
+========================================================= */
+
+function createPlayerCard(
+    player
+) {
+
+    const playerName =
+        player.name ||
+        player.full_name ||
+        "لاعب";
+
+
+    const teamName =
+        getPlayerTeamName(
+            player
+        );
+
+
+    const position =
+        player.position ||
+        player.role ||
+        "لاعب";
+
+
+    const number =
+        getValue(
+            player,
+            [
+                "number",
+                "player_number",
+                "shirt_number",
+                "jersey_number"
+            ]
+        );
+
+
+    const photo =
+        getPlayerPhoto(
+            player
+        );
+
+
+    return `
+
+        <article
+            class="player-card"
+            data-id="${escapeHTML(
+                player.id || ""
+            )}"
+        >
+
+            <div class="player-photo">
+
+                ${
+                    safeImageUrl(
+                        photo
+                    )
+                        ? `
+                            <img
+                                src="${safeImageUrl(
+                                    photo
+                                )}"
+                                alt="${escapeHTML(
+                                    playerName
+                                )}"
+                                loading="lazy"
+                                onerror="
+                                    this.style.display='none';
+                                    this.nextElementSibling.style.display='block';
+                                "
+                            >
+
+                            <span
+                                class="player-placeholder"
+                                style="display:none;"
+                            >
+                                👤
+                            </span>
+                          `
+                        : `
+                            <span class="player-placeholder">
+                                👤
+                            </span>
+                          `
+                }
+
+            </div>
+
+
+            <div class="player-body">
+
+                <h3>
+
+                    ${escapeHTML(
+                        playerName
+                    )}
+
+                </h3>
+
+
+                <div class="player-team">
+
+                    ⚽
+                    ${escapeHTML(
+                        teamName
+                    )}
+
+                </div>
+
+
+                <div class="player-details">
+
+                    <span class="player-tag">
+
+                        ${escapeHTML(
+                            position
+                        )}
+
+                    </span>
+
+
+                    ${
+                        number !== null &&
+                        number !== undefined &&
+                        number !== ""
+                            ? `
+                                <span class="player-tag">
+
+                                    رقم
+                                    ${escapeHTML(
+                                        number
+                                    )}
+
+                                </span>
+                              `
+                            : ""
+                    }
+
+                </div>
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+
+/* =========================================================
+   تفاصيل الفريق
+========================================================= */
+
+function showTeamDetails(
+    team
+) {
+
+    if (
+        !detailsModal ||
+        !modalContent
+    ) {
+
+        return;
+
+    }
+
+
+    const teamPlayers =
+        players.filter(
+            function (player) {
+
+                return normalizeName(
+                    getPlayerTeamName(
+                        player
+                    )
+                ) ===
+                normalizeName(
+                    team.name || ""
+                );
+
+            }
+        );
+
+
+    modalContent.innerHTML = `
+
+        <div class="modal-team-head">
+
+            <div class="modal-big-logo">
+
+                ${
+                    safeImageUrl(
+                        team.logo_url
+                    )
+                        ? `
+                            <img
+                                src="${safeImageUrl(
+                                    team.logo_url
+                                )}"
+                                alt="${escapeHTML(
+                                    team.name ||
+                                    "الفريق"
+                                )}"
+                            >
+                          `
+                        : `
+                            <span>
+                                ⚽
+                            </span>
+                          `
+                }
+
+            </div>
+
+
+            <h2>
+
+                ${escapeHTML(
+                    team.name ||
+                    "فريق"
+                )}
+
+            </h2>
+
+
+            <div class="modal-muted">
+
+                📍
+                ${escapeHTML(
+                    team.city ||
+                    "أبين"
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-info-grid">
+
+
+            <div class="modal-info-item">
+
+                <strong>
+                    المدرب
+                </strong>
+
+                <span>
+
+                    ${escapeHTML(
+                        team.coach ||
+                        "غير محدد"
+                    )}
+
+                </span>
+
+            </div>
+
+
+            <div class="modal-info-item">
+
+                <strong>
+                    سنة التأسيس
+                </strong>
+
+                <span>
+
+                    ${escapeHTML(
+                        team.founded_year ||
+                        "غير محددة"
+                    )}
+
+                </span>
+
+            </div>
+
+
+            <div class="modal-info-item">
+
+                <strong>
+                    عدد اللاعبين
+                </strong>
+
+                <span>
+
+                    ${teamPlayers.length}
+
+                </span>
+
+            </div>
+
+
+            <div class="modal-info-item">
+
+                <strong>
+                    المدينة
+                </strong>
+
+                <span>
+
+                    ${escapeHTML(
+                        team.city ||
+                        "غير محددة"
+                    )}
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        ${
+            team.description
+                ? `
+                    <div class="modal-description">
+
+                        <strong>
+                            نبذة عن الفريق
+                        </strong>
+
+                        <p>
+
+                            ${escapeHTML(
+                                team.description
+                            )}
+
+                        </p>
+
+                    </div>
+                  `
+                : ""
+        }
+
+    `;
+
+
+    openModal();
+
+}
+
+
+/* =========================================================
+   تفاصيل اللاعب
+========================================================= */
+
+function showPlayerDetails(
+    player
+) {
+
+    if (
+        !detailsModal ||
+        !modalContent
+    ) {
+
+        return;
+
+    }
+
+
+    const playerName =
+        player.name ||
+        player.full_name ||
+        "اللاعب";
+
+
+    const teamName =
+        getPlayerTeamName(
+            player
+        );
+
+
+    const photo =
+        getPlayerPhoto(
+            player
+        );
+
+
+    const number =
+        getValue(
+            player,
+            [
+                "number",
+                "player_number",
+                "shirt_number",
+                "jersey_number"
+            ]
+        );
+
+
+    const position =
+        player.position ||
+        player.role ||
+        "غير محدد";
+
+
+    const birthDate =
+        player.birth_date ||
+        player.birthDate ||
+        player.date_of_birth;
+
+
+    modalContent.innerHTML = `
+
+        <div class="modal-player-head">
+
+            <div class="modal-big-logo">
+
+                ${
+                    safeImageUrl(
+                        photo
+                    )
+                        ? `
+                            <img
+                                src="${safeImageUrl(
+                                    photo
+                                )}"
+                                alt="${escapeHTML(
+                                    playerName
+                                )}"
+                            >
+                          `
+                        : `
+                            <span>
+                                👤
+                            </span>
+                          `
+                }
+
+            </div>
+
+
+            <h2>
+
+                ${escapeHTML(
+                    playerName
+                )}
+
+            </h2>
+
+
+            <div class="modal-muted">
+
+                ⚽
+                ${escapeHTML(
+                    teamName
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-info-grid">
+
+
+            <div class="modal-info-item">
+
+                <strong>
+                    المركز
+                </strong>
+
+                <span>
+
+                    ${escapeHTML(
+                        position
+                    )}
+
+                </span>
+
+            </div>
+
+
+            <div class="modal-info-item">
+
+                <strong>
+                    رقم القميص
+                </strong>
+
+                <span>
+
+                    ${escapeHTML(
+                        number ||
+                        "غير محدد"
+                    )}
+
+                </span>
+
+            </div>
+
+
+            <div class="modal-info-item">
+
+                <strong>
+                    تاريخ الميلاد
+                </strong>
+
+                <span>
+
+                    ${escapeHTML(
+                        formatDate(
+                            birthDate
+                        )
+                    )}
+
+                </span>
+
+            </div>
+
+
+            <div class="modal-info-item">
+
+                <strong>
+                    الجنسية
+                </strong>
+
+                <span>
+
+                    ${escapeHTML(
+                        player.nationality ||
+                        "غير محددة"
+                    )}
+
+                </span>
+
+            </div>
+
+
+            <div class="modal-info-item">
+
+                <strong>
+                    الطول
+                </strong>
+
+                <span>
+
+                    ${
+                        player.height
+                            ? escapeHTML(
+                                player.height
+                            ) +
+                              " سم"
+                            : "غير محدد"
+                    }
+
+                </span>
+
+            </div>
+
+
+            <div class="modal-info-item">
+
+                <strong>
+                    الوزن
+                </strong>
+
+                <span>
+
+                    ${
+                        player.weight
+                            ? escapeHTML(
+                                player.weight
+                            ) +
+                              " كجم"
+                            : "غير محدد"
+                    }
+
+                </span>
+
+            </div>
+
+
+            <div class="modal-info-item">
+
+                <strong>
+                    القدم المفضلة
+                </strong>
+
+                <span>
+
+                    ${escapeHTML(
+                        player.foot ||
+                        player.preferred_foot ||
+                        "غير محددة"
+                    )}
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        ${
+            player.bio ||
+            player.description
+                ? `
+                    <div class="modal-description">
+
+                        <strong>
+                            نبذة عن اللاعب
+                        </strong>
+
+                        <p>
+
+                            ${escapeHTML(
+                                player.bio ||
+                                player.description
+                            )}
+
+                        </p>
+
+                    </div>
+                  `
+                : ""
+        }
+
+    `;
+
+
+    openModal();
+
+}
+
+
+/* =========================================================
+   فتح النافذة
+========================================================= */
+
+function openModal() {
+
+    if (!detailsModal) {
+
+        return;
+
+    }
+
+
+    detailsModal.classList.remove(
+        "hidden"
+    );
+
+
+    detailsModal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+/* =========================================================
+   إغلاق النافذة
+========================================================= */
+
+function closeModal() {
+
+    if (!detailsModal) {
+
+        return;
+
+    }
+
+
+    detailsModal.classList.add(
+        "hidden"
+    );
+
+
+    detailsModal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* =========================================================
+   زر إغلاق النافذة
+========================================================= */
+
+if (closeModalBtn) {
+
+    closeModalBtn.addEventListener(
+        "click",
+        closeModal
+    );
+
+}
+
+
+/* =========================================================
+   الضغط على خلفية النافذة
+========================================================= */
+
+const modalOverlay =
+    document.querySelector(
+        ".modal-overlay"
+    );
+
+
+if (modalOverlay) {
+
+    modalOverlay.addEventListener(
+        "click",
+        closeModal
+    );
+
+}
+
+
+/* =========================================================
+   زر ESC
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   البحث عن الفريق
+========================================================= */
+
+function findTeam(
+    teamName
+) {
+
+    const normalized =
+        normalizeName(
+            teamName
+        );
+
+
+    return (
+        teams.find(
+            function (team) {
+
+                return (
+                    normalizeName(
+                        team.name
+                    ) ===
+                    normalized
+                );
+
+            }
+        ) ||
+        null
+    );
+
+}
+
+
+/* =========================================================
+   اسم الفريق المضيف
+========================================================= */
+
+function getHomeTeamName(
+    match
+) {
+
+    return (
+        match.home_team ||
+        match.homeTeam ||
+        match.home_team_name ||
+        "الفريق المضيف"
+    );
+
+}
+
+
+/* =========================================================
+   اسم الفريق الضيف
+========================================================= */
+
+function getAwayTeamName(
+    match
+) {
+
+    return (
+        match.away_team ||
+        match.awayTeam ||
+        match.away_team_name ||
+        "الفريق الضيف"
+    );
+
+}
+
+
+/* =========================================================
+   اسم فريق اللاعب
+========================================================= */
+
+function getPlayerTeamName(
+    player
+) {
+
+    if (
+        player.team_name
+    ) {
+
+        return String(
+            player.team_name
+        );
+
+    }
+
+
+    if (
+        player.team
+    ) {
+
+        if (
+            typeof player.team ===
+            "object"
+        ) {
+
+            return (
+                player.team.name ||
+                "غير محدد"
+            );
+
+        }
+
+
+        return String(
+            player.team
+        );
+
+    }
+
+
+    if (
+        player.team_id
+    ) {
+
+        const team =
+            teams.find(
+                function (item) {
+
+                    return (
+                        String(
+                            item.id
+                        ) ===
+                        String(
+                            player.team_id
+                        )
+                    );
+
+                }
+            );
+
+
+        return team
+            ? team.name
+            : "غير محدد";
+
+    }
+
+
+    return "غير محدد";
+
+}
+
+
+/* =========================================================
+   صورة اللاعب
+========================================================= */
+
+function getPlayerPhoto(
+    player
+) {
+
+    return (
+        player.photo_url ||
+        player.photo ||
+        player.image_url ||
+        player.image ||
+        player.avatar_url ||
+        ""
+    );
+
+}
+
+
+/* =========================================================
+   شعار الفريق
+========================================================= */
+
+function createLogo(
+    team,
+    name
+) {
+
+    if (
+        team &&
+        safeImageUrl(
+            team.logo_url
+        )
+    ) {
+
+        return `
+
+            <div class="team-logo">
+
+                <img
+                    src="${safeImageUrl(
+                        team.logo_url
+                    )}"
+                    alt="شعار ${escapeHTML(
+                        name
+                    )}"
+                    loading="lazy"
+                    onerror="
+                        this.style.display='none';
+                        this.nextElementSibling.style.display='block';
+                    "
+                >
+
+                <span
+                    style="display:none;"
+                >
+                    ⚽
+                </span>
+
+            </div>
+
+        `;
+
+    }
+
+
+    return `
+
+        <div class="team-logo">
+
+            <span>
+                ⚽
+            </span>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   توحيد حالة المباراة
+========================================================= */
 
 function normalizeStatus(
     status
@@ -1868,332 +2350,6 @@ function normalizeStatus(
     const value =
         String(
             status || ""
-        ).trim();
-
-
-    if (
-        value.toLowerCase() === "live" ||
-        value === "مباشرة"
-    ) {
-        return "مباشرة";
-    }
-
-
-    if (
-        value.toLowerCase() === "finished" ||
-        value === "انتهت"
-    ) {
-        return "انتهت";
-    }
-
-
-    if (
-        value.toLowerCase() === "upcoming" ||
-        value === "قادمة"
-    ) {
-        return "قادمة";
-    }
-
-
-    return value || "قادمة";
-
-}
-
-
-function isLiveMatch(
-    match
-) {
-
-    return (
-        normalizeStatus(match.status) ===
-        "مباشرة"
-    );
-
-}
-
-
-function getStatusClass(
-    status
-) {
-
-    if (status === "مباشرة") {
-        return "status-live";
-    }
-
-
-    if (status === "انتهت") {
-        return "status-finished";
-    }
-
-
-    if (status === "قادمة") {
-        return "status-upcoming";
-    }
-
-
-    return "";
-
-}
-
-
-function compareMatches(
-    a,
-    b
-) {
-
-    const dateA =
-        String(a.match_date || "");
-
-    const dateB =
-        String(b.match_date || "");
-
-
-    if (dateA < dateB) {
-        return -1;
-    }
-
-
-    if (dateA > dateB) {
-        return 1;
-    }
-
-
-    return String(
-        a.match_time || ""
-    ).localeCompare(
-        String(
-            b.match_time || ""
         )
-    );
-
-}
-
-
-function formatDate(
-    value
-) {
-
-    if (!value) {
-        return "غير محدد";
-    }
-
-
-    const text =
-        String(value);
-
-
-    const parts =
-        text.split("-");
-
-
-    if (parts.length === 3) {
-
-        return (
-            parts[2] +
-            "-" +
-            parts[1] +
-            "-" +
-            parts[0]
-        );
-
-    }
-
-
-    return text;
-
-}
-
-
-function formatTime(
-    value
-) {
-
-    if (!value) {
-        return "غير محدد";
-    }
-
-
-    const text =
-        String(value);
-
-
-    return text.length >= 5
-        ? text.substring(0, 5)
-        : text;
-
-}
-
-
-function getValue(
-    object,
-    keys
-) {
-
-    for (
-        let i = 0;
-        i < keys.length;
-        i++
-    ) {
-
-        const key =
-            keys[i];
-
-
-        if (
-            object &&
-            Object.prototype.hasOwnProperty.call(
-                object,
-                key
-            )
-        ) {
-
-            return object[key];
-
-        }
-
-    }
-
-
-    return null;
-
-}
-
-
-function normalizeName(
-    value
-) {
-
-    return String(
-        value || ""
-    )
         .trim()
-        .replace(
-            /\s+/g,
-            " "
-        );
-
-}
-
-
-function escapeHTML(
-    value
-) {
-
-    return String(
-        value ?? ""
-    )
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-
-function safeImageUrl(
-    value
-) {
-
-    const url =
-        String(
-            value || ""
-        ).trim();
-
-
-    if (
-        /^https?:\/\//i.test(url)
-    ) {
-
-        return escapeHTML(url);
-
-    }
-
-
-    return "";
-
-}
-
-
-/* =====================================================
-   الاتصال
-===================================================== */
-
-function setConnection(
-    state
-) {
-
-    if (!connectionStatus) {
-        return;
-    }
-
-
-    if (state === "connected") {
-
-        connectionStatus.innerHTML = `
-
-            <span class="connection-dot"></span>
-
-            متصل بقاعدة البيانات
-
-        `;
-
-        return;
-
-    }
-
-
-    if (state === "error") {
-
-        connectionStatus.innerHTML = `
-
-            <span
-                class="connection-dot"
-                style="background:#dc2626;"
-            ></span>
-
-            تعذر الاتصال بقاعدة البيانات
-
-        `;
-
-        return;
-
-    }
-
-
-    connectionStatus.innerHTML = `
-
-        <span
-            class="connection-dot"
-            style="background:#f59e0b;"
-        ></span>
-
-        جاري الاتصال بقاعدة البيانات...
-
-    `;
-
-}
-
-
-/* =====================================================
-   التشغيل
-===================================================== */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        loadAllData();
-
-    }
-);
-
-
-/* =====================================================
-   تحديث كل 10 ثواني
-===================================================== */
-
-setInterval(
-    loadAllData,
-    10000
-);
+       
