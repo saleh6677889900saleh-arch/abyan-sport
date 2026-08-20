@@ -1,46 +1,80 @@
-/* =====================================================
+/* =========================================================
    أبيان سبورت
-   style.css
-===================================================== */
+   css/style.css
+
+   التصميم الكامل للواجهة الرئيسية
+========================================================= */
+
+
+/* =========================================================
+   المتغيرات
+========================================================= */
 
 :root {
 
     --primary: #2563eb;
     --primary-dark: #1d4ed8;
+    --primary-light: #dbeafe;
 
     --dark: #0f172a;
     --dark-2: #1e293b;
 
     --text: #0f172a;
-    --muted: #64748b;
+    --text-light: #64748b;
+    --text-muted: #94a3b8;
+
+    --white: #ffffff;
 
     --bg: #f8fafc;
-    --white: #ffffff;
+    --bg-muted: #f1f5f9;
 
     --border: #e2e8f0;
 
     --success: #16a34a;
-    --danger: #dc2626;
+    --success-light: #dcfce7;
 
-    --radius: 18px;
+    --danger: #dc2626;
+    --danger-light: #fee2e2;
+
+    --warning: #d97706;
+    --warning-light: #fef3c7;
+
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 22px;
+    --radius-xl: 28px;
+
+    --shadow-sm:
+        0 2px 10px rgba(15, 23, 42, 0.05);
 
     --shadow:
-        0 10px 30px rgba(15, 23, 42, .07);
+        0 8px 25px rgba(15, 23, 42, 0.07);
+
+    --shadow-lg:
+        0 18px 50px rgba(15, 23, 42, 0.12);
+
+    --container: 1180px;
 
 }
 
 
-/* =====================================================
-   RESET
-===================================================== */
+/* =========================================================
+   إعادة الضبط
+========================================================= */
 
-* {
+*,
+*::before,
+*::after {
+
     box-sizing: border-box;
+
 }
 
 
 html {
+
     scroll-behavior: smooth;
+
 }
 
 
@@ -48,53 +82,82 @@ body {
 
     margin: 0;
 
+    padding: 0;
+
     font-family:
-        Tahoma,
         Arial,
+        Tahoma,
         sans-serif;
 
-    background: var(--bg);
+    background:
+        var(--bg);
 
-    color: var(--text);
+    color:
+        var(--text);
 
-    line-height: 1.7;
+    line-height: 1.6;
+
+    overflow-x: hidden;
+
+}
+
+
+body,
+button,
+input,
+textarea,
+select {
+
+    font-family:
+        Arial,
+        Tahoma,
+        sans-serif;
+
 }
 
 
 button,
-input,
-select,
-textarea {
+a {
 
-    font-family: inherit;
+    -webkit-tap-highlight-color:
+        transparent;
 
 }
 
 
 button {
+
     cursor: pointer;
-}
 
-
-a {
-    color: inherit;
-    text-decoration: none;
 }
 
 
 img {
+
     max-width: 100%;
+
+    display: block;
+
 }
 
 
-/* =====================================================
-   CONTAINER
-===================================================== */
+a {
+
+    color: inherit;
+
+    text-decoration: none;
+
+}
+
+
+/* =========================================================
+   الحاوية
+========================================================= */
 
 .container {
 
     width: min(
-        1180px,
+        var(--container),
         calc(100% - 32px)
     );
 
@@ -103,9 +166,9 @@ img {
 }
 
 
-/* =====================================================
-   HEADER
-===================================================== */
+/* =========================================================
+   شريط الموقع
+========================================================= */
 
 .site-header {
 
@@ -116,10 +179,13 @@ img {
     z-index: 1000;
 
     background:
-        rgba(255,255,255,.95);
+        rgba(255, 255, 255, 0.96);
 
     backdrop-filter:
-        blur(15px);
+        blur(14px);
+
+    -webkit-backdrop-filter:
+        blur(14px);
 
     border-bottom:
         1px solid var(--border);
@@ -137,10 +203,14 @@ img {
 
     justify-content: space-between;
 
-    gap: 20px;
+    gap: 24px;
 
 }
 
+
+/* =========================================================
+   الشعار
+========================================================= */
 
 .brand {
 
@@ -148,19 +218,24 @@ img {
 
     align-items: center;
 
-    gap: 10px;
+    gap: 11px;
+
+    flex-shrink: 0;
 
 }
 
 
 .brand-icon {
 
-    width: 45px;
-    height: 45px;
+    width: 46px;
 
-    display: grid;
+    height: 46px;
 
-    place-items: center;
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
 
     border-radius: 14px;
 
@@ -171,7 +246,12 @@ img {
             #60a5fa
         );
 
-    font-size: 24px;
+    color: white;
+
+    font-size: 25px;
+
+    box-shadow:
+        0 8px 20px rgba(37, 99, 235, 0.25);
 
 }
 
@@ -180,7 +260,12 @@ img {
 
     display: block;
 
-    font-size: 19px;
+    font-size: 18px;
+
+    font-weight: 900;
+
+    color:
+        var(--dark);
 
 }
 
@@ -189,18 +274,27 @@ img {
 
     display: block;
 
-    color: var(--muted);
+    margin-top: 1px;
 
-    font-size: 11px;
+    color:
+        var(--text-light);
+
+    font-size: 12px;
 
 }
 
+
+/* =========================================================
+   القائمة
+========================================================= */
 
 .main-nav {
 
     display: flex;
 
     align-items: center;
+
+    justify-content: center;
 
     gap: 5px;
 
@@ -209,104 +303,177 @@ img {
 
 .nav-link {
 
-    padding:
-        9px 14px;
+    position: relative;
+
+    padding: 10px 14px;
 
     border-radius: 10px;
 
-    color: var(--muted);
+    color:
+        var(--text-light);
 
     font-size: 14px;
 
     font-weight: 700;
 
-    transition: .2s;
+    transition:
+        0.2s ease;
 
 }
 
 
-.nav-link:hover,
-.nav-link.active {
-
-    color: var(--primary);
+.nav-link:hover {
 
     background:
-        #eff6ff;
+        var(--bg-muted);
+
+    color:
+        var(--primary);
 
 }
 
+
+.nav-link.active {
+
+    background:
+        var(--primary-light);
+
+    color:
+        var(--primary);
+
+}
+
+
+/* =========================================================
+   زر القائمة للجوال
+========================================================= */
 
 .menu-btn {
 
     display: none;
 
-    border: 0;
+    width: 44px;
 
-    background: transparent;
+    height: 44px;
 
-    font-size: 26px;
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    background:
+        var(--white);
+
+    color:
+        var(--dark);
+
+    font-size: 22px;
 
 }
 
 
-/* =====================================================
+/* =========================================================
    HERO
-===================================================== */
+========================================================= */
 
 .hero {
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding:
+        70px 0;
 
     background:
 
         radial-gradient(
-            circle at 20% 20%,
-            rgba(59,130,246,.35),
+            circle at 85% 20%,
+            rgba(96, 165, 250, 0.35),
             transparent 35%
         ),
 
         linear-gradient(
             135deg,
             #0f172a,
-            #1e3a8a
+            #172554
         );
 
-    color: white;
+    color:
+        white;
 
-    padding:
-        75px 0;
+}
+
+
+.hero::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+
+    height: 280px;
+
+    border-radius: 50%;
+
+    left: -120px;
+
+    bottom: -150px;
+
+    background:
+        rgba(37, 99, 235, 0.25);
 
 }
 
 
 .hero-content {
 
+    position: relative;
+
     display: grid;
 
     grid-template-columns:
-        1.4fr .6fr;
+        1fr
+        340px;
 
     align-items: center;
 
-    gap: 50px;
+    gap: 60px;
+
+}
+
+
+.hero-text {
+
+    max-width: 720px;
 
 }
 
 
 .hero-badge {
 
-    display: inline-block;
+    display: inline-flex;
 
-    padding:
-        6px 13px;
+    align-items: center;
 
-    border-radius: 30px;
+    gap: 7px;
+
+    padding: 7px 13px;
+
+    border-radius: 999px;
 
     background:
-        rgba(255,255,255,.12);
+        rgba(255, 255, 255, 0.1);
 
     border:
-        1px solid rgba(255,255,255,.15);
+        1px solid rgba(255, 255, 255, 0.15);
+
+    color:
+        #bfdbfe;
 
     font-size: 13px;
+
+    font-weight: 800;
 
 }
 
@@ -314,24 +481,29 @@ img {
 .hero h1 {
 
     margin:
-        15px 0 8px;
+        15px 0 10px;
 
     font-size:
-        clamp(40px, 7vw, 68px);
+        clamp(38px, 6vw, 64px);
 
     line-height: 1.1;
+
+    font-weight: 900;
 
 }
 
 
 .hero p {
 
-    max-width: 600px;
+    max-width: 650px;
+
+    margin: 0;
 
     color:
         #cbd5e1;
 
-    font-size: 18px;
+    font-size:
+        clamp(16px, 2vw, 19px);
 
 }
 
@@ -340,14 +512,22 @@ img {
 
     display: flex;
 
-    gap: 10px;
+    flex-wrap: wrap;
 
-    margin-top: 25px;
+    gap: 12px;
+
+    margin-top: 28px;
 
 }
 
 
+/* =========================================================
+   الأزرار
+========================================================= */
+
 .btn {
+
+    min-height: 46px;
 
     display: inline-flex;
 
@@ -355,45 +535,76 @@ img {
 
     justify-content: center;
 
-    min-height: 46px;
+    gap: 8px;
 
     padding:
-        0 20px;
+        0 19px;
 
     border-radius: 12px;
 
+    font-size: 14px;
+
     font-weight: 800;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+
+}
+
+
+.btn:hover {
+
+    transform:
+        translateY(-2px);
 
 }
 
 
 .btn-primary {
 
-    background: white;
+    background:
+        var(--primary);
 
-    color: var(--primary);
+    color:
+        white;
+
+    box-shadow:
+        0 8px 20px rgba(37, 99, 235, 0.3);
+
+}
+
+
+.btn-primary:hover {
+
+    background:
+        var(--primary-dark);
 
 }
 
 
 .btn-secondary {
 
-    border:
-        1px solid rgba(255,255,255,.25);
-
-    color: white;
-
     background:
-        rgba(255,255,255,.08);
+        rgba(255, 255, 255, 0.1);
+
+    color:
+        white;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.2);
 
 }
 
 
+/* =========================================================
+   بطاقة HERO
+========================================================= */
+
 .hero-card {
 
     min-height: 260px;
-
-    border-radius: 28px;
 
     padding: 30px;
 
@@ -407,20 +618,41 @@ img {
 
     text-align: center;
 
+    gap: 18px;
+
+    border-radius:
+        var(--radius-xl);
+
     background:
-        rgba(255,255,255,.08);
+        rgba(255, 255, 255, 0.08);
 
     border:
-        1px solid rgba(255,255,255,.12);
+        1px solid rgba(255, 255, 255, 0.12);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.18);
 
 }
 
 
 .hero-ball {
 
-    font-size: 80px;
+    width: 120px;
 
-    margin-bottom: 10px;
+    height: 120px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    font-size: 64px;
 
 }
 
@@ -429,7 +661,7 @@ img {
 
     display: block;
 
-    font-size: 22px;
+    font-size: 21px;
 
 }
 
@@ -438,65 +670,68 @@ img {
 
     display: block;
 
-    color: #cbd5e1;
+    margin-top: 4px;
+
+    color:
+        #cbd5e1;
 
     font-size: 13px;
 
 }
 
 
-/* =====================================================
-   CONNECTION
-===================================================== */
+/* =========================================================
+   حالة الاتصال
+========================================================= */
 
 .connection-status {
 
-    margin-top: 15px;
+    min-height: 46px;
 
-    padding:
-        9px 14px;
+    display: flex;
 
-    background: white;
+    align-items: center;
 
-    border:
-        1px solid var(--border);
+    justify-content: center;
 
-    border-radius: 12px;
+    gap: 8px;
 
-    color: var(--muted);
+    margin:
+        16px 0;
+
+    color:
+        var(--text-light);
 
     font-size: 13px;
-
-    text-align: center;
 
 }
 
 
 .connection-dot {
 
-    display: inline-block;
+    width: 9px;
 
-    width: 8px;
-    height: 8px;
+    height: 9px;
 
     border-radius: 50%;
 
     background:
         var(--success);
 
-    margin-left: 5px;
+    box-shadow:
+        0 0 0 4px rgba(22, 163, 74, 0.1);
 
 }
 
 
-/* =====================================================
-   STATS
-===================================================== */
+/* =========================================================
+   الإحصائيات
+========================================================= */
 
 .stats-section {
 
     padding:
-        25px 0 5px;
+        0 0 30px;
 
 }
 
@@ -508,47 +743,73 @@ img {
     grid-template-columns:
         repeat(4, 1fr);
 
-    gap: 15px;
+    gap: 16px;
 
 }
 
 
 .stat-card {
 
-    background: white;
-
-    border:
-        1px solid var(--border);
-
-    border-radius: var(--radius);
-
-    padding: 20px;
+    min-height: 100px;
 
     display: flex;
 
     align-items: center;
 
-    gap: 14px;
+    gap: 15px;
 
-    box-shadow: var(--shadow);
+    padding: 20px;
+
+    background:
+        var(--white);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius-md);
+
+    box-shadow:
+        var(--shadow-sm);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.stat-card:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        var(--shadow);
 
 }
 
 
 .stat-icon {
 
-    width: 48px;
-    height: 48px;
+    width: 50px;
 
-    display: grid;
+    height: 50px;
 
-    place-items: center;
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
 
     border-radius: 14px;
 
-    background: #eff6ff;
+    background:
+        var(--primary-light);
 
-    font-size: 23px;
+    font-size: 24px;
 
 }
 
@@ -557,30 +818,40 @@ img {
 
     display: block;
 
-    font-size: 25px;
+    font-size: 26px;
 
-    line-height: 1.2;
+    line-height: 1;
+
+    font-weight: 900;
 
 }
 
 
 .stat-card span {
 
-    color: var(--muted);
+    display: block;
 
-    font-size: 12px;
+    margin-top: 5px;
+
+    color:
+        var(--text-light);
+
+    font-size: 13px;
 
 }
 
 
-/* =====================================================
-   SECTIONS
-===================================================== */
+/* =========================================================
+   الأقسام
+========================================================= */
 
 .section {
 
     padding:
         70px 0;
+
+    scroll-margin-top:
+        80px;
 
 }
 
@@ -588,7 +859,7 @@ img {
 .section-muted {
 
     background:
-        #f1f5f9;
+        var(--bg-muted);
 
 }
 
@@ -610,7 +881,12 @@ img {
 
 .section-kicker {
 
-    color: var(--primary);
+    display: block;
+
+    margin-bottom: 5px;
+
+    color:
+        var(--primary);
 
     font-size: 13px;
 
@@ -621,35 +897,58 @@ img {
 
 .section-heading h2 {
 
-    margin:
-        4px 0;
+    margin: 0;
 
-    font-size: 30px;
+    font-size:
+        clamp(25px, 4vw, 34px);
+
+    line-height: 1.2;
+
+    font-weight: 900;
 
 }
 
 
 .section-heading p {
 
-    margin: 0;
+    margin:
+        8px 0 0;
 
-    color: var(--muted);
+    color:
+        var(--text-light);
 
     font-size: 14px;
 
 }
 
 
+/* =========================================================
+   الشارات
+========================================================= */
+
 .count-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    white-space: nowrap;
 
     padding:
         7px 12px;
 
-    border-radius: 20px;
+    border-radius: 999px;
 
-    background: #eff6ff;
+    background:
+        var(--white);
 
-    color: var(--primary);
+    border:
+        1px solid var(--border);
+
+    color:
+        var(--text-light);
 
     font-size: 12px;
 
@@ -658,17 +957,70 @@ img {
 }
 
 
-/* =====================================================
-   FILTER
-===================================================== */
+/* =========================================================
+   أزرار صغيرة
+========================================================= */
+
+.small-btn {
+
+    min-height: 40px;
+
+    padding:
+        0 14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 10px;
+
+    background:
+        var(--white);
+
+    color:
+        var(--text);
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    transition:
+        0.2s ease;
+
+}
+
+
+.small-btn:hover {
+
+    border-color:
+        var(--primary);
+
+    color:
+        var(--primary);
+
+}
+
+
+.small-btn:disabled {
+
+    opacity: 0.6;
+
+    cursor:
+        not-allowed;
+
+}
+
+
+/* =========================================================
+   الفلاتر
+========================================================= */
 
 .filter-bar {
 
     display: flex;
 
-    gap: 8px;
-
     flex-wrap: wrap;
+
+    gap: 8px;
 
     margin-bottom: 20px;
 
@@ -677,44 +1029,73 @@ img {
 
 .filter-btn {
 
+    min-height: 38px;
+
+    padding:
+        0 15px;
+
     border:
         1px solid var(--border);
 
-    background: white;
+    border-radius: 999px;
 
-    color: var(--muted);
+    background:
+        var(--white);
 
-    border-radius: 10px;
+    color:
+        var(--text-light);
 
-    padding:
-        8px 15px;
+    font-size: 13px;
 
-    font-weight: 700;
+    font-weight: 800;
+
+    transition:
+        0.2s ease;
+
+}
+
+
+.filter-btn:hover {
+
+    color:
+        var(--primary);
+
+    border-color:
+        #93c5fd;
 
 }
 
 
 .filter-btn.active {
 
-    background: var(--primary);
+    background:
+        var(--primary);
 
-    border-color: var(--primary);
+    border-color:
+        var(--primary);
 
-    color: white;
+    color:
+        white;
 
 }
 
 
-/* =====================================================
-   MATCHES
-===================================================== */
+/* =========================================================
+   شبكة المباريات
+========================================================= */
 
 .matches-grid {
 
     display: grid;
 
     grid-template-columns:
-        repeat(2, 1fr);
+        repeat(
+            auto-fit,
+            minmax(
+                280px,
+                1fr
+            )
+        );
 
     gap: 18px;
 
@@ -725,25 +1106,45 @@ img {
 
     display: grid;
 
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(
+                300px,
+                1fr
+            )
+        );
+
     gap: 18px;
 
 }
 
 
+/* =========================================================
+   بطاقة المباراة
+========================================================= */
+
 .match-card {
 
-    background: white;
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        var(--white);
 
     border:
         1px solid var(--border);
 
-    border-radius: 20px;
+    border-radius:
+        var(--radius-lg);
 
-    padding: 20px;
+    box-shadow:
+        var(--shadow-sm);
 
-    box-shadow: var(--shadow);
-
-    transition: .2s;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 
 }
 
@@ -751,7 +1152,24 @@ img {
 .match-card:hover {
 
     transform:
-        translateY(-2px);
+        translateY(-4px);
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.match-card::before {
+
+    content: "";
+
+    display: block;
+
+    height: 4px;
+
+    background:
+        var(--primary);
 
 }
 
@@ -766,26 +1184,38 @@ img {
 
     gap: 10px;
 
-    margin-bottom: 20px;
+    padding:
+        15px 18px 5px;
 
 }
 
 
 .match-date {
 
-    color: var(--muted);
+    color:
+        var(--text-light);
 
     font-size: 12px;
+
+    font-weight: 700;
 
 }
 
 
 .status {
 
-    padding:
-        5px 10px;
+    display: inline-flex;
 
-    border-radius: 20px;
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 28px;
+
+    padding:
+        4px 10px;
+
+    border-radius: 999px;
 
     font-size: 11px;
 
@@ -796,41 +1226,117 @@ img {
 
 .status-live {
 
-    background: #fee2e2;
+    background:
+        var(--danger-light);
 
-    color: #b91c1c;
+    color:
+        #b91c1c;
 
 }
 
 
 .status-finished {
 
-    background: #dcfce7;
+    background:
+        var(--success-light);
 
-    color: #166534;
+    color:
+        #166534;
 
 }
 
 
 .status-upcoming {
 
-    background: #dbeafe;
+    background:
+        var(--primary-light);
 
-    color: #1d4ed8;
+    color:
+        #1d4ed8;
 
 }
 
+
+/* =========================================================
+   مباشر
+========================================================= */
+
+.live-indicator {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+}
+
+
+.live-pulse {
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background:
+        var(--danger);
+
+    box-shadow:
+        0 0 0 0 rgba(220, 38, 38, 0.5);
+
+    animation:
+        livePulse 1.5s infinite;
+
+}
+
+
+@keyframes livePulse {
+
+    0% {
+
+        box-shadow:
+            0 0 0 0 rgba(220, 38, 38, 0.5);
+
+    }
+
+    70% {
+
+        box-shadow:
+            0 0 0 7px rgba(220, 38, 38, 0);
+
+    }
+
+    100% {
+
+        box-shadow:
+            0 0 0 0 rgba(220, 38, 38, 0);
+
+    }
+
+}
+
+
+/* =========================================================
+   فرق المباراة
+========================================================= */
 
 .match-teams {
 
     display: grid;
 
     grid-template-columns:
-        1fr 100px 1fr;
+        1fr
+        100px
+        1fr;
 
     align-items: center;
 
-    gap: 10px;
+    gap: 8px;
+
+    padding:
+        20px 18px 15px;
 
     text-align: center;
 
@@ -846,24 +1352,28 @@ img {
 
 .team-logo {
 
-    width: 70px;
-    height: 70px;
+    width: 76px;
+
+    height: 76px;
 
     margin:
-        0 auto 8px;
+        0 auto 9px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
 
     border-radius: 18px;
 
-    background: #f8fafc;
+    background:
+        var(--bg-muted);
 
     border:
         1px solid var(--border);
-
-    display: grid;
-
-    place-items: center;
-
-    overflow: hidden;
 
 }
 
@@ -871,38 +1381,50 @@ img {
 .team-logo img {
 
     width: 100%;
+
     height: 100%;
 
     object-fit: contain;
 
-    padding: 7px;
+    padding: 8px;
 
 }
 
 
 .team-logo span {
 
-    font-size: 30px;
+    font-size: 34px;
 
 }
 
 
 .match-team-name {
 
-    font-size: 14px;
+    font-size: 15px;
 
     font-weight: 900;
 
-    line-height: 1.5;
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
 
 }
 
 
+/* =========================================================
+   نتيجة المباراة
+========================================================= */
+
 .match-score {
 
-    font-size: 30px;
+    font-size: 29px;
+
+    line-height: 1;
 
     font-weight: 900;
+
+    color:
+        var(--dark);
 
 }
 
@@ -911,23 +1433,28 @@ img {
 
     font-size: 13px;
 
-    color: var(--muted);
+    color:
+        var(--text-muted);
 
 }
 
 
+/* =========================================================
+   معلومات المباراة
+========================================================= */
+
 .match-meta {
+
+    padding:
+        13px 18px 18px;
 
     border-top:
         1px solid var(--border);
 
-    margin-top: 18px;
-
-    padding-top: 13px;
-
-    color: var(--muted);
-
     text-align: center;
+
+    color:
+        var(--text-light);
 
     font-size: 12px;
 
@@ -936,66 +1463,139 @@ img {
 }
 
 
-.live-indicator {
+/* =========================================================
+   بطاقات التحميل
+========================================================= */
 
-    display: inline-flex;
+.loading-card {
+
+    min-height: 150px;
+
+    display: flex;
 
     align-items: center;
 
-    gap: 5px;
+    justify-content: center;
 
-    color: var(--danger);
+    flex-direction: column;
 
-    font-weight: 900;
+    gap: 8px;
 
-}
+    padding: 30px;
 
+    background:
+        var(--white);
 
-.live-pulse {
+    border:
+        1px solid var(--border);
 
-    width: 7px;
-    height: 7px;
+    border-radius:
+        var(--radius-md);
 
-    border-radius: 50%;
+    color:
+        var(--text-light);
 
-    background: var(--danger);
+    text-align: center;
 
     animation:
-        pulse 1s infinite;
+        loadingFade 1.3s ease-in-out infinite alternate;
 
 }
 
 
-@keyframes pulse {
+.loading-card > div,
+.loading-card > svg {
 
-    0% {
-        opacity: 1;
-        transform: scale(1);
+    font-size: 34px;
+
+}
+
+
+@keyframes loadingFade {
+
+    from {
+        opacity: 0.55;
     }
 
-    50% {
-        opacity: .35;
-        transform: scale(.75);
-    }
-
-    100% {
+    to {
         opacity: 1;
-        transform: scale(1);
     }
 
 }
 
 
-/* =====================================================
-   TEAMS
-===================================================== */
+/* =========================================================
+   حالة فارغة
+========================================================= */
+
+.empty-card {
+
+    min-height: 160px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+    padding: 30px;
+
+    background:
+        var(--white);
+
+    border:
+        1px dashed var(--border);
+
+    border-radius:
+        var(--radius-md);
+
+    color:
+        var(--text-light);
+
+    text-align: center;
+
+}
+
+
+.empty-card strong {
+
+    color:
+        var(--text);
+
+    font-size: 16px;
+
+}
+
+
+.empty-card p {
+
+    margin: 4px 0 0;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   الفرق
+========================================================= */
 
 .teams-grid {
 
     display: grid;
 
     grid-template-columns:
-        repeat(4, 1fr);
+        repeat(
+            auto-fit,
+            minmax(
+                220px,
+                1fr
+            )
+        );
 
     gap: 18px;
 
@@ -1004,22 +1604,28 @@ img {
 
 .team-card {
 
-    background: white;
+    padding: 22px;
+
+    background:
+        var(--white);
 
     border:
         1px solid var(--border);
 
-    border-radius: 20px;
+    border-radius:
+        var(--radius-lg);
 
-    padding: 22px;
+    box-shadow:
+        var(--shadow-sm);
 
     text-align: center;
 
-    box-shadow: var(--shadow);
-
     cursor: pointer;
 
-    transition: .2s;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
 
 }
 
@@ -1027,34 +1633,41 @@ img {
 .team-card:hover {
 
     transform:
-        translateY(-4px);
+        translateY(-5px);
 
     border-color:
         #bfdbfe;
+
+    box-shadow:
+        var(--shadow);
 
 }
 
 
 .team-card-logo {
 
-    width: 100px;
-    height: 100px;
+    width: 105px;
+
+    height: 105px;
 
     margin:
         0 auto 15px;
 
-    display: grid;
+    display: flex;
 
-    place-items: center;
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
 
     border-radius: 24px;
 
-    background: #f8fafc;
+    background:
+        var(--bg-muted);
 
     border:
         1px solid var(--border);
-
-    overflow: hidden;
 
 }
 
@@ -1062,6 +1675,7 @@ img {
 .team-card-logo img {
 
     width: 100%;
+
     height: 100%;
 
     object-fit: contain;
@@ -1073,7 +1687,7 @@ img {
 
 .team-card-logo span {
 
-    font-size: 43px;
+    font-size: 45px;
 
 }
 
@@ -1081,34 +1695,37 @@ img {
 .team-card h3 {
 
     margin:
-        0 0 5px;
+        0;
 
     font-size: 17px;
+
+    font-weight: 900;
 
 }
 
 
 .team-card p {
 
-    margin: 0;
+    margin:
+        5px 0 12px;
 
-    color: var(--muted);
+    color:
+        var(--text-light);
 
-    font-size: 12px;
+    font-size: 13px;
 
 }
 
 
 .team-card-footer {
 
-    margin-top: 15px;
-
-    padding-top: 12px;
+    padding-top: 11px;
 
     border-top:
         1px solid var(--border);
 
-    color: var(--primary);
+    color:
+        var(--primary);
 
     font-size: 12px;
 
@@ -1117,16 +1734,22 @@ img {
 }
 
 
-/* =====================================================
-   PLAYERS
-===================================================== */
+/* =========================================================
+   اللاعبين
+========================================================= */
 
 .players-grid {
 
     display: grid;
 
     grid-template-columns:
-        repeat(4, 1fr);
+        repeat(
+            auto-fit,
+            minmax(
+                230px,
+                1fr
+            )
+        );
 
     gap: 18px;
 
@@ -1135,20 +1758,25 @@ img {
 
 .player-card {
 
-    background: white;
+    overflow: hidden;
+
+    background:
+        var(--white);
 
     border:
         1px solid var(--border);
 
-    border-radius: 20px;
+    border-radius:
+        var(--radius-lg);
 
-    overflow: hidden;
-
-    box-shadow: var(--shadow);
+    box-shadow:
+        var(--shadow-sm);
 
     cursor: pointer;
 
-    transition: .2s;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 
 }
 
@@ -1156,27 +1784,34 @@ img {
 .player-card:hover {
 
     transform:
-        translateY(-4px);
+        translateY(-5px);
+
+    box-shadow:
+        var(--shadow);
 
 }
 
 
 .player-photo {
 
-    height: 210px;
+    position: relative;
+
+    height: 220px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    overflow: hidden;
 
     background:
         linear-gradient(
             135deg,
             #dbeafe,
-            #f8fafc
+            #eff6ff
         );
-
-    display: grid;
-
-    place-items: center;
-
-    overflow: hidden;
 
 }
 
@@ -1184,6 +1819,7 @@ img {
 .player-photo img {
 
     width: 100%;
+
     height: 100%;
 
     object-fit: cover;
@@ -1193,14 +1829,17 @@ img {
 
 .player-placeholder {
 
-    font-size: 70px;
+    font-size: 75px;
+
+    padding-bottom: 25px;
 
 }
 
 
 .player-body {
 
-    padding: 16px;
+    padding:
+        17px;
 
 }
 
@@ -1208,20 +1847,23 @@ img {
 .player-body h3 {
 
     margin:
-        0 0 5px;
+        0;
 
     font-size: 17px;
+
+    font-weight: 900;
 
 }
 
 
 .player-team {
 
-    color: var(--primary);
+    margin-top: 6px;
 
-    font-size: 12px;
+    color:
+        var(--text-light);
 
-    font-weight: 800;
+    font-size: 13px;
 
 }
 
@@ -1232,7 +1874,7 @@ img {
 
     flex-wrap: wrap;
 
-    gap: 6px;
+    gap: 7px;
 
     margin-top: 12px;
 
@@ -1242,119 +1884,26 @@ img {
 .player-tag {
 
     padding:
-        4px 8px;
-
-    background: #f1f5f9;
+        5px 9px;
 
     border-radius: 8px;
 
-    color: var(--muted);
+    background:
+        var(--bg-muted);
 
-    font-size: 10px;
+    color:
+        var(--text-light);
 
-}
-
-
-/* =====================================================
-   LOADING / EMPTY / ERROR
-===================================================== */
-
-.loading-card,
-.empty-card,
-.error-card {
-
-    background: white;
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 18px;
-
-    padding: 35px;
-
-    text-align: center;
-
-    color: var(--muted);
-
-}
-
-
-.loading-card {
-
-    min-height: 130px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 10px;
-
-}
-
-
-.loading-card > div {
-
-    font-size: 28px;
-
-}
-
-
-.error-card {
-
-    color: #b91c1c;
-
-    background: #fef2f2;
-
-    border-color: #fecaca;
-
-}
-
-
-.empty-card {
-
-    grid-column: 1 / -1;
-
-}
-
-
-/* =====================================================
-   BUTTONS
-===================================================== */
-
-.small-btn {
-
-    border:
-        1px solid var(--border);
-
-    background: white;
-
-    color: var(--text);
-
-    border-radius: 10px;
-
-    padding:
-        8px 13px;
+    font-size: 11px;
 
     font-weight: 800;
 
 }
 
 
-.small-btn:hover {
-
-    border-color:
-        #93c5fd;
-
-    color: var(--primary);
-
-}
-
-
-/* =====================================================
-   MODAL
-===================================================== */
+/* =========================================================
+   النافذة
+========================================================= */
 
 .modal {
 
@@ -1362,7 +1911,7 @@ img {
 
     inset: 0;
 
-    z-index: 3000;
+    z-index: 2000;
 
     display: flex;
 
@@ -1389,9 +1938,12 @@ img {
     inset: 0;
 
     background:
-        rgba(15,23,42,.7);
+        rgba(15, 23, 42, 0.65);
 
     backdrop-filter:
+        blur(5px);
+
+    -webkit-backdrop-filter:
         blur(5px);
 
 }
@@ -1404,23 +1956,53 @@ img {
     z-index: 1;
 
     width: min(
-        600px,
+        650px,
         100%
     );
 
     max-height:
-        90vh;
+        calc(100vh - 40px);
 
     overflow-y: auto;
 
-    background: white;
+    padding: 30px;
 
-    border-radius: 24px;
+    background:
+        var(--white);
 
-    padding: 28px;
+    border-radius:
+        var(--radius-xl);
 
     box-shadow:
-        0 30px 80px rgba(0,0,0,.25);
+        var(--shadow-lg);
+
+    animation:
+        modalIn 0.2s ease;
+
+}
+
+
+@keyframes modalIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(15px)
+            scale(0.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
 
 }
 
@@ -1429,48 +2011,87 @@ img {
 
     position: absolute;
 
-    top: 12px;
-    left: 12px;
+    top: 14px;
+
+    left: 14px;
 
     width: 38px;
+
     height: 38px;
 
-    border: 0;
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 1px solid var(--border);
 
     border-radius: 50%;
 
-    background: #f1f5f9;
+    background:
+        var(--white);
+
+    color:
+        var(--text-light);
 
     font-size: 25px;
 
+    line-height: 1;
+
 }
 
+
+.modal-close:hover {
+
+    background:
+        var(--danger-light);
+
+    color:
+        var(--danger);
+
+}
+
+
+/* =========================================================
+   رأس تفاصيل الفريق
+========================================================= */
 
 .modal-team-head,
 .modal-player-head {
 
     text-align: center;
 
+    padding:
+        5px 30px 25px;
+
 }
 
 
 .modal-big-logo {
 
-    width: 130px;
-    height: 130px;
+    width: 120px;
+
+    height: 120px;
 
     margin:
         0 auto 15px;
 
-    display: grid;
+    display: flex;
 
-    place-items: center;
+    align-items: center;
 
-    background: #f8fafc;
-
-    border-radius: 30px;
+    justify-content: center;
 
     overflow: hidden;
+
+    border-radius: 28px;
+
+    background:
+        var(--bg-muted);
+
+    border:
+        1px solid var(--border);
 
 }
 
@@ -1478,6 +2099,7 @@ img {
 .modal-big-logo img {
 
     width: 100%;
+
     height: 100%;
 
     object-fit: contain;
@@ -1489,457 +2111,15 @@ img {
 
 .modal-big-logo span {
 
-    font-size: 60px;
+    font-size: 55px;
 
 }
 
 
-.modal-box h2 {
+.modal-team-head h2,
+.modal-player-head h2 {
 
     margin:
-        0 0 5px;
+        0;
 
-}
-
-
-.modal-muted {
-
-    color: var(--muted);
-
-}
-
-
-.modal-info-grid {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap: 10px;
-
-    margin-top: 20px;
-
-}
-
-
-.modal-info-item {
-
-    padding: 13px;
-
-    background: #f8fafc;
-
-    border-radius: 12px;
-
-}
-
-
-.modal-info-item strong {
-
-    display: block;
-
-    font-size: 12px;
-
-    color: var(--muted);
-
-}
-
-
-.modal-info-item span {
-
-    display: block;
-
-    margin-top: 3px;
-
-    font-weight: 800;
-
-}
-
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-.site-footer {
-
-    background:
-        #0f172a;
-
-    color: white;
-
-    margin-top: 30px;
-
-}
-
-
-.footer-content {
-
-    min-height: 170px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 30px;
-
-}
-
-
-.footer-brand {
-
-    font-size: 20px;
-
-    font-weight: 900;
-
-}
-
-
-.footer-content p {
-
-    color: #94a3b8;
-
-    font-size: 13px;
-
-}
-
-
-.footer-links {
-
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 15px;
-
-}
-
-
-.footer-links a {
-
-    color: #cbd5e1;
-
-    font-size: 12px;
-
-}
-
-
-.footer-links a:hover {
-
-    color: white;
-
-}
-
-
-.footer-bottom {
-
-    border-top:
-        1px solid #1e293b;
-
-    text-align: center;
-
-    padding: 15px;
-
-    color: #64748b;
-
-    font-size: 11px;
-
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 900px) {
-
-    .hero-content {
-
-        grid-template-columns: 1fr;
-
-    }
-
-
-    .hero-card {
-
-        min-height: 180px;
-
-    }
-
-
-    .stats-grid {
-
-        grid-template-columns:
-            repeat(2, 1fr);
-
-    }
-
-
-    .teams-grid,
-    .players-grid {
-
-        grid-template-columns:
-            repeat(2, 1fr);
-
-    }
-
-}
-
-
-@media (max-width: 700px) {
-
-    .main-nav {
-
-        display: none;
-
-        position: absolute;
-
-        top: 76px;
-
-        right: 16px;
-        left: 16px;
-
-        background: white;
-
-        padding: 10px;
-
-        border:
-            1px solid var(--border);
-
-        border-radius: 15px;
-
-        box-shadow: var(--shadow);
-
-        flex-direction: column;
-
-        align-items: stretch;
-
-    }
-
-
-    .main-nav.open {
-
-        display: flex;
-
-    }
-
-
-    .nav-link {
-
-        text-align: center;
-
-    }
-
-
-    .menu-btn {
-
-        display: block;
-
-    }
-
-
-    .matches-grid {
-
-        grid-template-columns: 1fr;
-
-    }
-
-
-    .section-heading {
-
-        align-items: flex-start;
-
-        flex-direction: column;
-
-    }
-
-
-    .footer-content {
-
-        flex-direction: column;
-
-        align-items: flex-start;
-
-        padding: 30px 0;
-
-    }
-
-}
-
-
-@media (max-width: 500px) {
-
-    .container {
-
-        width:
-            calc(100% - 22px);
-
-    }
-
-
-    .hero {
-
-        padding:
-            50px 0;
-
-    }
-
-
-    .hero h1 {
-
-        font-size: 42px;
-
-    }
-
-
-    .hero p {
-
-        font-size: 15px;
-
-    }
-
-
-    .hero-actions {
-
-        flex-direction: column;
-
-    }
-
-
-    .btn {
-
-        width: 100%;
-
-    }
-
-
-    .stats-grid {
-
-        grid-template-columns: 1fr 1fr;
-
-        gap: 8px;
-
-    }
-
-
-    .stat-card {
-
-        padding: 13px;
-
-    }
-
-
-    .stat-icon {
-
-        width: 40px;
-        height: 40px;
-
-    }
-
-
-    .stat-card strong {
-
-        font-size: 20px;
-
-    }
-
-
-    .teams-grid,
-    .players-grid {
-
-        grid-template-columns:
-            1fr 1fr;
-
-        gap: 10px;
-
-    }
-
-
-    .team-card {
-
-        padding: 14px 8px;
-
-    }
-
-
-    .team-card-logo {
-
-        width: 75px;
-        height: 75px;
-
-    }
-
-
-    .player-photo {
-
-        height: 155px;
-
-    }
-
-
-    .player-body {
-
-        padding: 12px 9px;
-
-    }
-
-
-    .player-body h3 {
-
-        font-size: 14px;
-
-    }
-
-
-    .match-card {
-
-        padding: 14px;
-
-    }
-
-
-    .match-teams {
-
-        grid-template-columns:
-            1fr 65px 1fr;
-
-    }
-
-
-    .team-logo {
-
-        width: 58px;
-        height: 58px;
-
-    }
-
-
-    .match-team-name {
-
-        font-size: 12px;
-
-    }
-
-
-    .match-score {
-
-        font-size: 24px;
-
-    }
-
-
-    .modal-box {
-
-        padding: 20px 15px;
-
-    }
-
-
-    .modal-info-grid {
-
-        grid-template-columns: 1fr;
-
-    }
-
-}
+    font-size: 25px
