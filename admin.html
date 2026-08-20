@@ -17,13 +17,15 @@
 
     <meta
         name="theme-color"
-        content="#2563eb"
+        content="#0f172a"
     >
 
     <title>لوحة تحكم أبيان سبورت</title>
 
-
-    <link rel="stylesheet" href="css/admin.css">
+    <link
+        rel="stylesheet"
+        href="css/admin.css"
+    >
 
 </head>
 
@@ -31,334 +33,608 @@
 <body>
 
 
-<div class="container">
+<!-- =====================================================
+     شاشة الدخول
+===================================================== -->
 
+<div
+    id="loginScreen"
+    class="login-screen"
+>
 
-    <!-- =========================================
-         تسجيل الدخول
-    ========================================== -->
+    <div class="login-card">
 
-    <div
-        class="card"
-        id="loginBox"
-    >
+        <div class="login-logo">
+            ⚽
+        </div>
 
         <h1>
-            ⚽ أبيان سبورت
+            أبيان سبورت
         </h1>
 
-        <h2>
-            تسجيل دخول المدير
-        </h2>
+        <p class="login-subtitle">
+            لوحة تحكم المدير
+        </p>
 
 
-        <label for="email">
-            البريد الإلكتروني
-        </label>
+        <form id="loginForm">
 
-        <input
-            id="email"
-            type="email"
-            placeholder="البريد الإلكتروني"
-            autocomplete="email"
+            <div class="form-group">
+
+                <label for="loginEmail">
+                    البريد الإلكتروني
+                </label>
+
+                <input
+                    id="loginEmail"
+                    type="email"
+                    autocomplete="email"
+                    placeholder="admin@example.com"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="loginPassword">
+                    كلمة المرور
+                </label>
+
+                <input
+                    id="loginPassword"
+                    type="password"
+                    autocomplete="current-password"
+                    placeholder="••••••••"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                id="loginBtn"
+                class="btn btn-primary btn-block"
+                type="submit"
+            >
+                🔐 تسجيل الدخول
+            </button>
+
+
+            <div
+                id="loginMessage"
+                class="form-message"
+            ></div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     التطبيق
+===================================================== -->
+
+<div
+    id="adminApp"
+    class="admin-app hidden"
+>
+
+
+<!-- =====================================================
+     الشريط العلوي
+===================================================== -->
+
+<header class="admin-header">
+
+    <div class="admin-header-inner">
+
+
+        <button
+            id="sidebarToggle"
+            class="icon-btn"
+            type="button"
+            aria-label="فتح القائمة"
         >
-
-
-        <label for="password">
-            كلمة المرور
-        </label>
-
-        <input
-            id="password"
-            type="password"
-            placeholder="كلمة المرور"
-            autocomplete="current-password"
-        >
-
-
-        <button id="loginBtn">
-            🔐 تسجيل الدخول
+            ☰
         </button>
 
 
-        <div
-            id="loginMessage"
-            class="message"
-        ></div>
+        <a
+            href="index.html"
+            class="admin-brand"
+        >
+
+            <span class="admin-brand-icon">
+                ⚽
+            </span>
+
+            <span>
+
+                <strong>
+                    أبيان سبورت
+                </strong>
+
+                <small>
+                    لوحة التحكم
+                </small>
+
+            </span>
+
+        </a>
+
+
+        <div class="header-actions">
+
+            <a
+                href="index.html"
+                class="header-link"
+                target="_blank"
+                rel="noopener"
+            >
+                🌐 الموقع
+            </a>
+
+
+            <button
+                id="logoutBtn"
+                class="logout-btn"
+                type="button"
+            >
+                🚪 خروج
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     الهيكل
+===================================================== -->
+
+<div class="admin-layout">
+
+
+<!-- =====================================================
+     القائمة الجانبية
+===================================================== -->
+
+<aside
+    id="adminSidebar"
+    class="admin-sidebar"
+>
+
+    <div class="sidebar-user">
+
+        <div class="sidebar-avatar">
+            👨‍💼
+        </div>
+
+        <div>
+
+            <strong id="adminUserName">
+                المدير
+            </strong>
+
+            <span id="adminUserEmail">
+                --
+            </span>
+
+        </div>
 
     </div>
 
 
-
-    <!-- =========================================
-         لوحة التحكم
-    ========================================== -->
-
-    <div
-        class="card hidden"
-        id="adminBox"
-    >
-
-        <h1>
-            ⚽ لوحة تحكم أبيان سبورت
-        </h1>
+    <nav class="sidebar-nav">
 
 
-        <p
-            id="userInfo"
-            class="info"
-        ></p>
+        <button
+            class="sidebar-link active"
+            data-section="dashboard"
+            type="button"
+        >
+            <span>📊</span>
+            <span>لوحة المعلومات</span>
+        </button>
+
+
+        <button
+            class="sidebar-link"
+            data-section="matches"
+            type="button"
+        >
+            <span>🏆</span>
+            <span>المباريات</span>
+        </button>
+
+
+        <button
+            class="sidebar-link"
+            data-section="teams"
+            type="button"
+        >
+            <span>⚽</span>
+            <span>الفرق</span>
+        </button>
+
+
+        <button
+            class="sidebar-link"
+            data-section="players"
+            type="button"
+        >
+            <span>👤</span>
+            <span>اللاعبون</span>
+        </button>
+
+
+    </nav>
+
+
+    <div class="sidebar-footer">
+
+        <span
+            id="databaseStatus"
+            class="database-status"
+        >
+            <i></i>
+            جاري الاتصال...
+        </span>
+
+    </div>
+
+</aside>
 
 
 
-        <!-- =====================================
-             الأزرار الرئيسية
-        ====================================== -->
+<!-- =====================================================
+     المحتوى الرئيسي
+===================================================== -->
 
-        <div class="top-buttons">
-
-            <button
-                id="showTeamFormBtn"
-                class="success"
-            >
-                ⚽ إضافة فريق
-            </button>
+<main class="admin-main">
 
 
-            <button
-                id="showMatchFormBtn"
-            >
-                ➕ إضافة مباراة
-            </button>
+<!-- =====================================================
+     قسم لوحة المعلومات
+===================================================== -->
+
+<section
+    id="section-dashboard"
+    class="admin-section active"
+>
+
+    <div class="page-header">
+
+        <div>
+
+            <span class="page-kicker">
+                📊 الإدارة
+            </span>
+
+            <h1>
+                لوحة المعلومات
+            </h1>
+
+            <p>
+                نظرة عامة على أبيان سبورت.
+            </p>
 
         </div>
 
 
         <button
-            id="loadAllBtn"
-            class="secondary"
+            id="dashboardRefreshBtn"
+            class="btn btn-secondary"
+            type="button"
         >
-            🔄 تحديث البيانات
+            🔄 تحديث
         </button>
 
+    </div>
 
 
-        <!-- =====================================
-             نموذج إضافة فريق
-        ====================================== -->
+    <!-- الإحصائيات -->
 
-        <div
-            id="teamForm"
-            class="card hidden"
-            style="margin-top:20px;"
-        >
-
-            <h2>
-                ⚽ إضافة فريق جديد
-            </h2>
+    <div class="admin-stats-grid">
 
 
-            <label for="teamName">
-                اسم الفريق *
-            </label>
+        <div class="admin-stat-card">
 
-            <input
-                id="teamName"
-                type="text"
-                placeholder="مثال: حسان أبين"
-            >
+            <div class="admin-stat-icon">
+                🏆
+            </div>
 
+            <div>
 
-            <label for="teamLogo">
-                شعار الفريق
-            </label>
+                <span>
+                    المباريات
+                </span>
 
-            <input
-                id="teamLogo"
-                type="file"
-                accept="image/png,image/jpeg,image/webp,image/gif"
-            >
+                <strong id="dashboardMatches">
+                    0
+                </strong>
 
-
-            <img
-                id="logoPreview"
-                class="preview"
-                alt="معاينة الشعار"
-            >
-
-
-            <label for="teamCity">
-                المدينة
-            </label>
-
-            <input
-                id="teamCity"
-                type="text"
-                placeholder="مثال: أبين"
-            >
-
-
-            <label for="teamCoach">
-                المدرب
-            </label>
-
-            <input
-                id="teamCoach"
-                type="text"
-                placeholder="اسم المدرب"
-            >
-
-
-            <label for="teamYear">
-                سنة التأسيس
-            </label>
-
-            <input
-                id="teamYear"
-                type="number"
-                min="1800"
-                max="2100"
-                placeholder="مثال: 1990"
-            >
-
-
-            <label for="teamDescription">
-                وصف الفريق
-            </label>
-
-            <textarea
-                id="teamDescription"
-                placeholder="اكتب نبذة عن الفريق..."
-            ></textarea>
-
-
-            <button
-                id="addTeamBtn"
-                class="success"
-            >
-                ✅ إضافة الفريق
-            </button>
-
-
-            <button
-                id="cancelTeamBtn"
-                class="secondary"
-            >
-                إلغاء
-            </button>
-
-
-            <div
-                id="teamMessage"
-                class="message"
-            ></div>
+            </div>
 
         </div>
 
 
+        <div class="admin-stat-card">
 
-        <!-- =====================================
-             نموذج إضافة مباراة
-        ====================================== -->
+            <div class="admin-stat-icon live">
+                🔴
+            </div>
 
-        <div
-            id="matchForm"
-            class="card hidden"
-            style="margin-top:20px;"
-        >
+            <div>
 
-            <h2>
-                ➕ إضافة مباراة جديدة
-            </h2>
+                <span>
+                    مباشر
+                </span>
 
-
-            <div class="grid">
-
-                <div>
-
-                    <label for="homeTeam">
-                        الفريق المضيف *
-                    </label>
-
-                    <select id="homeTeam">
-
-                        <option value="">
-                            اختر الفريق المضيف
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div>
-
-                    <label for="awayTeam">
-                        الفريق الضيف *
-                    </label>
-
-                    <select id="awayTeam">
-
-                        <option value="">
-                            اختر الفريق الضيف
-                        </option>
-
-                    </select>
-
-                </div>
+                <strong id="dashboardLive">
+                    0
+                </strong>
 
             </div>
 
+        </div>
 
 
-            <div class="grid">
+        <div class="admin-stat-card">
 
-                <div>
+            <div class="admin-stat-icon">
+                ⚽
+            </div>
 
-                    <label for="matchDate">
-                        تاريخ المباراة *
-                    </label>
+            <div>
 
-                    <input
-                        id="matchDate"
-                        type="date"
-                    >
+                <span>
+                    الفرق
+                </span>
 
-                </div>
-
-
-                <div>
-
-                    <label for="matchTime">
-                        وقت المباراة *
-                    </label>
-
-                    <input
-                        id="matchTime"
-                        type="time"
-                    >
-
-                </div>
+                <strong id="dashboardTeams">
+                    0
+                </strong>
 
             </div>
 
+        </div>
 
-            <label for="stadium">
-                الملعب
-            </label>
 
-            <input
-                id="stadium"
-                type="text"
-                placeholder="مثال: ملعب أبين"
+        <div class="admin-stat-card">
+
+            <div class="admin-stat-icon">
+                👤
+            </div>
+
+            <div>
+
+                <span>
+                    اللاعبون
+                </span>
+
+                <strong id="dashboardPlayers">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- الإجراءات السريعة -->
+
+    <div class="admin-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    إجراءات سريعة
+                </h2>
+
+                <p>
+                    إدارة محتوى الموقع بسرعة.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+
+            <button
+                class="quick-action"
+                data-section="matches"
+                type="button"
             >
 
+                <span>
+                    🏆
+                </span>
 
-            <label for="matchStatus">
-                حالة المباراة
-            </label>
+                <strong>
+                    إضافة مباراة
+                </strong>
 
-            <select id="matchStatus">
+                <small>
+                    إنشاء مباراة جديدة
+                </small>
+
+            </button>
+
+
+            <button
+                class="quick-action"
+                data-section="teams"
+                type="button"
+            >
+
+                <span>
+                    ⚽
+                </span>
+
+                <strong>
+                    إضافة فريق
+                </strong>
+
+                <small>
+                    تسجيل فريق جديد
+                </small>
+
+            </button>
+
+
+            <button
+                class="quick-action"
+                data-section="players"
+                type="button"
+            >
+
+                <span>
+                    👤
+                </span>
+
+                <strong>
+                    إضافة لاعب
+                </strong>
+
+                <small>
+                    تسجيل لاعب جديد
+                </small>
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- آخر المباريات -->
+
+    <div class="admin-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    آخر المباريات
+                </h2>
+
+            </div>
+
+            <button
+                class="text-btn"
+                data-section="matches"
+                type="button"
+            >
+                عرض الكل ←
+            </button>
+
+        </div>
+
+
+        <div
+            id="dashboardRecentMatches"
+            class="table-wrapper"
+        >
+
+            <div class="loading-state">
+                جاري التحميل...
+            </div>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     قسم المباريات
+===================================================== -->
+
+<section
+    id="section-matches"
+    class="admin-section"
+>
+
+    <div class="page-header">
+
+        <div>
+
+            <span class="page-kicker">
+                🏆 إدارة المباريات
+            </span>
+
+            <h1>
+                المباريات
+            </h1>
+
+            <p>
+                إضافة وتعديل وحذف ومتابعة المباريات.
+            </p>
+
+        </div>
+
+
+        <button
+            id="addMatchBtn"
+            class="btn btn-primary"
+            type="button"
+        >
+            ＋ إضافة مباراة
+        </button>
+
+    </div>
+
+
+    <div class="admin-card">
+
+
+        <div class="toolbar">
+
+            <div class="search-box">
+
+                <span>
+                    🔎
+                </span>
+
+                <input
+                    id="matchSearch"
+                    type="search"
+                    placeholder="ابحث عن مباراة أو فريق..."
+                >
+
+            </div>
+
+
+            <select
+                id="matchStatusFilter"
+                class="select-input"
+            >
+
+                <option value="all">
+                    كل الحالات
+                </option>
 
                 <option value="قادمة">
                     قادمة
@@ -376,252 +652,456 @@
 
 
             <button
-                id="addMatchBtn"
+                id="matchesRefreshBtn"
+                class="btn btn-secondary"
+                type="button"
             >
-                ✅ إضافة المباراة
+                🔄 تحديث
             </button>
-
-
-            <button
-                id="cancelMatchBtn"
-                class="secondary"
-            >
-                إلغاء
-            </button>
-
-
-            <div
-                id="matchMessage"
-                class="message"
-            ></div>
 
         </div>
 
 
-
-
-        <!-- =====================================
-             اللاعبون
-        ====================================== -->
-
         <div
-            class="card"
-            style="margin-top:20px;"
+            id="matchesTable"
+            class="table-wrapper"
         >
 
-            <div class="section-header">
-                <div>
-                    <h2>👤 اللاعبون</h2>
-                    <p class="info">إدارة اللاعبين وربط كل لاعب بفريقه مع صورة وبياناته الأساسية.</p>
+            <div class="loading-state">
+                جاري تحميل المباريات...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     قسم الفرق
+===================================================== -->
+
+<section
+    id="section-teams"
+    class="admin-section"
+>
+
+    <div class="page-header">
+
+        <div>
+
+            <span class="page-kicker">
+                ⚽ إدارة الفرق
+            </span>
+
+            <h1>
+                الفرق
+            </h1>
+
+            <p>
+                إضافة وتعديل وحذف فرق أبيان.
+            </p>
+
+        </div>
+
+
+        <button
+            id="addTeamBtn"
+            class="btn btn-primary"
+            type="button"
+        >
+            ＋ إضافة فريق
+        </button>
+
+    </div>
+
+
+    <div class="admin-card">
+
+
+        <div class="toolbar">
+
+            <div class="search-box">
+
+                <span>
+                    🔎
+                </span>
+
+                <input
+                    id="teamSearch"
+                    type="search"
+                    placeholder="ابحث عن فريق..."
+                >
+
+            </div>
+
+
+            <button
+                id="teamsRefreshBtn"
+                class="btn btn-secondary"
+                type="button"
+            >
+                🔄 تحديث
+            </button>
+
+        </div>
+
+
+        <div
+            id="teamsTable"
+            class="table-wrapper"
+        >
+
+            <div class="loading-state">
+                جاري تحميل الفرق...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     قسم اللاعبين
+===================================================== -->
+
+<section
+    id="section-players"
+    class="admin-section"
+>
+
+    <div class="page-header">
+
+        <div>
+
+            <span class="page-kicker">
+                👤 إدارة اللاعبين
+            </span>
+
+            <h1>
+                اللاعبين
+            </h1>
+
+            <p>
+                إضافة وتعديل وحذف بيانات اللاعبين.
+            </p>
+
+        </div>
+
+
+        <button
+            id="addPlayerBtn"
+            class="btn btn-primary"
+            type="button"
+        >
+            ＋ إضافة لاعب
+        </button>
+
+    </div>
+
+
+    <div class="admin-card">
+
+
+        <div class="toolbar">
+
+            <div class="search-box">
+
+                <span>
+                    🔎
+                </span>
+
+                <input
+                    id="playerSearch"
+                    type="search"
+                    placeholder="ابحث عن لاعب..."
+                >
+
+            </div>
+
+
+            <select
+                id="playerTeamFilter"
+                class="select-input"
+            >
+
+                <option value="all">
+                    كل الفرق
+                </option>
+
+            </select>
+
+
+            <button
+                id="playersRefreshBtn"
+                class="btn btn-secondary"
+                type="button"
+            >
+                🔄 تحديث
+            </button>
+
+        </div>
+
+
+        <div
+            id="playersTable"
+            class="table-wrapper"
+        >
+
+            <div class="loading-state">
+                جاري تحميل اللاعبين...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+<!-- =====================================================
+     نافذة إضافة / تعديل مباراة
+===================================================== -->
+
+<div
+    id="matchModal"
+    class="modal hidden"
+    aria-hidden="true"
+>
+
+    <div class="modal-overlay"></div>
+
+    <div
+        class="modal-box modal-large"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2 id="matchModalTitle">
+                    إضافة مباراة
+                </h2>
+
+                <p>
+                    أدخل بيانات المباراة.
+                </p>
+
+            </div>
+
+
+            <button
+                class="modal-close"
+                data-close-modal="matchModal"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="matchForm">
+
+            <input
+                id="matchId"
+                type="hidden"
+            >
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label for="homeTeam">
+                        الفريق المضيف *
+                    </label>
+
+                    <select
+                        id="homeTeam"
+                        required
+                    >
+
+                        <option value="">
+                            اختر الفريق
+                        </option>
+
+                    </select>
+
                 </div>
 
-                <button
-                    id="showPlayerFormBtn"
-                    class="success section-action"
-                    type="button"
-                >
-                    ➕ إضافة لاعب
-                </button>
+
+                <div class="form-group">
+
+                    <label for="awayTeam">
+                        الفريق الضيف *
+                    </label>
+
+                    <select
+                        id="awayTeam"
+                        required
+                    >
+
+                        <option value="">
+                            اختر الفريق
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="matchDate">
+                        التاريخ *
+                    </label>
+
+                    <input
+                        id="matchDate"
+                        type="date"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="matchTime">
+                        الوقت *
+                    </label>
+
+                    <input
+                        id="matchTime"
+                        type="time"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="matchStadium">
+                        الملعب
+                    </label>
+
+                    <input
+                        id="matchStadium"
+                        type="text"
+                        placeholder="اسم الملعب"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="matchStatus">
+                        الحالة *
+                    </label>
+
+                    <select
+                        id="matchStatus"
+                        required
+                    >
+
+                        <option value="قادمة">
+                            قادمة
+                        </option>
+
+                        <option value="مباشرة">
+                            مباشرة
+                        </option>
+
+                        <option value="انتهت">
+                            انتهت
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="homeScore">
+                        نتيجة الفريق المضيف
+                    </label>
+
+                    <input
+                        id="homeScore"
+                        type="number"
+                        min="0"
+                        step="1"
+                        placeholder="مثال: 2"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="awayScore">
+                        نتيجة الفريق الضيف
+                    </label>
+
+                    <input
+                        id="awayScore"
+                        type="number"
+                        min="0"
+                        step="1"
+                        placeholder="مثال: 1"
+                    >
+
+                </div>
+
+
             </div>
 
 
             <div
-                id="playerForm"
-                class="card hidden"
-                style="margin-top:20px;"
-            >
+                id="matchFormMessage"
+                class="form-message"
+            ></div>
 
-                <h3 id="playerFormTitle">👤 إضافة لاعب جديد</h3>
 
-                <input id="playerId" type="hidden">
-
-                <div class="grid">
-
-                    <div>
-                        <label for="playerName">اسم اللاعب *</label>
-                        <input id="playerName" type="text" placeholder="مثال: محمد صالح">
-                    </div>
-
-                    <div>
-                        <label for="playerTeam">الفريق *</label>
-                        <select id="playerTeam">
-                            <option value="">اختر الفريق</option>
-                        </select>
-                    </div>
-
-                </div>
-
-                <div class="grid">
-
-                    <div>
-                        <label for="playerNumber">رقم القميص</label>
-                        <input id="playerNumber" type="number" min="0" max="99" placeholder="مثال: 10">
-                    </div>
-
-                    <div>
-                        <label for="playerPosition">المركز</label>
-                        <select id="playerPosition">
-                            <option value="">اختر المركز</option>
-                            <option value="حارس مرمى">حارس مرمى</option>
-                            <option value="مدافع">مدافع</option>
-                            <option value="ظهير أيمن">ظهير أيمن</option>
-                            <option value="ظهير أيسر">ظهير أيسر</option>
-                            <option value="وسط">وسط</option>
-                            <option value="جناح أيمن">جناح أيمن</option>
-                            <option value="جناح أيسر">جناح أيسر</option>
-                            <option value="مهاجم">مهاجم</option>
-                            <option value="مهاجم ثانٍ">مهاجم ثانٍ</option>
-                        </select>
-                    </div>
-
-                </div>
-
-                <label for="playerPhoto">صورة اللاعب</label>
-                <input
-                    id="playerPhoto"
-                    type="file"
-                    accept="image/png,image/jpeg,image/webp,image/gif"
-                >
-
-                <img
-                    id="playerPhotoPreview"
-                    class="preview player-photo-preview"
-                    alt="معاينة صورة اللاعب"
-                >
-
-                <div class="grid">
-
-                    <div>
-                        <label for="playerBirthDate">تاريخ الميلاد</label>
-                        <input id="playerBirthDate" type="date">
-                    </div>
-
-                    <div>
-                        <label for="playerNationality">الجنسية</label>
-                        <input id="playerNationality" type="text" placeholder="مثال: يمني">
-                    </div>
-
-                </div>
-
-                <div class="grid">
-
-                    <div>
-                        <label for="playerHeight">الطول (سم)</label>
-                        <input id="playerHeight" type="number" min="0" step="0.1" placeholder="مثال: 178">
-                    </div>
-
-                    <div>
-                        <label for="playerWeight">الوزن (كجم)</label>
-                        <input id="playerWeight" type="number" min="0" step="0.1" placeholder="مثال: 72">
-                    </div>
-
-                </div>
-
-                <label for="playerFoot">القدم المفضلة</label>
-                <select id="playerFoot">
-                    <option value="">اختر القدم</option>
-                    <option value="اليمنى">اليمنى</option>
-                    <option value="اليسرى">اليسرى</option>
-                    <option value="كلتاهما">كلتاهما</option>
-                </select>
-
-                <label for="playerBio">نبذة عن اللاعب</label>
-                <textarea id="playerBio" placeholder="نبذة ومعلومات إضافية عن اللاعب..."></textarea>
-
-                <label for="playerActive">حالة اللاعب</label>
-                <select id="playerActive">
-                    <option value="true">نشط</option>
-                    <option value="false">غير نشط</option>
-                </select>
+            <div class="modal-actions">
 
                 <button
-                    id="savePlayerBtn"
-                    class="success"
                     type="button"
-                >
-                    ✅ حفظ اللاعب
-                </button>
-
-                <button
-                    id="cancelPlayerBtn"
-                    class="secondary"
-                    type="button"
+                    class="btn btn-secondary"
+                    data-close-modal="matchModal"
                 >
                     إلغاء
                 </button>
 
-                <div id="playerMessage" class="message"></div>
+
+                <button
+                    id="saveMatchBtn"
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    💾 حفظ المباراة
+                </button>
 
             </div>
 
-
-            <div id="players">
-                <div class="loading">جاري تحميل اللاعبين...</div>
-            </div>
-
-        </div>
-
-
-        <!-- =====================================
-             المباريات
-        ====================================== -->
-
-        <div
-            class="card"
-            style="margin-top:20px;"
-        >
-
-            <h2>
-                🏆 المباريات
-            </h2>
-
-
-            <div id="matches">
-
-                <div class="loading">
-                    جاري تحميل المباريات...
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- =====================================
-             الفرق
-        ====================================== -->
-
-        <div
-            class="card"
-            style="margin-top:20px;"
-        >
-
-            <h2>
-                ⚽ الفرق
-            </h2>
-
-
-            <div id="teams">
-
-                <div class="loading">
-                    جاري تحميل الفرق...
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- تسجيل الخروج -->
-
-        <button
-            id="logoutBtn"
-            class="danger logout"
-        >
-            🚪 تسجيل الخروج
-        </button>
+        </form>
 
     </div>
 
@@ -629,14 +1109,543 @@
 
 
 
-<!-- =========================================
+<!-- =====================================================
+     نافذة إضافة / تعديل فريق
+===================================================== -->
+
+<div
+    id="teamModal"
+    class="modal hidden"
+    aria-hidden="true"
+>
+
+    <div class="modal-overlay"></div>
+
+    <div
+        class="modal-box"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2 id="teamModalTitle">
+                    إضافة فريق
+                </h2>
+
+                <p>
+                    أدخل معلومات الفريق.
+                </p>
+
+            </div>
+
+
+            <button
+                class="modal-close"
+                data-close-modal="teamModal"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="teamForm">
+
+            <input
+                id="teamId"
+                type="hidden"
+            >
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label for="teamName">
+                        اسم الفريق *
+                    </label>
+
+                    <input
+                        id="teamName"
+                        type="text"
+                        placeholder="اسم الفريق"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="teamCity">
+                        المدينة
+                    </label>
+
+                    <input
+                        id="teamCity"
+                        type="text"
+                        placeholder="أبين"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="teamCoach">
+                        المدرب
+                    </label>
+
+                    <input
+                        id="teamCoach"
+                        type="text"
+                        placeholder="اسم المدرب"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="teamFoundedYear">
+                        سنة التأسيس
+                    </label>
+
+                    <input
+                        id="teamFoundedYear"
+                        type="number"
+                        min="1800"
+                        max="2100"
+                        placeholder="2020"
+                    >
+
+                </div>
+
+
+                <div class="form-group form-group-full">
+
+                    <label for="teamLogo">
+                        رابط شعار الفريق
+                    </label>
+
+                    <input
+                        id="teamLogo"
+                        type="url"
+                        placeholder="https://..."
+                    >
+
+                </div>
+
+
+                <div class="form-group form-group-full">
+
+                    <label for="teamDescription">
+                        وصف الفريق
+                    </label>
+
+                    <textarea
+                        id="teamDescription"
+                        rows="4"
+                        placeholder="نبذة عن الفريق..."
+                    ></textarea>
+
+                </div>
+
+
+            </div>
+
+
+            <div
+                id="teamFormMessage"
+                class="form-message"
+            ></div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-close-modal="teamModal"
+                >
+                    إلغاء
+                </button>
+
+
+                <button
+                    id="saveTeamBtn"
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    💾 حفظ الفريق
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     نافذة إضافة / تعديل لاعب
+===================================================== -->
+
+<div
+    id="playerModal"
+    class="modal hidden"
+    aria-hidden="true"
+>
+
+    <div class="modal-overlay"></div>
+
+    <div
+        class="modal-box modal-large"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2 id="playerModalTitle">
+                    إضافة لاعب
+                </h2>
+
+                <p>
+                    أدخل البيانات الكاملة للاعب.
+                </p>
+
+            </div>
+
+
+            <button
+                class="modal-close"
+                data-close-modal="playerModal"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="playerForm">
+
+            <input
+                id="playerId"
+                type="hidden"
+            >
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label for="playerName">
+                        اسم اللاعب *
+                    </label>
+
+                    <input
+                        id="playerName"
+                        type="text"
+                        placeholder="اسم اللاعب"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="playerTeam">
+                        الفريق
+                    </label>
+
+                    <select
+                        id="playerTeam"
+                    >
+
+                        <option value="">
+                            اختر الفريق
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="playerPosition">
+                        المركز
+                    </label>
+
+                    <select
+                        id="playerPosition"
+                    >
+
+                        <option value="">
+                            اختر المركز
+                        </option>
+
+                        <option value="حارس مرمى">
+                            حارس مرمى
+                        </option>
+
+                        <option value="مدافع">
+                            مدافع
+                        </option>
+
+                        <option value="وسط">
+                            وسط
+                        </option>
+
+                        <option value="مهاجم">
+                            مهاجم
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="playerNumber">
+                        رقم القميص
+                    </label>
+
+                    <input
+                        id="playerNumber"
+                        type="number"
+                        min="0"
+                        max="99"
+                        placeholder="10"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="playerBirthDate">
+                        تاريخ الميلاد
+                    </label>
+
+                    <input
+                        id="playerBirthDate"
+                        type="date"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="playerNationality">
+                        الجنسية
+                    </label>
+
+                    <input
+                        id="playerNationality"
+                        type="text"
+                        placeholder="يمني"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="playerHeight">
+                        الطول
+                    </label>
+
+                    <input
+                        id="playerHeight"
+                        type="number"
+                        min="0"
+                        step="0.1"
+                        placeholder="175"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="playerWeight">
+                        الوزن
+                    </label>
+
+                    <input
+                        id="playerWeight"
+                        type="number"
+                        min="0"
+                        step="0.1"
+                        placeholder="70"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="playerFoot">
+                        القدم المفضلة
+                    </label>
+
+                    <select
+                        id="playerFoot"
+                    >
+
+                        <option value="">
+                            غير محددة
+                        </option>
+
+                        <option value="اليمنى">
+                            اليمنى
+                        </option>
+
+                        <option value="اليسرى">
+                            اليسرى
+                        </option>
+
+                        <option value="كلتا القدمين">
+                            كلتا القدمين
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="playerPhoto">
+                        رابط صورة اللاعب
+                    </label>
+
+                    <input
+                        id="playerPhoto"
+                        type="url"
+                        placeholder="https://..."
+                    >
+
+                </div>
+
+
+                <div class="form-group form-group-full">
+
+                    <label for="playerBio">
+                        نبذة عن اللاعب
+                    </label>
+
+                    <textarea
+                        id="playerBio"
+                        rows="4"
+                        placeholder="نبذة عن اللاعب..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group form-group-full checkbox-group">
+
+                    <label>
+
+                        <input
+                            id="playerActive"
+                            type="checkbox"
+                            checked
+                        >
+
+                        <span>
+                            اللاعب نشط ويظهر في الموقع
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+            </div>
+
+
+            <div
+                id="playerFormMessage"
+                class="form-message"
+            ></div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-close-modal="playerModal"
+                >
+                    إلغاء
+                </button>
+
+
+                <button
+                    id="savePlayerBtn"
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    💾 حفظ اللاعب
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     إشعارات
+===================================================== -->
+
+<div
+    id="toastContainer"
+    class="toast-container"
+></div>
+
+
+
+</div>
+
+
+
+<!-- =====================================================
      Supabase
-========================================== -->
+===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
+<!-- =====================================================
+     JavaScript لوحة الإدارة
+===================================================== -->
+
 <script src="js/admin.js"></script>
+
 
 </body>
 
