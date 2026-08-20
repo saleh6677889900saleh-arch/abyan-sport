@@ -1,1 +1,860 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
 
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="أبيان سبورت - المنصة الرياضية لمتابعة مباريات وفرق ولاعبي وأخبار رياضة أبين"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0f172a"
+    >
+
+    <title>أبيان سبورت | رياضة أبين</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+</head>
+
+<body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="site-header">
+
+    <div class="container header-inner">
+
+        <a
+            href="#home"
+            class="brand"
+        >
+
+            <span class="brand-logo">
+                ⚽
+            </span>
+
+            <span class="brand-text">
+                <strong>أبيان سبورت</strong>
+                <small>رياضة أبين</small>
+            </span>
+
+        </a>
+
+
+        <nav
+            id="mainNav"
+            class="main-nav"
+        >
+
+            <a
+                href="#home"
+                class="nav-link active"
+            >
+                الرئيسية
+            </a>
+
+            <a
+                href="#live"
+                class="nav-link"
+            >
+                مباشر
+            </a>
+
+            <a
+                href="#matches"
+                class="nav-link"
+            >
+                المباريات
+            </a>
+
+            <a
+                href="#teams"
+                class="nav-link"
+            >
+                الفرق
+            </a>
+
+            <a
+                href="#players"
+                class="nav-link"
+            >
+                اللاعبين
+            </a>
+
+            <a
+                href="#news"
+                class="nav-link"
+            >
+                الأخبار
+            </a>
+
+            <a
+                href="#standings"
+                class="nav-link"
+            >
+                الترتيب
+            </a>
+
+        </nav>
+
+
+        <button
+            id="menuBtn"
+            class="menu-btn"
+            type="button"
+            aria-label="فتح القائمة"
+        >
+            ☰
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main id="home">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="container hero-grid">
+
+        <div class="hero-content">
+
+            <span class="hero-badge">
+                🏆 رياضة أبين
+            </span>
+
+            <h1>
+                أبيان سبورت
+            </h1>
+
+            <p>
+                منصتك لمتابعة مباريات وفرق ولاعبي وأخبار
+                رياضة أبين لحظة بلحظة.
+            </p>
+
+            <div class="hero-actions">
+
+                <a
+                    href="#matches"
+                    class="btn btn-primary"
+                >
+                    🏆 المباريات
+                </a>
+
+                <a
+                    href="#teams"
+                    class="btn btn-secondary"
+                >
+                    ⚽ الفرق
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-visual">
+
+            <div class="hero-ball">
+                ⚽
+            </div>
+
+            <div class="hero-visual-text">
+
+                <strong>
+                    أبيان سبورت
+                </strong>
+
+                <span>
+                    كل شيء عن رياضة أبين
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CONNECTION
+===================================================== -->
+
+<section class="connection-section">
+
+    <div class="container">
+
+        <div
+            id="connectionStatus"
+            class="connection-status"
+        >
+
+            <span class="connection-dot"></span>
+
+            جاري الاتصال بقاعدة البيانات...
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STATISTICS
+===================================================== -->
+
+<section class="stats-section">
+
+    <div class="container stats-grid">
+
+
+        <article class="stat-card">
+
+            <div class="stat-icon">
+                🏆
+            </div>
+
+            <div class="stat-content">
+
+                <strong id="totalMatches">
+                    0
+                </strong>
+
+                <span>
+                    مباراة
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article class="stat-card">
+
+            <div class="stat-icon live-icon">
+                🔴
+            </div>
+
+            <div class="stat-content">
+
+                <strong id="liveMatchesCount">
+                    0
+                </strong>
+
+                <span>
+                    مباشرة
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article class="stat-card">
+
+            <div class="stat-icon">
+                ⚽
+            </div>
+
+            <div class="stat-content">
+
+                <strong id="totalTeams">
+                    0
+                </strong>
+
+                <span>
+                    فريق
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article class="stat-card">
+
+            <div class="stat-icon">
+                👤
+            </div>
+
+            <div class="stat-content">
+
+                <strong id="totalPlayers">
+                    0
+                </strong>
+
+                <span>
+                    لاعب
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article class="stat-card">
+
+            <div class="stat-icon">
+                📰
+            </div>
+
+            <div class="stat-content">
+
+                <strong id="totalNews">
+                    0
+                </strong>
+
+                <span>
+                    خبر
+                </span>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LIVE MATCHES
+===================================================== -->
+
+<section
+    id="live"
+    class="section"
+>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-kicker">
+                    🔴 الآن
+                </span>
+
+                <h2>
+                    المباريات المباشرة
+                </h2>
+
+                <p>
+                    تابع المباريات التي تقام الآن.
+                </p>
+
+            </div>
+
+
+            <span
+                id="liveCountBadge"
+                class="count-badge"
+            >
+                0 مباشر
+            </span>
+
+        </div>
+
+
+        <div
+            id="liveMatches"
+            class="matches-grid"
+        >
+
+            <div class="loading-card">
+                <span class="loading-spinner"></span>
+                جاري تحميل المباريات المباشرة...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MATCHES
+===================================================== -->
+
+<section
+    id="matches"
+    class="section section-muted"
+>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-kicker">
+                    📅 جدول المباريات
+                </span>
+
+                <h2>
+                    المباريات
+                </h2>
+
+                <p>
+                    المباريات القادمة والمباشرة والمنتهية.
+                </p>
+
+            </div>
+
+
+            <button
+                id="refreshBtn"
+                class="small-btn"
+                type="button"
+            >
+                🔄 تحديث
+            </button>
+
+        </div>
+
+
+        <div class="filter-bar">
+
+            <button
+                type="button"
+                class="filter-btn active"
+                data-filter="all"
+            >
+                الكل
+            </button>
+
+            <button
+                type="button"
+                class="filter-btn"
+                data-filter="قادمة"
+            >
+                القادمة
+            </button>
+
+            <button
+                type="button"
+                class="filter-btn"
+                data-filter="مباشرة"
+            >
+                مباشرة
+            </button>
+
+            <button
+                type="button"
+                class="filter-btn"
+                data-filter="انتهت"
+            >
+                انتهت
+            </button>
+
+        </div>
+
+
+        <div
+            id="matchesList"
+            class="matches-grid"
+        >
+
+            <div class="loading-card">
+                <span class="loading-spinner"></span>
+                جاري تحميل المباريات...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TEAMS
+===================================================== -->
+
+<section
+    id="teams"
+    class="section"
+>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-kicker">
+                    ⚽ الأندية
+                </span>
+
+                <h2>
+                    الفرق
+                </h2>
+
+                <p>
+                    تعرف على فرق رياضة أبين.
+                </p>
+
+            </div>
+
+
+            <span
+                id="teamsCountBadge"
+                class="count-badge"
+            >
+                0 فريق
+            </span>
+
+        </div>
+
+
+        <div
+            id="teamsGrid"
+            class="teams-grid"
+        >
+
+            <div class="loading-card">
+                <span class="loading-spinner"></span>
+                جاري تحميل الفرق...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PLAYERS
+===================================================== -->
+
+<section
+    id="players"
+    class="section section-muted"
+>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-kicker">
+                    👤 النجوم
+                </span>
+
+                <h2>
+                    اللاعبين
+                </h2>
+
+                <p>
+                    تعرف على لاعبي الفرق وبياناتهم.
+                </p>
+
+            </div>
+
+
+            <span
+                id="playersCountBadge"
+                class="count-badge"
+            >
+                0 لاعب
+            </span>
+
+        </div>
+
+
+        <div
+            id="playersGrid"
+            class="players-grid"
+        >
+
+            <div class="loading-card">
+                <span class="loading-spinner"></span>
+                جاري تحميل اللاعبين...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     NEWS
+===================================================== -->
+
+<section
+    id="news"
+    class="section"
+>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-kicker">
+                    📰 آخر الأخبار
+                </span>
+
+                <h2>
+                    أخبار أبيان سبورت
+                </h2>
+
+                <p>
+                    آخر الأخبار والتحديثات الرياضية.
+                </p>
+
+            </div>
+
+
+            <span
+                id="newsCountBadge"
+                class="count-badge"
+            >
+                0 خبر
+            </span>
+
+        </div>
+
+
+        <div
+            id="newsGrid"
+            class="news-grid"
+        >
+
+            <div class="loading-card">
+                <span class="loading-spinner"></span>
+                جاري تحميل الأخبار...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STANDINGS
+===================================================== -->
+
+<section
+    id="standings"
+    class="section section-muted"
+>
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-kicker">
+                    🏆 الدوري
+                </span>
+
+                <h2>
+                    ترتيب الفرق
+                </h2>
+
+                <p>
+                    جدول ترتيب الفرق والنقاط.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="standings-wrapper">
+
+            <div
+                id="standingsContainer"
+                class="standings-container"
+            >
+
+                <div class="loading-card">
+                    <span class="loading-spinner"></span>
+                    جاري تحميل الترتيب...
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DETAILS MODAL
+===================================================== -->
+
+<div
+    id="detailsModal"
+    class="modal hidden"
+    aria-hidden="true"
+>
+
+    <div class="modal-overlay"></div>
+
+    <div
+        class="modal-box"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+    >
+
+        <button
+            id="closeModalBtn"
+            class="modal-close"
+            type="button"
+            aria-label="إغلاق"
+        >
+            ×
+        </button>
+
+
+        <div
+            id="modalContent"
+            class="modal-content"
+        >
+        </div>
+
+    </div>
+
+</div>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="site-footer">
+
+    <div class="container footer-grid">
+
+        <div class="footer-about">
+
+            <div class="footer-brand">
+                ⚽ أبيان سبورت
+            </div>
+
+            <p>
+                منصتك لمتابعة رياضة أبين
+                والمباريات والفرق واللاعبين والأخبار.
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <strong>
+                روابط سريعة
+            </strong>
+
+            <a href="#home">
+                الرئيسية
+            </a>
+
+            <a href="#matches">
+                المباريات
+            </a>
+
+            <a href="#teams">
+                الفرق
+            </a>
+
+            <a href="#players">
+                اللاعبين
+            </a>
+
+            <a href="#news">
+                الأخبار
+            </a>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <strong>
+                الموقع
+            </strong>
+
+            <a href="#live">
+                المباريات المباشرة
+            </a>
+
+            <a href="#standings">
+                ترتيب الفرق
+            </a>
+
+            <a href="admin.html">
+                لوحة الإدارة
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <div class="container">
+
+            أبيان سبورت © 2026 — جميع الحقوق محفوظة
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
